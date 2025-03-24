@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90dvh;
+  margin: 0;
+}
+
+.simple-card {
+  max-width: 40rem;
+}
+
+p {
+  font-size: 14pt;
+}
