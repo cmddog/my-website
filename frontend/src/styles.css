@@ -2,6 +2,10 @@ body {
   background-color: #f8eae2;
 }
 
+.hidden {
+  display: none;
+}
+
 .italic {
   font-style: italic !important;
 }

@@ -7,6 +7,8 @@
 }
 
 .simple-card {
+  position: relative;
+  min-width: 40rem;
   max-width: 40rem;
 }
 
@@ -32,11 +34,11 @@ p {
 a {
   display: flex;
   align-items: center;
-  padding: .5rem;
+  padding: 0.5rem;
   height: 3rem;
   border-radius: 1.5rem;
   color: #faaf3a;
-    text-decoration: none;
+  text-decoration: none;
   transition: box-shadow 250ms ease-in-out;
   box-shadow:
     inset 0 0 0 rgba(11, 21, 59, 0.25),
@@ -50,8 +52,76 @@ a:hover {
 }
 
 a:nth-child(3) {
-  padding-block: .25rem;
+  padding-block: 0.25rem;
   padding-inline: 1.5rem;
   border-radius: 3rem;
   font-size: 15pt;
+}
+
+.sprite {
+  position: absolute;
+  scale: 0.8;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-fill-mode: forwards;
+  z-index: -1;
+}
+
+#sprite-1 {
+  left: 25%;
+  top: -287px;
+  --from-x: 0;
+  --from-y: 16rem;
+}
+
+#sprite-2 {
+  scale: 0.55;
+  left: 40%;
+  top: -254px;
+  --from-x: 0;
+  --from-y: 12rem;
+}
+
+#sprite-3 {
+  left: 756px;
+  top: -20%;
+  --from-x: -11rem;
+  --from-y: 5rem;
+}
+
+.in-front {
+  z-index: 1;
+}
+
+.appear {
+  animation: slide-out 200ms cubic-bezier(0.04, 0.68, 0.45, 1.4) forwards;
+}
+
+.disappear {
+  animation: slide-in 200ms cubic-bezier(0.55, -0.4, 0.96, 0.32) forwards;
+}
+
+@keyframes slide-out {
+  0% {
+    translate: var(--from-x, 0) var(--from-y, 0);
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    translate: 0 0;
+  }
+  100% {
+    translate: var(--from-x, 0) var(--from-y, 0);
+  }
+}
+
+.sprite-hidden {
+  opacity: 0;
 }
