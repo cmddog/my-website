@@ -31,33 +31,6 @@ p {
   align-items: center;
 }
 
-a {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
-  height: 3rem;
-  border-radius: 1.5rem;
-  color: #faaf3a;
-  text-decoration: none;
-  transition: box-shadow 250ms ease-in-out;
-  box-shadow:
-    inset 0 0 0 rgba(11, 21, 59, 0.25),
-    inset 0 0 0 white;
-}
-
-a:hover {
-  box-shadow:
-    inset 2px 2px 6px rgba(11, 21, 59, 0.25),
-    inset -3px -3px 6px white;
-}
-
-a:nth-child(3) {
-  padding-block: 0.25rem;
-  padding-inline: 1.5rem;
-  border-radius: 3rem;
-  font-size: 15pt;
-}
-
 .sprite {
   position: absolute;
   scale: 0.8;
