@@ -35,9 +35,9 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: |
-            frontend/Dockerfile
-            frontend/Caddyfile
-            frontend/dist/**
+            Dockerfile
+            Caddyfile
+            dist/**
           target: "~/website-deploy"
 
       - name: Deploy via SSH
