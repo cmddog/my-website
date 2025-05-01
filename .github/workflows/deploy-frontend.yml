@@ -33,7 +33,7 @@ jobs:
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
-          key: ${{ SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "frontend/dist,frontend/Dockerfile,frontend/Caddyfile"
           target: "~/website-deploy"
 
@@ -42,9 +42,9 @@ jobs:
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
-          key: ${{ SSH_PRIVATE_KEY }}
+          key: ${{ sercrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ~/website-deploy
+            cd ~/website-deploy .
             docker stop website || true
             docker rm website || true
             docker build -t website
