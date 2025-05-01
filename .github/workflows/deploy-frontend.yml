@@ -44,9 +44,9 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ~/website-deploy
+            cd ~/website-deploy/frontend
             docker stop website || true
             docker rm website || true
             docker image prune -f
-            docker build -t website -f .
+            docker build -t website .
             docker run -d --name website --restart unless-stopped -p 80:80 -p 443:443 website
