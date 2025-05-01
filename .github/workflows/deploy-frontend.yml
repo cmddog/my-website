@@ -34,10 +34,7 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: |
-            frontend/Dockerfile
-            frontend/Caddyfile
-            frontend/dist
+          source: "frontend/dist,frontend/Dockerfile,frontend/Caddyfile"
           target: "~/website-deploy"
 
       - name: Deploy via SSH
@@ -51,5 +48,5 @@ jobs:
             docker stop website || true
             docker rm website || true
             docker image prune -f
-            docker build -t website -f frontend/Dockerfile .
+            docker build -t website -f .
             docker run -d --name website --restart unless-stopped -p 80:80 -p 443:443 website
