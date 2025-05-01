@@ -28,13 +28,6 @@ jobs:
           npm ci
           npm run build -- --configuration production
 
-      - name: Debug file structure
-        run: |
-          pwd
-          ls -al
-          ls -al frontend
-          ls -al frontend/dist/frontend/browser
-
       - name: Copy files to Oracle via SCP
         uses: appleboy/scp-action@v1
         with:
@@ -44,7 +37,7 @@ jobs:
           source: |
             frontend/Dockerfile
             frontend/Caddyfile
-            frontend/dist/**
+            frontend/dist
           target: "~/website-deploy"
 
       - name: Deploy via SSH
