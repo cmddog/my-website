@@ -44,8 +44,8 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ~/website-deploy .
+            cd ~/website-deploy
             docker stop website || true
             docker rm website || true
-            docker build -t website
+            docker build -t website .
             docker run -d --name website -p 80:80 -p 443:443 website
