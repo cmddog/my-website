@@ -7,14 +7,22 @@
 }
 
 .simple-card {
-  width: 90rem;
-  height: 40rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 2rem;
   text-align: center;
+}
+
+.card-desktop {
+  width: 90rem;
+  height: 40rem;
   padding: 4rem;
+}
+
+.card-mobile {
+  width: 70vw;
+  padding: 2rem;
 }
 
 .text-and-back {

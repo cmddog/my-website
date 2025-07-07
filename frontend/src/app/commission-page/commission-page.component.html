@@ -1,5 +1,10 @@
 <div class="wrapper">
-  <div class="simple-card">
+  @let isPortrait = isHandsetPortrait$ | async;
+  <div
+    class="simple-card"
+    [class.card-desktop]="!isPortrait"
+    [class.card-mobile]="isPortrait"
+  >
     <div class="text-and-back">
       <div>
         <h1>🚧 This page is under construction! 🚧</h1>
@@ -13,9 +18,11 @@
         <a href="/" class="inset-button inset-button-text">Back to Socials</a>
       </div>
     </div>
-    <img
-      src="/assets/sprites/under_construction.png"
-      alt="under construction sprite"
-    />
+    @if (!isPortrait) {
+      <img
+        src="/assets/sprites/under_construction.png"
+        alt="under construction sprite"
+      />
+    }
   </div>
 </div>

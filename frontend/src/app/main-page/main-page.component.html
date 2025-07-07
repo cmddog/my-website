@@ -1,16 +1,22 @@
 <div class="wrapper">
-  <div class="simple-card">
+  @let isPortrait = isHandsetPortrait$ | async;
+  <div
+    class="simple-card"
+    [class.card-desktop]="!isPortrait"
+    [class.card-mobile]="isPortrait"
+  >
     <h1 class="nunito-regular text-center">Hey, I'm Shiru!</h1>
     <p class="nunito-regular text-center">
       I'm a fox on the internet studying computer science who does art in his
       free time. Everything you see here was hand-coded and designed by yours
       truly! Below, you'll find links to my socials (and E-Mail) and my
-      commissions page—feel free to check them out :3
+      commission page—feel free to check them out :3
     </p>
     <div class="separator"></div>
     <div class="button-container">
       <a
         class="inset-button"
+        [class.mobile-anchor]="isPortrait"
         href="mailto:shirufox.contact@gmail.com"
         rel="noreferrer noopener"
         target="_blank"
@@ -24,6 +30,7 @@
       </a>
       <a
         class="inset-button"
+        [class.mobile-anchor]="isPortrait"
         href="https://shirufox.tumblr.com"
         rel="noreferrer noopener"
         target="_blank"
@@ -35,11 +42,15 @@
           width="48"
         />
       </a>
-      <a href="/commissions" class="inset-button inset-button-text"
+      <a
+        href="/commissions"
+        class="inset-button inset-button-text"
+        [class.mobile-anchor]="isPortrait"
         >Commission</a
       >
       <a
         class="inset-button"
+        [class.mobile-anchor]="isPortrait"
         href="https://bsky.app/profile/shirufox.bsky.social"
         rel="noreferrer noopener"
         target="_blank"
@@ -53,6 +64,7 @@
       </a>
       <a
         class="inset-button"
+        [class.mobile-anchor]="isPortrait"
         href="https://artfight.net/~Shiru"
         rel="noreferrer noopener"
         target="_blank"
@@ -65,50 +77,52 @@
         />
       </a>
     </div>
-    <img
-      (click)="changeSprite()"
-      (load)="spriteLoaded(1)"
-      [ngClass]="{
-        'sprite-hidden': initialAnimation && spriteNumber !== 1,
-        'in-front': spriteNumber === 1 && !isChanging,
-        appear: spriteNumber === 1 && spriteLoadedArray[0],
-        disappear: spriteNumber !== 1,
-      }"
-      alt="Sprite"
-      class="sprite"
-      draggable="false"
-      id="sprite-1"
-      src="/assets/sprites/sprite_1.png"
-    />
-    <img
-      (click)="changeSprite()"
-      (load)="spriteLoaded(2)"
-      [ngClass]="{
-        'sprite-hidden': initialAnimation && spriteNumber !== 2,
-        'in-front': spriteNumber === 2 && !isChanging,
-        appear: spriteNumber === 2 && spriteLoadedArray[1],
-        disappear: spriteNumber !== 2,
-      }"
-      alt="Sprite"
-      class="sprite"
-      draggable="false"
-      id="sprite-2"
-      src="/assets/sprites/sprite_2.png"
-    />
-    <img
-      (click)="changeSprite()"
-      (load)="spriteLoaded(3)"
-      [ngClass]="{
-        'sprite-hidden': initialAnimation && spriteNumber !== 3,
-        'in-front': spriteNumber === 3 && !isChanging,
-        appear: spriteNumber === 3 && spriteLoadedArray[2],
-        disappear: spriteNumber !== 3,
-      }"
-      alt="Sprite"
-      class="sprite"
-      draggable="false"
-      id="sprite-3"
-      src="/assets/sprites/sprite_3.png"
-    />
+    @if (!isPortrait) {
+      <img
+        (click)="changeSprite()"
+        (load)="spriteLoaded(1)"
+        [ngClass]="{
+          'sprite-hidden': initialAnimation && spriteNumber !== 1,
+          'in-front': spriteNumber === 1 && !isChanging,
+          appear: spriteNumber === 1 && spriteLoadedArray[0],
+          disappear: spriteNumber !== 1,
+        }"
+        alt="Sprite"
+        class="sprite"
+        draggable="false"
+        id="sprite-1"
+        src="/assets/sprites/sprite_1.png"
+      />
+      <img
+        (click)="changeSprite()"
+        (load)="spriteLoaded(2)"
+        [ngClass]="{
+          'sprite-hidden': initialAnimation && spriteNumber !== 2,
+          'in-front': spriteNumber === 2 && !isChanging,
+          appear: spriteNumber === 2 && spriteLoadedArray[1],
+          disappear: spriteNumber !== 2,
+        }"
+        alt="Sprite"
+        class="sprite"
+        draggable="false"
+        id="sprite-2"
+        src="/assets/sprites/sprite_2.png"
+      />
+      <img
+        (click)="changeSprite()"
+        (load)="spriteLoaded(3)"
+        [ngClass]="{
+          'sprite-hidden': initialAnimation && spriteNumber !== 3,
+          'in-front': spriteNumber === 3 && !isChanging,
+          appear: spriteNumber === 3 && spriteLoadedArray[2],
+          disappear: spriteNumber !== 3,
+        }"
+        alt="Sprite"
+        class="sprite"
+        draggable="false"
+        id="sprite-3"
+        src="/assets/sprites/sprite_3.png"
+      />
+    }
   </div>
 </div>
