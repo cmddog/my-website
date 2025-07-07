@@ -6,10 +6,16 @@
   margin: 0;
 }
 
-.simple-card {
+.card-desktop {
   position: relative;
   min-width: 40rem;
   max-width: 40rem;
+}
+
+.card-mobile {
+  position: relative;
+  min-width: 70vw;
+  max-width: 70vw;
 }
 
 p {
@@ -29,6 +35,28 @@ p {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+}
+
+.mobile-anchor:nth-child(1),
+.mobile-anchor:nth-child(2),
+.mobile-anchor:nth-child(4),
+.mobile-anchor:nth-child(5) {
+  order: 1;
+}
+
+.mobile-anchor:nth-child(3) {
+  order: 2;
+}
+
+.inner-button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: fit-content;
+  flex-grow: 1;
 }
 
 .sprite {
