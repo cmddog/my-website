@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NgClass, NgOptimizedImage } from '@angular/common';
-import { timeout } from 'rxjs';
+import { map, shareReplay } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-main-page',
@@ -15,15 +16,22 @@ export class MainPageComponent implements OnInit {
   initialAnimation = true;
   spriteLoadedArray: boolean[] = [false, false, false];
 
+  private breakpointObserver = inject(BreakpointObserver);
+
+  readonly isHandsetPortrait$ = this.breakpointObserver
+    .observe([Breakpoints.HandsetPortrait])
+    .pipe(
+      map((result) => result.matches),
+      shareReplay({ bufferSize: 1, refCount: true }),
+    );
+
   ngOnInit(): void {
-    console.log('Initial values', this.spriteLoadedArray);
     if (localStorage.getItem('alreadyVisited')) {
       this.spriteNumber = this.randomSprite();
     } else {
       this.spriteNumber = 1;
       localStorage.setItem('alreadyVisited', 'true');
     }
-    console.log('sprite number initiated: ', this.spriteNumber);
     setTimeout(() => {
       this.initialAnimation = false;
     }, 200);
@@ -57,6 +65,5 @@ export class MainPageComponent implements OnInit {
         this.isChanging = false;
       }, 150);
     }
-    console.log('Adjusted load array:', this.spriteLoadedArray);
   }
 }
