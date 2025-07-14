@@ -24,7 +24,11 @@
         <img
           alt="Email Icon"
           height="48"
-          ngSrc="https://img.icons8.com/faaf3a/material/48/new-post--v1.png"
+          [ngSrc]="
+            'https://img.icons8.com/' +
+            themeService.iconColor +
+            '/material/48/new-post--v1.png'
+          "
           width="48"
         />
       </a>
@@ -38,7 +42,11 @@
         <img
           alt="Tumblr Icon"
           height="48"
-          ngSrc="https://img.icons8.com/faaf3a/material/48/tumblr.png"
+          [ngSrc]="
+            'https://img.icons8.com/' +
+            themeService.iconColor +
+            '/material/48/tumblr.png'
+          "
           width="48"
         />
       </a>
@@ -58,7 +66,11 @@
         <img
           alt="Bluesky Icon"
           height="48"
-          ngSrc="https://img.icons8.com/faaf3a/material/48/bluesky.png"
+          [ngSrc]="
+            'https://img.icons8.com/' +
+            themeService.iconColor +
+            '/material/48/bluesky.png'
+          "
           width="48"
         />
       </a>
@@ -72,7 +84,11 @@
         <img
           alt="Art Fight Icon"
           height="48"
-          ngSrc="/assets/logos/artfight.png"
+          [ngSrc]="
+            '/assets/logos/artfight' +
+            ((themeService.isDarkMode$ | async) ? '_dark' : '') +
+            '.png'
+          "
           width="48"
         />
       </a>
