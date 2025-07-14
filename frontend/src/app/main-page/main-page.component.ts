@@ -2,12 +2,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
 import { map, shareReplay } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-main-page',
   imports: [NgOptimizedImage, NgClass, AsyncPipe],
   templateUrl: './main-page.component.html',
-  styleUrl: './main-page.component.css',
+  styleUrl: './main-page.component.scss',
 })
 export class MainPageComponent implements OnInit {
   private previousSprite = 0;
@@ -17,6 +18,7 @@ export class MainPageComponent implements OnInit {
   protected spriteLoadedArray: boolean[] = [false, false, false];
 
   private breakpointObserver = inject(BreakpointObserver);
+  protected themeService = inject(ThemeService);
   readonly isHandsetPortrait$ = this.breakpointObserver
     .observe([Breakpoints.HandsetPortrait])
     .pipe(

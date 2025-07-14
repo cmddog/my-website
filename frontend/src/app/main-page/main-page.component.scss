@@ -26,8 +26,9 @@ p {
   height: 1px;
   border-radius: 1px;
   width: calc(100% - 2rem);
-  background-color: #faaf3a;
+  background-color: var(--accent-color);
   margin: 1.5rem 1rem 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .button-container {
