@@ -1,10 +1,6 @@
 <div class="wrapper">
-  @let isPortrait = isHandsetPortrait$ | async;
-  <div
-    class="simple-card"
-    [class.card-desktop]="!isPortrait"
-    [class.card-mobile]="isPortrait"
-  >
+  @let sizeDynamic = sizeDynamic$ | async;
+  <div class="simple-card card-mobile" [class.card-desktop]="!sizeDynamic">
     <h1 class="nunito-regular text-center">Hey, I'm Shiru!</h1>
     <p class="nunito-regular text-center">
       I'm a fox on the internet studying computer science who does art in his
@@ -16,7 +12,6 @@
     <div class="button-container">
       <a
         class="inset-button"
-        [class.mobile-anchor]="isPortrait"
         href="mailto:contact@shiru.dog"
         rel="noreferrer noopener"
         target="_blank"
@@ -34,7 +29,6 @@
       </a>
       <a
         class="inset-button"
-        [class.mobile-anchor]="isPortrait"
         href="https://shirufox.tumblr.com"
         rel="noreferrer noopener"
         target="_blank"
@@ -50,15 +44,11 @@
           width="48"
         />
       </a>
-      <a
-        href="/commissions"
-        class="inset-button inset-button-text"
-        [class.mobile-anchor]="isPortrait"
+      <a href="/commissions" class="inset-button inset-button-text"
         >Commission</a
       >
       <a
         class="inset-button"
-        [class.mobile-anchor]="isPortrait"
         href="https://bsky.app/profile/shirufox.bsky.social"
         rel="noreferrer noopener"
         target="_blank"
@@ -76,7 +66,6 @@
       </a>
       <a
         class="inset-button"
-        [class.mobile-anchor]="isPortrait"
         href="https://artfight.net/~Shiru"
         rel="noreferrer noopener"
         target="_blank"
@@ -93,7 +82,7 @@
         />
       </a>
     </div>
-    @if (!isPortrait) {
+    @if (!sizeDynamic) {
       <img
         (click)="changeSprite()"
         (load)="spriteLoaded(1)"

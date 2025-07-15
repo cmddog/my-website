@@ -10,16 +10,21 @@
   position: relative;
   min-width: 40rem;
   max-width: 40rem;
+  container-type: inline-size;
 }
 
-.card-mobile {
-  position: relative;
-  min-width: 70vw;
-  max-width: 70vw;
+@media (max-width: 47.5rem) {
+  .card-mobile {
+    position: relative;
+    min-width: calc(100dvw - 8rem);
+    max-width: calc(100dvw - 8rem);
+    margin: 0 auto;
+  }
 }
 
 p {
   font-size: 14pt;
+  word-break: break-all;
 }
 
 .separator {
@@ -40,15 +45,17 @@ p {
   row-gap: 1rem;
 }
 
-.mobile-anchor:nth-child(1),
-.mobile-anchor:nth-child(2),
-.mobile-anchor:nth-child(4),
-.mobile-anchor:nth-child(5) {
-  order: 1;
-}
+@media (max-width: 545px) {
+  .button-container a:nth-child(1),
+  .button-container a:nth-child(2),
+  .button-container a:nth-child(4),
+  .button-container a:nth-child(5) {
+    order: 1;
+  }
 
-.mobile-anchor:nth-child(3) {
-  order: 2;
+  .button-container a:nth-child(3) {
+    order: 2;
+  }
 }
 
 .inner-button-container {
@@ -74,7 +81,7 @@ p {
 
 #sprite-1 {
   left: 25%;
-  top: -287px;
+  top: -45cqw;
   --from-x: 0;
   --from-y: 16rem;
 }
@@ -82,13 +89,13 @@ p {
 #sprite-2 {
   scale: 0.55;
   left: 40%;
-  top: -254px;
+  top: -40cqw;
   --from-x: 0;
   --from-y: 12rem;
 }
 
 #sprite-3 {
-  left: 756px;
+  left: 118.5cqw;
   top: -20%;
   --from-x: -11rem;
   --from-y: 5rem;
