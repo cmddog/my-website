@@ -19,8 +19,8 @@ export class MainPageComponent implements OnInit {
 
   private breakpointObserver = inject(BreakpointObserver);
   protected themeService = inject(ThemeService);
-  readonly isHandsetPortrait$ = this.breakpointObserver
-    .observe([Breakpoints.HandsetPortrait])
+  readonly sizeDynamic$ = this.breakpointObserver
+    .observe([`(max-width: 47.5rem)`])
     .pipe(
       map((result) => result.matches),
       shareReplay({ bufferSize: 1, refCount: true }),
