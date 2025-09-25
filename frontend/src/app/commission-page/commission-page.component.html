@@ -1,28 +1,7 @@
 <div class="wrapper">
   @let isPortrait = isHandsetPortrait$ | async;
-  <div
-    class="simple-card"
-    [class.card-desktop]="!isPortrait"
-    [class.card-mobile]="isPortrait"
-  >
-    <div class="text-and-back">
-      <div>
-        <h1>🚧 This page is under construction! 🚧</h1>
-        <p>
-          I have quite a few things planned for my commissions page, but right
-          now I'm still working on it! If you'd like to find out when it's done,
-          be sure to keep an eye on my socials.
-        </p>
-      </div>
-      <div>
-        <a href="/" class="inset-button inset-button-text">Back to Socials</a>
-      </div>
-    </div>
-    @if (!isPortrait) {
-      <img
-        src="/assets/sprites/under_construction.png"
-        alt="under construction sprite"
-      />
-    }
+  <div class="simple-card">
+    <h2>COMMISSION QUEUE</h2>
+    placeholder
   </div>
 </div>
