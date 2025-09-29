@@ -16,6 +16,7 @@ application {
 dependencies {
     implementation("io.ktor:ktor-server-core")
     implementation("io.ktor:ktor-server-auth")
+    implementation("io.ktor:ktor-server-sessions")
     implementation("io.ktor:ktor-server-content-negotiation")
     implementation("io.ktor:ktor-serialization-kotlinx-json")
     implementation("io.ktor:ktor-server-rate-limit")
@@ -29,6 +30,8 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jdbc:0.44.1")
     implementation("org.postgresql:postgresql:42.7.7")
     implementation("com.zaxxer:HikariCP:5.1.0")
+    implementation("org.flywaydb:flyway-core:10.4.1")
+    implementation("org.flywaydb:flyway-database-postgresql:10.4.1")
 
     testImplementation("io.ktor:ktor-server-test-host")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")

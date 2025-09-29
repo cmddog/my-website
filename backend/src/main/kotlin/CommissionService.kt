@@ -4,7 +4,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class CommissionService {
-    
+
     fun getAllCommissions(): List<Commission> = transaction {
         Commissions.selectAll().map { row ->
             Commission(
@@ -16,7 +16,7 @@ class CommissionService {
             )
         }
     }
-    
+
     fun createCommission(commission: Commission): Int = transaction {
         Commissions.insert {
             it[title] = commission.title
@@ -25,7 +25,7 @@ class CommissionService {
             it[status] = commission.status
         }[Commissions.id].value
     }
-    
+
     fun getCommissionById(id: Int): Commission? = transaction {
         Commissions.select { Commissions.id eq id }
             .singleOrNull()?.let { row ->
@@ -37,9 +37,5 @@ class CommissionService {
                     status = row[Commissions.status]
                 )
             }
-    }
-    
-    fun deleteCommission(id: Int): Boolean = transaction {
-        Commissions.deleteWhere { Commissions.id eq id } > 0
     }
 }

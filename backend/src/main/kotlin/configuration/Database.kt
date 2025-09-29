@@ -1,10 +1,10 @@
-package com.example
+package com.example.configuration
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.*
+import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.transactions.transaction
 
 fun Application.configureDatabase() {
     val config = HikariConfig().apply {
@@ -14,11 +14,14 @@ fun Application.configureDatabase() {
         password = System.getenv("DATABASE_PASSWORD") ?: "postgres"
         maximumPoolSize = 3
     }
-    
+
     val dataSource = HikariDataSource(config)
+
+    // Run Flyway migrations
+    val flyway = Flyway.configure()
+        .dataSource(dataSource)
+        .load()
+    flyway.migrate()
+
     Database.connect(dataSource)
-    
-    transaction {
-        SchemaUtils.create(Commissions, Images)
-    }
 }
