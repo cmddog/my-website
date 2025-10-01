@@ -1,4 +1,4 @@
-package com.example
+package com.cmddog
 
 import io.ktor.client.request.*
 import io.ktor.http.*

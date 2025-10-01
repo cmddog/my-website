@@ -1,4 +1,4 @@
-package com.example.configuration
+package com.cmddog.configuration
 
 import io.ktor.server.application.*
 import io.ktor.server.plugins.ratelimit.*

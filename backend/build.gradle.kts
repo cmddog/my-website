@@ -7,7 +7,7 @@ plugins {
     id("io.ktor.plugin") version "3.3.0"
 }
 
-group = "com.example"
+group = "com.cmddog"
 version = "0.0.1"
 
 application {

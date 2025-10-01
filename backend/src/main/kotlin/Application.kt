@@ -1,10 +1,10 @@
-package com.example
+package com.cmddog
 
-import com.example.configuration.configureDatabase
-import com.example.configuration.configureRateLimiting
-import com.example.configuration.configureRouting
-import com.example.configuration.configureSerialization
-import com.example.configuration.configureSessions
+import com.cmddog.configuration.configureDatabase
+import com.cmddog.configuration.configureRateLimiting
+import com.cmddog.configuration.configureRouting
+import com.cmddog.configuration.configureSerialization
+import com.cmddog.configuration.configureSessions
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {

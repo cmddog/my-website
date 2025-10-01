@@ -26,7 +26,7 @@ CREATE TABLE queue (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     commission_id INTEGER NOT NULL REFERENCES commissions(id) ON DELETE CASCADE,
     queue_position INTEGER NOT NULL
-)
+);
 
 CREATE TABLE images (
     id SERIAL PRIMARY KEY,

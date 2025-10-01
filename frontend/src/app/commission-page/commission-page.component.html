@@ -1,7 +1,11 @@
 <div class="wrapper">
-  @let isPortrait = isHandsetPortrait$ | async;
-  <div class="simple-card">
-    <h2>COMMISSION QUEUE</h2>
-    placeholder
+  <div id="size-constraint">
+    @let isPortrait = isHandsetPortrait$ | async;
+    <div class="simple-card w-100">
+      <h2 class="mb-4">COMMISSION QUEUE</h2>
+      <div class="d-flex flex-row gap-5 w-100">
+        <app-skeleton-loader height="15rem" class="flex-grow-1"></app-skeleton-loader>
+      </div>
+    </div>
   </div>
 </div>

@@ -3,10 +3,11 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { ThemeService } from '../services/theme.service';
+import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component';
 
 @Component({
   selector: 'app-commission-page',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, SkeletonLoaderComponent],
   templateUrl: './commission-page.component.html',
   styleUrl: './commission-page.component.scss',
 })

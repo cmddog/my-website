@@ -1,4 +1,4 @@
-package com.example.configuration
+package com.cmddog.configuration
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource

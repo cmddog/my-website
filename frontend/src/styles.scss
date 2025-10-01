@@ -1,3 +1,5 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
 :root {
   --bg-primary: #f8eae2;
   --bg-secondary: #fcf7f5;
@@ -5,6 +7,8 @@
   --accent-color: #faaf3a;
   --shadow-color: rgba(11, 21, 59, 0.25);
   --highlight-color: white;
+  --skeleton-base: #e2e8f0;
+  --skeleton-highlight: #f1f5f9;
 }
 
 [data-theme="dark"] {
@@ -14,6 +18,8 @@
   --accent-color: #6446ea;
   --shadow-color: rgba(0, 0, 0, 0.4);
   --highlight-color: rgba(134, 100, 206, 0.1);
+  --skeleton-base: #374151;
+  --skeleton-highlight: #4b5563;
 }
 
 body {

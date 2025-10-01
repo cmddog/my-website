@@ -1,4 +1,4 @@
-package com.example.models
+package com.cmddog.models
 
 import kotlinx.serialization.Serializable
 import org.ktorm.schema.*

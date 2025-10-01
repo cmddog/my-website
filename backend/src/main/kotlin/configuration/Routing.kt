@@ -1,7 +1,7 @@
-package com.example.configuration
+package com.cmddog.configuration
 
-import com.example.models.Commission
-import com.example.services.PublicInfoService
+import com.cmddog.models.Commission
+import com.cmddog.services.PublicInfoService
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.ratelimit.*

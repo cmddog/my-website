@@ -1,7 +1,7 @@
-package com.example.services
+package com.cmddog.services
 
-import com.example.DatabaseSingleton
-import com.example.models.*
+import com.cmddog.DatabaseSingleton
+import com.cmddog.models.*
 import org.ktorm.dsl.*
 
 class PublicInfoService {
