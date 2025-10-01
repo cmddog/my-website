@@ -4,9 +4,9 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.*
 import org.flywaydb.core.Flyway
-import org.jetbrains.exposed.sql.*
+import org.ktorm.database.Database
 
-fun Application.configureDatabase() {
+fun Application.configureDatabase(): Database {
     val config = HikariConfig().apply {
         driverClassName = "org.postgresql.Driver"
         jdbcUrl = System.getenv("DATABASE_URL") ?: "jdbc:postgresql://localhost:5432/commissions"
@@ -23,5 +23,6 @@ fun Application.configureDatabase() {
         .load()
     flyway.migrate()
 
-    Database.connect(dataSource)
+    // Connect Ktorm to database and return instance
+    return Database.connect(dataSource)
 }
