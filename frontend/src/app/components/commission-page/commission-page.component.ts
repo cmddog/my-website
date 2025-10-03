@@ -1,4 +1,11 @@
-import { Component, inject, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  inject,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay, catchError, startWith, switchMap } from 'rxjs';
 import { of, Subject } from 'rxjs';
@@ -33,11 +40,13 @@ export class CommissionPageComponent implements AfterViewInit, OnDestroy {
 
   readonly queue$ = this.retryTrigger$.pipe(
     startWith(null),
-    switchMap(() => this.publicInfoService.getQueue().pipe(
-      map(data => ({ loading: false, data, error: null })),
-      catchError(error => of({ loading: false, data: null, error })),
-      startWith({ loading: true, data: null, error: null })
-    ))
+    switchMap(() =>
+      this.publicInfoService.getQueue().pipe(
+        map((data) => ({ loading: false, data, error: null })),
+        catchError((error) => of({ loading: false, data: null, error })),
+        startWith({ loading: true, data: null, error: null }),
+      ),
+    ),
   );
 
   // --- Functions ---
@@ -52,7 +61,16 @@ export class CommissionPageComponent implements AfterViewInit, OnDestroy {
 
     const el = this.queueContainer.nativeElement;
 
+    const updateCursor = () =>
+      el.scrollWidth > el.clientWidth
+        ? el.classList.add('grabby')
+        : el.classList.remove('grabby');
+
+    updateCursor();
+    new ResizeObserver(updateCursor).observe(el);
+
     const mouseDown = (e: MouseEvent) => {
+      if (el.scrollWidth <= el.clientWidth) return;
       isDown = true;
       startX = e.pageX;
       scrollLeft = el.scrollLeft;
@@ -65,6 +83,7 @@ export class CommissionPageComponent implements AfterViewInit, OnDestroy {
 
     const mouseUp = () => {
       isDown = false;
+      updateCursor();
 
       const el = this.queueContainer.nativeElement;
       const step = () => {
@@ -73,17 +92,6 @@ export class CommissionPageComponent implements AfterViewInit, OnDestroy {
         el.scrollLeft += velocity * 16; // assume ~60fps → 16ms frame
         // friction
         velocity *= 0.95;
-
-        // elastic overscroll
-        if (el.scrollLeft < 0) {
-          el.scrollLeft = el.scrollLeft * 0.5;
-          velocity = 0; // absorb momentum when bouncing
-        }
-        const maxScroll = el.scrollWidth - el.clientWidth;
-        if (el.scrollLeft > maxScroll) {
-          el.scrollLeft = maxScroll + (el.scrollLeft - maxScroll) * 0.5;
-          velocity = 0;
-        }
 
         momentumId = requestAnimationFrame(step);
       };
@@ -126,6 +134,6 @@ export class CommissionPageComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.cleanUpFns.forEach(fn => fn());
+    this.cleanUpFns.forEach((fn) => fn());
   }
 }

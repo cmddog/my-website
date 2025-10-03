@@ -37,9 +37,12 @@ button:hover {
 
 .simple-card {
   width: 100%;
-  margin-top: 10rem;
   text-align: center;
   min-width: 0;
+}
+
+.queue-card {
+  margin-bottom: 5rem;
 }
 
 .queue-failed-container {
@@ -60,11 +63,14 @@ button:hover {
   scrollbar-width: thin;
   scrollbar-color: var(--text-secondary) transparent;
   user-select: none;
-  cursor: grab;
   //scroll-snap-type: x mandatory;
 }
 
-.queue-info-container:active {
+.grabby {
+  cursor: grab;
+}
+
+.grabby:active {
   cursor: grabbing;
 }
 
@@ -103,3 +109,16 @@ button:hover {
   letter-spacing: 2px;
   text-wrap: nowrap;
 }
+
+.page-columns {
+  gap: 5rem;
+}
+
+.page-columns > .simple-card:first-child {
+  flex: 0 0 auto;
+}
+
+.page-columns > .simple-card:last-child {
+  flex: 1;
+}
+

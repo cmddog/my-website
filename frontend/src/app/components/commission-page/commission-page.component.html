@@ -1,24 +1,33 @@
 <div class="wrapper">
   <div id="size-constraint">
     @let isPortrait = isHandsetPortrait$ | async;
-    <div class="simple-card w-100">
+
+    <!-- COMMISSION QUEUE -->
+    <div class="simple-card w-100 queue-card">
       <h2 class="mb-5">COMMISSION QUEUE</h2>
-      <div class="d-flex flex-row gap-5 w-100 queue-info-container" #queueContainer>
+      <div
+        class="d-flex flex-row gap-6 w-100 queue-info-container"
+        #queueContainer
+      >
         @let queue = queue$ | async;
         @if (queue?.loading) {
-          <app-skeleton-loader height="15rem" class="flex-grow-1"></app-skeleton-loader>
+          <app-skeleton-loader
+            height="15rem"
+            class="flex-grow-1"
+          ></app-skeleton-loader>
         } @else if (queue?.error) {
           <div class="queue-failed-container">
             <h5>Failed to load the queue</h5>
-            <button (click)="retryQueue()">
-              Retry
-            </button>
+            <button (click)="retryQueue()">Retry</button>
           </div>
         } @else if (queue?.data) {
-          @for (datum of (queue?.data ?? []); track $index) {
+          @for (datum of queue?.data ?? []; track $index) {
             <div
-              class="d-flex flex-column justify-content-between gap-4 flex-grow-1 scroll-snap">
-              <h2 class="accent queue-name">{{ datum.clientName.toUpperCase() }}</h2>
+              class="d-flex flex-column justify-content-between gap-4 flex-grow-1 scroll-snap"
+            >
+              <h2 class="accent queue-name">
+                {{ datum.clientName.toUpperCase() }}
+              </h2>
               <div>
                 @for (type of datum.commissionTypes; track type) {
                   <p class="queue-type">{{ type }}</p>
@@ -27,13 +36,21 @@
               <p class="queue-status">{{ datum.status }}</p>
             </div>
           }
-          @for (i of Array.from({ length: 5 - queue!.data!.length}); track i) {
-            <div class="d-flex flex-column justify-content-center flex-grow-1 scroll-snap">
+          @for (i of Array.from({ length: 5 - queue!.data!.length }); track i) {
+            <div
+              class="d-flex flex-column justify-content-center flex-grow-1 scroll-snap"
+            >
               <p class="queue-type dog-text-secondary">- Empty Slot -</p>
             </div>
           }
         }
       </div>
+    </div>
+
+    <!-- COMPOSITION -->
+    <div class="d-flex flex-row page-columns">
+      <div class="simple-card">Navigator</div>
+      <div class="simple-card">other stuff?</div>
     </div>
   </div>
 </div>
