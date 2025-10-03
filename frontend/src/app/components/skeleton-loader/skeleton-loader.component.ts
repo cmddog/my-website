@@ -1,6 +1,5 @@
 import { Component, input, signal, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-skeleton-loader',

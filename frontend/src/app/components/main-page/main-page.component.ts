@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
 import { map, shareReplay } from 'rxjs';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { ThemeService } from '../services/theme.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { ThemeService } from '@services';
 
 @Component({
   selector: 'app-main-page',

@@ -3,9 +3,9 @@ package com.cmddog.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class QueueInfo(
+data class QueueItem(
     val clientName: String,
-    val type: String,
+    val commissionType: String,
     val status: String,
     val position: Int
 )
