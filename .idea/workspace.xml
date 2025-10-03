@@ -4,11 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c280654f-d458-4940-9a42-a9beb9392101" name="Changes" comment="starting backend">
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/models/ApiSchema.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/models/ApiSchema.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/models/DatabaseModels.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/models/DatabaseModels.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/services/PublicInfoService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/services/PublicInfoService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/db/migration/V1__Initial_schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/db/migration/V1__Initial_schema.sql" afterDir="false" />
+    <list default="true" id="20d8e9b0-bcbb-4f70-b67d-a9b223e2d2f7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/My Website.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d51bb24-ce01-40f4-a8ac-54bc2fa11066.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d51bb24-ce01-40f4-a8ac-54bc2fa11066/storage_v2/_src_/database/commissions.6CB-WQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d51bb24-ce01-40f4-a8ac-54bc2fa11066/storage_v2/_src_/database/commissions.6CB-WQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d51bb24-ce01-40f4-a8ac-54bc2fa11066/storage_v2/_src_/database/commissions.6CB-WQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d51bb24-ce01-40f4-a8ac-54bc2fa11066/storage_v2/_src_/database/commissions.6CB-WQ/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/commission-page/commission-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/commission-page/commission-page.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/commission-page/commission-page.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/commission-page/commission-page.component.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/commission-page/commission-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/commission-page/commission-page.component.ts" afterDir="false" />
@@ -26,110 +37,63 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <task path="$PROJECT_DIR$/backend">
-          <activation />
-        </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="backend" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
       </state>
     </system>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Kotlin Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 3
-}</component>
-  <component name="ProjectId" id="2uk3U77thq2TZ0ZR93lGPyBe8er" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="33YhycPBQoZJnh14pUVAoyMyuYr" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;Gradle.Build backend.executor&quot;: &quot;Run&quot;,
-    &quot;Ktor.ApplicationKt.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;commissions&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Lorenz/IdeaProjects/My Website/backend/settings.gradle.kts&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.Angular CLI Server (frontend).executor&quot;: &quot;Run&quot;,
-    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Lorenz\\IdeaProjects\\My Website\\frontend\\node_modules\\prettier&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Lorenz\\IdeaProjects\\My Website\\frontend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
-    ]
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "commissions",
+    "last_opened_file_path": "C:/Users/Lorenz/IdeaProjects/My Website/backend/build.gradle.kts",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.dev.executor": "Run",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "C:\\Users\\Lorenz\\IdeaProjects\\My Website\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Lorenz\IdeaProjects\My Website\frontend\frontend-build" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Lorenz\IdeaProjects\My Website\frontend\src\app\components" />
-      <recent name="C:\Users\Lorenz\IdeaProjects\My Website\frontend\src\app\services" />
-      <recent name="C:\Users\Lorenz\IdeaProjects\My Website\frontend\src\app\skeleton-loader" />
-      <recent name="C:\Users\Lorenz\IdeaProjects\My Website\.github" />
-      <recent name="C:\Users\Lorenz\IdeaProjects\My Website" />
-    </key>
-    <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
-      <recent name="com.example.configuration" />
-    </key>
-  </component>
+}]]></component>
   <component name="RunManager" selected="npm.dev">
-    <configuration name="Angular Application (frontend)" type="JavascriptDebugType" uri="http://localhost:4200">
-      <method v="2" />
-    </configuration>
-    <configuration name="ApplicationKt" type="KtorApplicationConfigurationType" factoryName="Ktor" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.ApplicationKt" />
-      <module name="backend.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cmddog.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="alternativeJrePath" />
-      <option name="alternativeJrePathEnabled" value="false" />
-      <option name="includeProvidedScope" value="false" />
-      <option name="mainClass" value="com.example.ApplicationKt" />
-      <option name="passParentEnvs" value="true" />
-      <option name="programParameters" />
-      <option name="shortenCommandLine" />
-      <option name="vmParameters" />
-      <option name="workingDirectory" value="C:\Users\Lorenz\IdeaProjects\My Website" />
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="backend" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="backend" />
+      <option name="filePath" />
+      <method v="2" />
     </configuration>
     <configuration name="EngineMain" type="KtorApplicationConfigurationType" factoryName="Ktor" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="io.ktor.server.netty.EngineMain" />
@@ -147,14 +111,54 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Angular CLI Server (frontend)" type="js.build_tools.npm">
-      <package-json value="$PROJECT_DIR$/frontend/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="start" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Python.FlaskServer">
+      <module name="backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <method v="2" />
     </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
@@ -170,7 +174,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.dev" />
-        <item itemvalue="Ktor.ApplicationKt" />
       </list>
     </recent_temporary>
   </component>
@@ -185,72 +188,16 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c280654f-d458-4940-9a42-a9beb9392101" name="Changes" comment="" />
-      <created>1742778760657</created>
+      <changelist id="20d8e9b0-bcbb-4f70-b67d-a9b223e2d2f7" name="Changes" comment="" />
+      <created>1759500169873</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1742778760657</updated>
-      <workItem from="1742778761772" duration="318000" />
-      <workItem from="1742829595552" duration="5099000" />
-      <workItem from="1743113528078" duration="1169000" />
-      <workItem from="1744982026971" duration="11535000" />
-      <workItem from="1745058845994" duration="8270000" />
-      <workItem from="1745242579046" duration="4521000" />
-      <workItem from="1745341569480" duration="11000" />
-      <workItem from="1745772381477" duration="2175000" />
-      <workItem from="1745952553167" duration="4561000" />
-      <workItem from="1746097898586" duration="2942000" />
-      <workItem from="1746118508228" duration="2649000" />
-      <workItem from="1747673376843" duration="20000" />
-      <workItem from="1747685232691" duration="57000" />
-      <workItem from="1751906067331" duration="5371000" />
-      <workItem from="1752356981474" duration="41000" />
-      <workItem from="1752518453591" duration="43000" />
-      <workItem from="1752518510705" duration="7089000" />
-      <workItem from="1752602630793" duration="2927000" />
-      <workItem from="1753207375276" duration="35000" />
-      <workItem from="1757879639531" duration="3036000" />
-      <workItem from="1758133757321" duration="27000" />
-      <workItem from="1758658836864" duration="108000" />
-      <workItem from="1758658957691" duration="1574000" />
-      <workItem from="1758824443480" duration="6254000" />
-      <workItem from="1758985501096" duration="1477000" />
-      <workItem from="1758988818085" duration="5468000" />
-      <workItem from="1759009776882" duration="691000" />
-      <workItem from="1759010599716" duration="9503000" />
-      <workItem from="1759166341769" duration="5751000" />
-      <workItem from="1759351163167" duration="284000" />
-      <workItem from="1759351456982" duration="30000" />
-      <workItem from="1759351496387" duration="20000" />
-      <workItem from="1759351527175" duration="693000" />
-      <workItem from="1759352235797" duration="3590000" />
-      <workItem from="1759438060171" duration="7600000" />
-      <workItem from="1759445780861" duration="5619000" />
-      <workItem from="1759487044822" duration="7736000" />
+      <updated>1759500169873</updated>
+      <workItem from="1759500172643" duration="7973000" />
     </task>
-    <task id="LOCAL-00001" summary="starting backend">
-      <option name="closed" value="true" />
-      <created>1758825196515</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1758825196515</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <ignored-roots>
-      <path value="$PROJECT_DIR$/backend" />
-    </ignored-roots>
-    <MESSAGE value="starting backend" />
-    <option name="LAST_COMMIT_MESSAGE" value="starting backend" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>
