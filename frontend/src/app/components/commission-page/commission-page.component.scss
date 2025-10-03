@@ -21,8 +21,8 @@ button:hover {
 }
 
 #size-constraint {
-  width: max(80rem, 75vw);
-  max-width: max(80rem, 75vw);
+  width: min(90rem, calc(100vw - 4rem));
+  max-width: 100%;
 }
 
 .wrapper {
@@ -31,12 +31,15 @@ button:hover {
    align-items: center;
    margin: 0;
    padding: 2rem;
+   min-height: 100vh;
+   box-sizing: border-box;
  }
 
 .simple-card {
-  width: calc(100% - 10rem);
+  width: 100%;
   margin-top: 10rem;
   text-align: center;
+  min-width: 0;
 }
 
 .queue-failed-container {
@@ -50,6 +53,37 @@ button:hover {
   gap: 1rem;
 }
 
+.queue-info-container {
+  overflow-x: auto;
+  min-width: 0;
+  flex-shrink: 1;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-secondary) transparent;
+  user-select: none;
+  cursor: grab;
+  //scroll-snap-type: x mandatory;
+}
+
+.queue-info-container:active {
+  cursor: grabbing;
+}
+
+.queue-info-container::-webkit-scrollbar {
+  height: 0.5rem;
+}
+
+.queue-info-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-snap {
+  scroll-snap-align: center;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
 .queue-name {
   font-size: 24pt;
   letter-spacing: 6pt;
@@ -60,10 +94,12 @@ button:hover {
   font-size: 14pt;
   margin: 0;
   letter-spacing: 2px;
+  text-wrap: nowrap;
 }
 
 .queue-status {
   font-size: 18pt;
   color: var(--accent-color);
   letter-spacing: 2px;
+  text-wrap: nowrap;
 }

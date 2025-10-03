@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class QueueItem(
     val clientName: String,
-    val commissionType: String,
+    val commissionTypes: List<String>,
     val status: String,
     val position: Int
 )

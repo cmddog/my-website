@@ -21,10 +21,15 @@ object Commissions : Table<Nothing>("commissions") {
     val clientId = uuid("client_id")
     val description = text("description")
     val price = decimal("price")
-    val type = varchar("type")
     val status = varchar("status")
     val createdAt = timestamp("created_at")
     val updatedAt = timestamp("updated_at")
+}
+
+object CommissionTypes : Table<Nothing>("commission_types") {
+    val id = int("id")
+    val commissionId = int("commission_id")
+    val type = varchar("type")
 }
 
 object Queue : Table<Nothing>("queue") {

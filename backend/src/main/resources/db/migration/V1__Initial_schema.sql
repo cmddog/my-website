@@ -16,10 +16,15 @@ CREATE TABLE commissions (
     client_id UUID NOT NULL REFERENCES clients(id),
     description TEXT NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
-    type VARCHAR(50) NOT NULL,
     status VARCHAR(50) NOT NULL DEFAULT 'pending',
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE commission_types (
+    id SERIAL PRIMARY KEY,
+    commission_id INTEGER NOT NULL REFERENCES commissions(id) ON DELETE CASCADE,
+    type VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE queue (

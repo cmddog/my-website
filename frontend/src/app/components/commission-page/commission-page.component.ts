@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay, catchError, startWith, switchMap } from 'rxjs';
 import { of, Subject } from 'rxjs';
@@ -12,10 +12,14 @@ import { PublicInfoService } from '@services';
   templateUrl: './commission-page.component.html',
   styleUrl: './commission-page.component.scss',
 })
-export class CommissionPageComponent {
+export class CommissionPageComponent implements AfterViewInit, OnDestroy {
   // --- Injections ---
   private readonly breakpointObserver = inject(BreakpointObserver);
   private readonly publicInfoService = inject(PublicInfoService);
+
+  @ViewChild('queueContainer') queueContainer!: ElementRef<HTMLDivElement>;
+
+  protected readonly Array = Array;
 
   // --- Variables ---
   readonly isHandsetPortrait$ = this.breakpointObserver
@@ -36,9 +40,92 @@ export class CommissionPageComponent {
     ))
   );
 
+  // --- Functions ---
+  ngAfterViewInit(): void {
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    let velocity = 0;
+    let lastTime = 0;
+    let lastX = 0;
+    let momentumId: number | null = null;
+
+    const el = this.queueContainer.nativeElement;
+
+    const mouseDown = (e: MouseEvent) => {
+      isDown = true;
+      startX = e.pageX;
+      scrollLeft = el.scrollLeft;
+      velocity = 0;
+      lastX = e.pageX;
+      lastTime = performance.now();
+
+      if (momentumId) cancelAnimationFrame(momentumId);
+    };
+
+    const mouseUp = () => {
+      isDown = false;
+
+      const el = this.queueContainer.nativeElement;
+      const step = () => {
+        if (Math.abs(velocity) < 0.001) return; // stop threshold
+
+        el.scrollLeft += velocity * 16; // assume ~60fps → 16ms frame
+        // friction
+        velocity *= 0.95;
+
+        // elastic overscroll
+        if (el.scrollLeft < 0) {
+          el.scrollLeft = el.scrollLeft * 0.5;
+          velocity = 0; // absorb momentum when bouncing
+        }
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        if (el.scrollLeft > maxScroll) {
+          el.scrollLeft = maxScroll + (el.scrollLeft - maxScroll) * 0.5;
+          velocity = 0;
+        }
+
+        momentumId = requestAnimationFrame(step);
+      };
+      momentumId = requestAnimationFrame(step);
+    };
+
+    const mouseMove = (e: MouseEvent) => {
+      if (!isDown) return;
+      e.preventDefault();
+
+      const x = e.pageX;
+      const walk = x - startX;
+      el.scrollLeft = scrollLeft - walk;
+
+      // Velocity
+      const now = performance.now();
+      const delta = now - lastTime;
+      velocity = (lastX - x) / delta;
+      lastX = x;
+      lastTime = now;
+    };
+
+    el.addEventListener('mousedown', mouseDown);
+    el.addEventListener('mouseleave', mouseUp);
+    el.addEventListener('mouseup', mouseUp);
+    el.addEventListener('mousemove', mouseMove);
+
+    this.cleanUpFns = [
+      () => el.removeEventListener('mousedown', mouseDown),
+      () => el.removeEventListener('mouseleave', mouseDown),
+      () => el.removeEventListener('mouseup', mouseUp),
+      () => el.removeEventListener('mousemove', mouseMove),
+    ];
+  }
+
+  private cleanUpFns: (() => void)[] = [];
+
   retryQueue() {
     this.retryTrigger$.next();
   }
 
-  protected readonly Array = Array;
+  ngOnDestroy(): void {
+    this.cleanUpFns.forEach(fn => fn());
+  }
 }
