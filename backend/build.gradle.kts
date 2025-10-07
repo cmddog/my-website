@@ -7,8 +7,18 @@ plugins {
     id("io.ktor.plugin") version "3.3.0"
 }
 
+kotlin {
+    jvmToolchain(21)
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
 group = "com.cmddog"
-version = "0.0.1"
+version = "1.0.0"
 
 application {
     mainClass = "io.ktor.server.netty.EngineMain"

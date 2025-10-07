@@ -5,6 +5,11 @@ h2 {
   letter-spacing: 8pt;
 }
 
+p {
+  font-size: 14pt;
+  margin-bottom: .5rem;
+}
+
 button {
   border: none;
   border-radius: 10rem;
@@ -114,11 +119,54 @@ button:hover {
   gap: 5rem;
 }
 
+// Navigator
 .page-columns > .simple-card:first-child {
+  min-width: 15rem;
+  width: auto;
   flex: 0 0 auto;
+  user-select: none;
 }
 
+// All the other good stuff
 .page-columns > .simple-card:last-child {
-  flex: 1;
+  flex-grow: 2;
+  height: fit-content;
 }
 
+.navigator-header {
+  margin-bottom: 1rem;
+  font-size: 18pt;
+}
+
+.navigator-subheader {
+  position: relative;
+  display: inline-block;
+  font-size: 12pt;
+  color: var(--primary-color);
+  background-color: var(--bg-secondary);
+  cursor: pointer;
+}
+
+.navigator-subheader::before,
+.navigator-subheader::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5rem;
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.navigator-subheader::before {
+  right: 100%;
+  margin-right: .5rem;
+}
+
+.navigator-subheader::after {
+  left: 100%;
+  margin-left: .5rem;
+}
+
+.navigator-subheader ~ p {
+  cursor: pointer;
+}

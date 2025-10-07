@@ -5,24 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20d8e9b0-bcbb-4f70-b67d-a9b223e2d2f7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/My Website.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d51bb24-ce01-40f4-a8ac-54bc2fa11066.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d51bb24-ce01-40f4-a8ac-54bc2fa11066/storage_v2/_src_/database/commissions.6CB-WQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d51bb24-ce01-40f4-a8ac-54bc2fa11066/storage_v2/_src_/database/commissions.6CB-WQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d51bb24-ce01-40f4-a8ac-54bc2fa11066/storage_v2/_src_/database/commissions.6CB-WQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d51bb24-ce01-40f4-a8ac-54bc2fa11066/storage_v2/_src_/database/commissions.6CB-WQ/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Backend_Compose.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/proxy.conf.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/proxy.conf.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/commission-page/commission-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/commission-page/commission-page.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/commission-page/commission-page.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/commission-page/commission-page.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/commission-page/commission-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/commission-page/commission-page.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/public-info.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/public-info.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +34,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/backend">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -54,10 +54,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 3
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="33YhycPBQoZJnh14pUVAoyMyuYr" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -65,25 +69,57 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Docker.Backend Compose.executor": "Run",
+    "Gradle.Build backend.executor": "Run",
+    "Gradle.backend [commissions].executor": "Run",
+    "Gradle.backend [runDocker].executor": "Run",
+    "Gradle.backend.executor": "Run",
+    "Ktor.ApplicationKt.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Shell Script.Run Backend.executor": "Run",
     "git-widget-placeholder": "commissions",
-    "last_opened_file_path": "C:/Users/Lorenz/IdeaProjects/My Website/backend/build.gradle.kts",
+    "last_opened_file_path": "C:/Windows/SysWOW64/WindowsPowerShell/v1.0/powershell.exe",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "npm.dev.executor": "Run",
+    "npm.ng.executor": "Run",
+    "npm.start.executor": "Run",
     "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "ts.external.directory.path": "C:\\Users\\Lorenz\\IdeaProjects\\My Website\\frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected="npm.dev">
+    <configuration name="backend [commissions]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/backend" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="commissions" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="backend" />
       <method v="2">
@@ -94,6 +130,28 @@
       <module name="backend" />
       <option name="filePath" />
       <method v="2" />
+    </configuration>
+    <configuration name="ApplicationKt" type="KtorApplicationConfigurationType" factoryName="Ktor" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cmddog.ApplicationKt" />
+      <module name="backend.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cmddog.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="alternativeJrePath" />
+      <option name="alternativeJrePathEnabled" value="false" />
+      <option name="includeProvidedScope" value="false" />
+      <option name="mainClass" value="com.cmddog.ApplicationKt" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" />
+      <option name="shortenCommandLine" />
+      <option name="vmParameters" />
+      <option name="workingDirectory" value="C:\Users\Lorenz\IdeaProjects\My Website" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="EngineMain" type="KtorApplicationConfigurationType" factoryName="Ktor" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="io.ktor.server.netty.EngineMain" />
@@ -171,9 +229,41 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="ng" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="ng" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Docker.Backend Compose" />
+      <item itemvalue="Gradle.backend [commissions]" />
+      <item itemvalue="Ktor.EngineMain" />
+      <item itemvalue="Ktor.ApplicationKt" />
+      <item itemvalue="npm.ng" />
+      <item itemvalue="npm.start" />
+      <item itemvalue="npm.dev" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="npm.dev" />
+        <item itemvalue="npm.ng" />
+        <item itemvalue="npm.start" />
+        <item itemvalue="Ktor.ApplicationKt" />
       </list>
     </recent_temporary>
   </component>
@@ -193,11 +283,21 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1759500169873</updated>
-      <workItem from="1759500172643" duration="7973000" />
+      <workItem from="1759500172643" duration="9250000" />
+      <workItem from="1759583411293" duration="4923000" />
+      <workItem from="1759672568776" duration="3655000" />
+      <workItem from="1759768870493" duration="625000" />
+      <workItem from="1759776954364" duration="13319000" />
+      <workItem from="1759791918353" duration="1765000" />
+      <workItem from="1759832990286" duration="5662000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
