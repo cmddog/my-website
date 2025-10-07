@@ -6,7 +6,8 @@
     <div class="simple-card w-100 queue-card">
       <h2 class="mb-5">COMMISSION QUEUE</h2>
       <div
-        class="d-flex flex-row gap-6 w-100 queue-info-container"
+        class="d-flex flex-row gap-5 w-100 queue-info-container"
+        [class.snap-mandatory]="isPortrait"
         #queueContainer
       >
         @let queue = queue$ | async;
@@ -52,17 +53,23 @@
       <!-- NAVIGATOR -->
       <div class="simple-card">
         <h3 class="navigator-header inter-bold">Navigator</h3>
-        <h4 class="navigator-subheader">Composition</h4>
+        <div class="navigator-subheader">
+          <span>Composition</span>
+        </div>
         <p>Headshot</p>
         <p>Bust</p>
         <p>Half-Body</p>
         <p>Full-Body</p>
         <p>Reference Sheet</p>
-        <h4 class="navigator-subheader">Backgrounds</h4>
+        <div class="navigator-subheader">
+          <span>Backgrounds</span>
+        </div>
         <p>Basic</p>
         <p>Abstract</p>
         <p>Full Scene</p>
-        <h4 class="navigator-subheader">Extras</h4>
+        <div class="navigator-subheader">
+          <span>Extras</span>
+        </div>
         <p>Additional Characters</p>
         <p>Custom Requests</p>
       </div>
