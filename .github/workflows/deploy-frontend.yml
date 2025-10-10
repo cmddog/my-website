@@ -1,4 +1,6 @@
 name: Deploy frontend to Oracle
+permissions:
+  contents: read
 
 on:
   push:
