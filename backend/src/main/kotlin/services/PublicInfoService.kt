@@ -21,10 +21,10 @@ class PublicInfoService {
             }
 
         return queueData.map { (clientName, commissionId, status, position) ->
-            val types = DatabaseSingleton.database.from(CommissionTypes)
-                .select(CommissionTypes.type)
-                .where { CommissionTypes.commissionId eq commissionId }
-                .map { it[CommissionTypes.type]!! }
+            val types = DatabaseSingleton.database.from(CommissionComponents)
+                .select(CommissionComponents.component)
+                .where { CommissionComponents.commissionId eq commissionId }
+                .map { it[CommissionComponents.component]!! }
 
             QueueItem(
                 clientName = clientName,

@@ -26,16 +26,43 @@ object Commissions : Table<Nothing>("commissions") {
     val updatedAt = timestamp("updated_at")
 }
 
-object CommissionTypes : Table<Nothing>("commission_types") {
+object CommissionComponents : Table<Nothing>("commission_components") {
     val id = int("id")
     val commissionId = int("commission_id")
-    val type = varchar("type")
+    val component = varchar("component")
 }
 
 object Queue : Table<Nothing>("queue") {
     val id = uuid("id")
     val commissionId = int("commission_id")
     val queuePosition = int("queue_position")
+}
+
+object CommissionTypes : Table<Nothing>("commission_types") {
+    val id = int("id")
+    val name = varchar("name")
+    val description = text("description")
+}
+
+object FinishLevels : Table<Nothing>("finish_levels") {
+    val id = int("id")
+    val level = varchar("level")
+}
+
+object BasePrices : Table<Nothing> ("base_prices") {
+    val type_id = int("type_id")
+    val level_id = int("level_id")
+    val price = decimal("price")
+}
+
+object CommissionCategories : Table<Nothing>("commission_categories") {
+    val id = int("id")
+    val category = varchar("category")
+}
+
+object CategoryTypeMap : Table<Nothing>("category_type_map") {
+    val category_id = int("category_id")
+    val type_id = int("type_id")
 }
 
 object Images : Table<Nothing>("images") {

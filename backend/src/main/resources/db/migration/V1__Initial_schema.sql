@@ -24,7 +24,7 @@ CREATE TABLE commissions (
 CREATE TABLE commission_components (
     id SERIAL PRIMARY KEY,
     commission_id INTEGER NOT NULL REFERENCES commissions(id) ON DELETE CASCADE,
-    type VARCHAR(50) NOT NULL
+    component VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE queue (
@@ -33,17 +33,9 @@ CREATE TABLE queue (
     queue_position INTEGER NOT NULL
 );
 
-CREATE TABLE images (
-    id SERIAL PRIMARY KEY,
-    commission_id INTEGER NOT NULL REFERENCES commissions(id) ON DELETE CASCADE,
-    filename VARCHAR(255) NOT NULL,
-    url VARCHAR(500) NOT NULL,
-    uploaded_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
 CREATE TABLE commission_types (
   id SERIAL PRIMARY KEY,
-  type VARCHAR(50) NOT NULL UNIQUE,
+  name VARCHAR(50) NOT NULL UNIQUE,
   description TEXT NOT NULL
 );
 
@@ -54,7 +46,7 @@ CREATE TABLE finish_levels (
 
 CREATE TABLE base_prices (
     type_id SERIAL NOT NULL REFERENCES commission_types(id),
-    level_id SERIAL NOT NULL REFERENCES level_of_finish(id),
+    level_id SERIAL NOT NULL REFERENCES finish_levels(id),
     price DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (type_id, level_id)
 );
@@ -68,4 +60,12 @@ CREATE TABLE category_type_map (
     category_id SERIAL NOT NULL REFERENCES commission_categories(id),
     type_id SERIAL NOT NULL REFERENCES commission_types(id),
     PRIMARY KEY (category_id, type_id)
+);
+
+CREATE TABLE images (
+    id SERIAL PRIMARY KEY,
+    commission_id INTEGER NOT NULL REFERENCES commissions(id) ON DELETE CASCADE,
+    filename VARCHAR(255) NOT NULL,
+    url VARCHAR(500) NOT NULL,
+    uploaded_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
