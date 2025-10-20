@@ -33,7 +33,7 @@ object CommissionComponents : Table<Nothing>("commission_components") {
 }
 
 object Queue : Table<Nothing>("queue") {
-    val id = uuid("id")
+    val id = int("id")
     val commissionId = int("commission_id")
     val queuePosition = int("queue_position")
 }
