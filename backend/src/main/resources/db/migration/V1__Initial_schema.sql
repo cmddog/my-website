@@ -33,39 +33,9 @@ CREATE TABLE queue (
     queue_position INTEGER NOT NULL
 );
 
-CREATE TABLE commission_types (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(50) NOT NULL UNIQUE,
-  description TEXT NOT NULL
-);
-
-CREATE TABLE finish_levels (
-    id SERIAL PRIMARY KEY,
-    level VARCHAR(50) NOT NULL UNIQUE
-);
-
-CREATE TABLE base_prices (
-    type_id SERIAL NOT NULL REFERENCES commission_types(id),
-    level_id SERIAL NOT NULL REFERENCES finish_levels(id),
-    price DECIMAL(10, 2) NOT NULL,
-    PRIMARY KEY (type_id, level_id)
-);
-
-CREATE TABLE commission_categories (
-    id SERIAL PRIMARY KEY,
-    category VARCHAR(50) NOT NULL UNIQUE
-);
-
-CREATE TABLE category_type_map (
-    category_id SERIAL NOT NULL REFERENCES commission_categories(id),
-    type_id SERIAL NOT NULL REFERENCES commission_types(id),
-    PRIMARY KEY (category_id, type_id)
-);
-
 CREATE TABLE images (
     id SERIAL PRIMARY KEY,
     commission_id INTEGER NOT NULL REFERENCES commissions(id) ON DELETE CASCADE,
-    filename VARCHAR(255) NOT NULL,
     url VARCHAR(500) NOT NULL,
     uploaded_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

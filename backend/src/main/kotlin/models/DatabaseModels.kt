@@ -38,47 +38,12 @@ object Queue : Table<Nothing>("queue") {
     val queuePosition = int("queue_position")
 }
 
-object CommissionTypes : Table<Nothing>("commission_types") {
-    val id = int("id")
-    val name = varchar("name")
-    val description = text("description")
-}
-
-object FinishLevels : Table<Nothing>("finish_levels") {
-    val id = int("id")
-    val level = varchar("level")
-}
-
-object BasePrices : Table<Nothing> ("base_prices") {
-    val type_id = int("type_id")
-    val level_id = int("level_id")
-    val price = decimal("price")
-}
-
-object CommissionCategories : Table<Nothing>("commission_categories") {
-    val id = int("id")
-    val category = varchar("category")
-}
-
-object CategoryTypeMap : Table<Nothing>("category_type_map") {
-    val category_id = int("category_id")
-    val type_id = int("type_id")
-}
-
 object Images : Table<Nothing>("images") {
     val id = int("id")
     val commissionId = int("commission_id")
-    val filename = varchar("filename")
     val url = varchar("url")
     val uploadedAt = timestamp("uploaded_at")
 }
-
-@Serializable
-data class Client(
-    val id: String,
-    val name: String,
-    val email: String
-)
 
 @Serializable
 data class Commission(
