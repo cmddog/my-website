@@ -14,6 +14,10 @@
   --highlight-color: white;
   --skeleton-base: #e2e8f0;
   --skeleton-highlight: #f1f5f9;
+  --toast-info-bg: rgba(100, 116, 255);
+  --toast-success-bg: rgba(34, 197, 94);
+  --toast-warning-bg: rgba(250, 175, 58);
+  --toast-error-bg: rgba(239, 68, 68);
 }
 
 [data-theme="dark"] {

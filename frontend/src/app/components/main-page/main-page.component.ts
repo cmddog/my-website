@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
 import { map, shareReplay } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { ThemeService } from '@services';
+import { ThemeService, ToasterService } from '@services';
 
 @Component({
   selector: 'app-main-page',
@@ -66,5 +66,22 @@ export class MainPageComponent implements OnInit {
         this.isChanging = false;
       }, 150);
     }
+  }
+
+  private readonly toaster = inject(ToasterService);
+  protected success(): void {
+    this.toaster.show('Success!', 'success');
+  }
+
+  protected info(): void {
+    this.toaster.show('Info!', 'info');
+  }
+
+  protected warning(): void {
+    this.toaster.show('Warning!', 'warning');
+  }
+
+  protected error(): void {
+    this.toaster.show('Error!', 'error');
   }
 }
