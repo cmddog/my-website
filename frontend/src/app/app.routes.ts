@@ -1,14 +1,19 @@
 import { Routes } from '@angular/router';
-import { MainPageComponent } from './main-page/main-page.component';
-import { CommissionPageComponent } from './commission-page/commission-page.component';
+import { CommissionPageComponent } from './components/commission-page/commission-page.component';
+import { TabsComponent } from './components/tabs/tabs.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: MainPageComponent,
+    component: TabsComponent,
   },
   {
     path: 'commissions',
     component: CommissionPageComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full',
   },
 ];

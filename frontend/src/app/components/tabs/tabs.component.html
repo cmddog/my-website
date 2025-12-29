@@ -1,0 +1,14 @@
+<div class="wrapper">
+  <div class="tab-button-container">
+    @for (tab of tabs; track tab) {
+      <button
+        class="tab-button"
+        [class.tab-button-selected]="selected === tab"
+      >
+        {{ tab }}
+      </button>
+    }
+  </div>
+</div>
+
+<app-about-me />

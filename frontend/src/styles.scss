@@ -1,24 +1,48 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
 :root {
   --bg-primary: #f8eae2;
   --bg-secondary: #fcf7f5;
+  --bg-secondary-inset: #fcf2f0;
   --text-primary: #000000;
-  --accent-color: #faaf3a;
-  --shadow-color: rgba(11, 21, 59, 0.25);
+  --text-secondary: #bdbdbd;
+  --primary-color: #faaf3a;
+  --primary-highlight-color: #f8be70;
+  --accent-color: #6446ea;
+  --accent-highlight-color: #705be3;
+  --shadow-color: rgba(61, 64, 82, 0.25);
   --highlight-color: white;
+  --skeleton-base: #e2e8f0;
+  --skeleton-highlight: #f1f5f9;
 }
 
 [data-theme="dark"] {
   --bg-primary: #0e151c;
   --bg-secondary: #1f2534;
+  --bg-secondary-inset: #19202d;
   --text-primary: #f1f5f9;
-  --accent-color: #6446ea;
+  --text-secondary: #7b8588;
+  --primary-color: #6446ea;
+  --primary-highlight-color: #705be3;
+  --accent-color: #faaf3a;
+  --accent-highlight-color: #f8be70;
   --shadow-color: rgba(0, 0, 0, 0.4);
   --highlight-color: rgba(134, 100, 206, 0.1);
+  --skeleton-base: #374151;
+  --skeleton-highlight: #4b5563;
 }
 
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
+}
+
+.color-primary {
+  color: var(--primary-color)
+}
+
+.dog-text-secondary {
+  color: var(--text-secondary)
 }
 
 .hidden {
@@ -50,7 +74,9 @@ body {
   padding: 0.5rem;
   height: 3rem;
   border-radius: 1.5rem;
-  color: var(--accent-color);
+  color: var(--primary-color);
+  background-color: transparent;
+  border: none;
   text-decoration: none;
   transition:
     box-shadow 250ms ease-in-out,
@@ -94,13 +120,6 @@ body {
   font-style: normal;
 }
 
-.nunito-bolder {
-  font-family: "Nunito", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 1000;
-  font-style: normal;
-}
-
 .nunito-light {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
@@ -108,9 +127,16 @@ body {
   font-style: normal;
 }
 
-.nunito-lighter {
-  font-family: "Nunito", sans-serif;
+.inter-regular {
+  font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 200;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.inter-bold {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
   font-style: normal;
 }

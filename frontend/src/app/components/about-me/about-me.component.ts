@@ -2,15 +2,15 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
 import { map, shareReplay } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { ThemeService } from '../services/theme.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
-  selector: 'app-main-page',
+  selector: 'app-about-me',
   imports: [NgOptimizedImage, NgClass, AsyncPipe],
-  templateUrl: './main-page.component.html',
-  styleUrl: './main-page.component.scss',
+  templateUrl: './about-me.component.html',
+  styleUrl: './about-me.component.scss',
 })
-export class MainPageComponent implements OnInit {
+export class AboutMeComponent implements OnInit {
   private previousSprite = 0;
   protected spriteNumber = 0;
   protected isChanging = true;
