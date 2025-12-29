@@ -35,8 +35,4 @@ export class ThemeService {
       isDark ? 'dark' : 'light',
     );
   }
-
-  get iconColor(): string {
-    return this.isDarkMode.value ? '6446ea' : 'faaf3a';
-  }
 }

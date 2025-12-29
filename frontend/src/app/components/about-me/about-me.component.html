@@ -3,69 +3,69 @@
   <div class="simple-card card-mobile" [class.card-desktop]="!sizeDynamic">
     <h1 class="nunito-regular text-center">Hey, I'm Shiru!</h1>
     <p class="nunito-regular text-center">
-      I'm a fox on the internet studying computer science who does art in his
-      free time. Everything you see here was hand-coded and designed by yours
-      truly! Below, you'll find links to my socials (and E-Mail) and my
-      commission page—feel free to check them out :3
+      I'm a fox on the internet who studies computer science and does art &
+      photography in his free time. Everything you see here was hand-coded and
+      designed by yours truly! The Commissions and Gallery parts of this website
+      are still in the works right now, but you'll be able to view my stuff in
+      the latter once it's done! In the meantime, you can find links to my
+      socials (and E-Mail) below—feel free to check them out :3
     </p>
     <div class="separator"></div>
     <div class="button-container">
       <a
         class="inset-button"
+        [class.social-button-mobile]="sizeDynamic"
         href="mailto:contact@shiru.dog"
         rel="noreferrer noopener"
         target="_blank"
       >
-        <img
-          alt="Email Icon"
-          height="48"
-          [ngSrc]="
-            'https://img.icons8.com/' +
-            themeService.iconColor +
-            '/material/48/new-post--v1.png'
-          "
-          width="48"
-        />
+        <svg
+          class="icon-svg"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 432 384"
+        >
+          <path
+            d="M384 21q18 0 30.5 12.5T427 64v256q0 18-12.5 30.5T384 363H43q-18 0-30.5-12.5T0 320V64q0-18 12.5-30.5T43 21h341zm0 86V64L213 171L43 64v43l170 106z"
+          />
+        </svg>
       </a>
       <a
         class="inset-button"
+        [class.social-button-mobile]="sizeDynamic"
         href="https://shirufox.tumblr.com"
         rel="noreferrer noopener"
         target="_blank"
       >
-        <img
-          alt="Tumblr Icon"
-          height="48"
-          [ngSrc]="
-            'https://img.icons8.com/' +
-            themeService.iconColor +
-            '/material/48/tumblr.png'
-          "
-          width="48"
-        />
+        <svg
+          class="icon-svg"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 666 680"
+        >
+          <path
+            d="M84 14h498c47 0 84 37 84 84v498c0 25-10 44-25 59c-14 14-36 25-59 25H84c-47 0-84-37-84-84V98c0-23 11-45 25-59c15-15 34-25 59-25zm141 275v186c0 25 2 43 7 55s15 25 28 36s29 21 48 27c18 6 40 9 64 9c22 0 41-2 59-7c18-4 39-12 62-22v-84c-27 17-53 27-80 27c-15 0-29-5-40-12c-9-5-16-11-19-20c-3-8-5-28-5-59V289h126v-82H349V72h-75c-3 27-9 50-18 67c-9 18-21 33-36 46c-14 12-31 22-53 29v75h58z"
+          />
+        </svg>
       </a>
-      <a href="/commissions" class="inset-button inset-button-text"
-        >Commission</a
-      >
       <a
         class="inset-button"
+        [class.social-button-mobile]="sizeDynamic"
         href="https://bsky.app/profile/shirufox.bsky.social"
         rel="noreferrer noopener"
         target="_blank"
       >
-        <img
-          alt="Bluesky Icon"
-          height="48"
-          [ngSrc]="
-            'https://img.icons8.com/' +
-            themeService.iconColor +
-            '/material/48/bluesky.png'
-          "
-          width="48"
-        />
+        <svg
+          class="icon-svg"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565C.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479c.815 2.736 3.713 3.66 6.383 3.364c.136-.02.275-.039.415-.056c-.138.022-.276.04-.415.056c-3.912.58-7.387 2.005-2.83 7.078c5.013 5.19 6.87-1.113 7.823-4.308c.953 3.195 2.05 9.271 7.733 4.308c4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056c2.67.297 5.568-.628 6.383-3.364c.246-.828.624-5.79.624-6.478c0-.69-.139-1.861-.902-2.206c-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8"
+          />
+        </svg>
       </a>
       <a
         class="inset-button"
+        [class.social-button-mobile]="sizeDynamic"
         href="https://artfight.net/~Shiru"
         rel="noreferrer noopener"
         target="_blank"

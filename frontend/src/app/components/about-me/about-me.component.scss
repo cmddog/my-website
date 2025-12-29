@@ -16,10 +16,15 @@
 @media (max-width: 47.5rem) {
   .card-mobile {
     position: relative;
-    min-width: calc(100dvw - 8rem);
-    max-width: calc(100dvw - 8rem);
+    min-width: calc(100dvw - 4rem);
+    max-width: calc(100dvw - 4rem);
     margin: 0 auto;
   }
+}
+
+h1 {
+  font-size: 28pt;
+  margin: 1rem;
 }
 
 p {
@@ -44,17 +49,15 @@ p {
   row-gap: 1rem;
 }
 
-@media (max-width: 545px) {
-  .button-container a:nth-child(1),
-  .button-container a:nth-child(2),
-  .button-container a:nth-child(4),
-  .button-container a:nth-child(5) {
-    order: 1;
-  }
+.social-button-mobile {
+  padding: .5rem;
+  min-width: 3rem;
+  min-height: 3rem;
+  box-shadow: none;
+}
 
-  .button-container a:nth-child(3) {
-    order: 2;
-  }
+.social-button-mobile:hover {
+  box-shadow: none;
 }
 
 .inner-button-container {
@@ -79,24 +82,26 @@ p {
 }
 
 #sprite-1 {
+  scale: .65;
   left: 25%;
-  top: -45cqw;
+  top: -58.8cqw;
   --from-x: 0;
-  --from-y: 16rem;
+  --from-y: 16.5rem;
 }
 
 #sprite-2 {
-  scale: 0.55;
-  left: 40%;
-  top: -40cqw;
+  scale: 0.40;
+  left: 30%;
+  top: -51.4cqw;
   --from-x: 0;
   --from-y: 12rem;
 }
 
 #sprite-3 {
-  left: 118.5cqw;
+  scale: .65;
+  left: 115.55cqw;
   top: -20%;
-  --from-x: -11rem;
+  --from-x: -12rem;
   --from-y: 5rem;
 }
 
