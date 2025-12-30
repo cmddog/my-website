@@ -98,13 +98,18 @@ body {
   width: 2.75rem;
   height: 2.75rem;
   object-fit: contain;
+  transition: scale 0.3s ease;
 }
 
 .icon-svg {
   width: 2.75rem;
   height: 2.75rem;
   fill: var(--primary-color);
-  transition: fill 0.3s ease;
+  transition: scale 0.3s ease, fill 0.3s ease;
+}
+
+.inset-button:hover .icon-svg, .inset-button:hover img {
+  scale: 95%;
 }
 
 .inset-button:hover {
