@@ -21,7 +21,7 @@ services:
 
   backend:
     build: ./
-    container_name: commissions-backend
+    container_name: website-backend
     restart: unless-stopped
     ports:
       - "8080:8080"
