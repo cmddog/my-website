@@ -32,8 +32,9 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json")
     implementation("io.ktor:ktor-server-rate-limit")
     implementation("io.ktor:ktor-server-netty")
-    implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.ktor:ktor-server-config-yaml")
+    implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("io.github.oshai:kotlin-logging-jvm:7.0.3")
 
     // Database
     implementation("org.ktorm:ktorm-core:3.6.0")
@@ -43,6 +44,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core:10.4.1")
     implementation("org.flywaydb:flyway-database-postgresql:10.4.1")
 
+    implementation("org.mindrot:jbcrypt:0.4")
 
     testImplementation("io.ktor:ktor-server-test-host")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
