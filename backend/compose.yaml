@@ -32,6 +32,7 @@ services:
       DATABASE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-commissions}
       DATABASE_USER: ${POSTGRES_USER:-postgres}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      ADMIN_PASS_HASH: ${ADMIN_PASS_HASH}
     develop:
       watch:
         - action: rebuild

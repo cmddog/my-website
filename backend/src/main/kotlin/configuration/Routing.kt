@@ -49,7 +49,7 @@ fun Application.configureRouting() {
                     val session = AdminSession(UUID.randomUUID().toString())
 
                     call.sessions.set(session)
-                    call.respond(HttpStatusCode.OK, session.sessionId)
+                    call.respond(HttpStatusCode.OK)
                 }
             }
 
