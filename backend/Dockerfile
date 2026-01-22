@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 RUN gradle installDist
 
-FROM openjdk:21-jdk-slim
+FROM eclipse-temurin:24
 WORKDIR /app
 COPY --from=build /app/build/install/backend /app
 CMD ["./bin/backend"]

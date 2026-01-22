@@ -33,8 +33,8 @@ dependencies {
     implementation("io.ktor:ktor-server-rate-limit")
     implementation("io.ktor:ktor-server-netty")
     implementation("io.ktor:ktor-server-config-yaml")
-    implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.github.oshai:kotlin-logging-jvm:7.0.3")
+    implementation("ch.qos.logback:logback-classic:$logback_version")
 
     // Database
     implementation("org.ktorm:ktorm-core:3.6.0")
