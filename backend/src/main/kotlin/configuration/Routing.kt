@@ -58,11 +58,21 @@ fun Application.configureRouting() {
                 install(createRouteScopedPlugin("AdminAuth") {
                     onCall { call ->
                         if (call.sessions.get<AdminSession>() == null) {
-                            call.respond(HttpStatusCode.Unauthorized)
+                            call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Not authenticated"))
                             return@onCall
                         }
                     }
                 })
+
+                get("/verify") {
+                    // AdminAuth takes care of verification. Getting here means the user is logged in
+                    call.respond(HttpStatusCode.OK)
+                }
+
+                post("/logout") {
+                    call.sessions.clear<AdminSession>()
+                    call.respond(HttpStatusCode.OK)
+                }
 
                 get("/commissions") {
 //                call.respond(commissionService.getAllCommissions())
