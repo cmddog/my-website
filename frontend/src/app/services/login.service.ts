@@ -13,4 +13,8 @@ export class LoginService {
   login(password: string): Observable<void> {
     return this.http.post<void>(`${this.baseUrl}/admin/login`, { password: password }, { withCredentials: true });
   }
+
+  verify(): Observable<void> {
+    return this.http.get<void>(`${this.baseUrl}/admin/verify`, { withCredentials: true });
+  }
 }

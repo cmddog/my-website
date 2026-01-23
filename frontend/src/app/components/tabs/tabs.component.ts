@@ -3,6 +3,7 @@ import { AboutMeComponent } from '../about-me/about-me.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import {BreakpointService} from '../../services/breakpoint.service';
 
 enum Options {
   Commissions = 'Commissions',
@@ -12,21 +13,13 @@ enum Options {
 
 @Component({
   selector: 'app-tabs',
-  imports: [AboutMeComponent, AsyncPipe],
+  imports: [AsyncPipe],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss',
 })
 export class TabsComponent {
+  protected readonly breakpointService = inject(BreakpointService);
   protected readonly tabs = Object.values(Options);
   protected readonly Options = Options;
-
-  private readonly breakpointObserver = inject(BreakpointObserver);
-
   protected selected = Options.AboutMe;
-  protected isMobile$ = this.breakpointObserver
-    .observe(Breakpoints.HandsetPortrait)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay(),
-    );
 }
