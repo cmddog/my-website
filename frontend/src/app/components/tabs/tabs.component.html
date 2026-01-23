@@ -1,4 +1,4 @@
-@let isMobile = isMobile$ | async;
+@let isMobile = breakpointService.isMobile$() | async;
 @if (!isMobile) {
   <div class="wrapper">
     <nav class="tab-nav">
@@ -14,8 +14,6 @@
     </nav>
   </div>
 }
-
-<app-about-me />
 
 @if (isMobile) {
   <nav class="mobile-tab-nav">

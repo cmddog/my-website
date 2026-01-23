@@ -1,20 +1,20 @@
 import { Routes } from '@angular/router';
 import { CommissionPageComponent } from './components/commission-page/commission-page.component';
-import { TabsComponent } from './components/tabs/tabs.component';
-import {AdminLoginComponent} from './components/admin-login/admin-login.component';
+import {AboutMeComponent} from './components/about-me/about-me.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: TabsComponent,
+    component: AboutMeComponent,
   },
   {
     path: 'commissions',
     component: CommissionPageComponent,
+    title: 'Commissions'
   },
   {
     path: 'admin',
-    component: AdminLoginComponent,
+    loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES),
   },
   {
     path: '**',

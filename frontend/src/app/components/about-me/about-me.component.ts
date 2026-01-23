@@ -3,10 +3,12 @@ import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
 import { map, shareReplay } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ThemeService } from '../../services/theme.service';
+import {TabsComponent} from '../tabs/tabs.component';
+import {BreakpointService} from '../../services/breakpoint.service';
 
 @Component({
   selector: 'app-about-me',
-  imports: [NgOptimizedImage, NgClass, AsyncPipe],
+  imports: [NgOptimizedImage, NgClass, AsyncPipe, TabsComponent],
   templateUrl: './about-me.component.html',
   styleUrl: './about-me.component.scss',
 })
@@ -17,9 +19,10 @@ export class AboutMeComponent implements OnInit {
   protected initialAnimation = true;
   protected spriteLoadedArray: boolean[] = [false, false, false];
 
-  private breakpointObserver = inject(BreakpointObserver);
-  protected themeService = inject(ThemeService);
-  readonly sizeDynamic$ = this.breakpointObserver
+  private readonly breakpointObserver = inject(BreakpointObserver);
+  protected readonly breakpointService = inject(BreakpointService);
+  protected readonly themeService = inject(ThemeService);
+  protected readonly sizeDynamic$ = this.breakpointObserver
     .observe([`(max-width: 47.5rem)`])
     .pipe(
       map((result) => result.matches),
