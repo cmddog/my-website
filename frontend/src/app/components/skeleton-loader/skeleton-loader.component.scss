@@ -1,0 +1,40 @@
+:host {
+  --skeleton-base: #e0e0e0;
+  --skeleton-highlight: #f3f3f3;
+}
+
+:host-context([data-theme="dark"]) {
+  --skeleton-base: #414457;
+  --skeleton-highlight: #576072;
+}
+
+.skeleton-loader {
+  background-color: var(--skeleton-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-loader::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  height: 100%;
+  width: 150%;
+  background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--skeleton-highlight),
+      transparent 100%
+  );
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
