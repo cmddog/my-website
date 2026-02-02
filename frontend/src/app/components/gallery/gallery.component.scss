@@ -1,0 +1,21 @@
+.grid {
+  margin: 4rem;
+  display: grid;
+  grid-template-columns: 15rem minmax(50rem, 1fr) minmax(0, 15rem);
+  gap: 1rem;
+}
+
+#sidebar {
+  outline: solid red 1px;
+  min-height: 20rem;
+}
+
+#gallery {
+  outline: solid red 1px;
+  min-height: 20rem;
+}
+
+#spacer {
+  outline: solid red 1px;
+  min-height: 20rem;
+}

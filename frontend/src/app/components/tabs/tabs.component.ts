@@ -1,25 +1,39 @@
-import { Component, inject } from '@angular/core';
-import { AboutMeComponent } from '../about-me/about-me.component';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map, shareReplay } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
-import {BreakpointService} from '../../services/breakpoint.service';
+import {AfterViewInit, Component, ElementRef, inject, ViewChild} from '@angular/core';
+import {AsyncPipe} from '@angular/common';
+import {BreakpointService} from '@services';
+import {AboutMeComponent} from '../about-me/about-me.component';
+import {GalleryComponent} from '../gallery/gallery.component';
 
 enum Options {
-  Commissions = 'Commissions',
-  AboutMe = 'About Me',
-  Gallery = 'Gallery',
+  Commissions = 0,
+  AboutMe = 1,
+  Gallery = 2,
 }
 
 @Component({
   selector: 'app-tabs',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, AboutMeComponent, GalleryComponent],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss',
 })
 export class TabsComponent {
   protected readonly breakpointService = inject(BreakpointService);
-  protected readonly tabs = Object.values(Options);
+  protected readonly tabs: Options[] = [Options.Commissions, Options.AboutMe, Options.Gallery];
   protected readonly Options = Options;
-  protected selected = Options.AboutMe;
+
+  loadedTabs: Set<Options> = new Set<Options>([Options.AboutMe]);
+  currentTab: Options = Options.AboutMe;
+  previousTab: Options | null = null;
+
+  selectTab(tab: Options) {
+    if (tab === this.currentTab) return;
+
+    this.loadedTabs.add(tab);
+    this.previousTab = this.currentTab;
+    this.currentTab = tab;
+  }
+
+  getTabName(tab: Options): string {
+    return ['Commissions', 'About Me', 'Gallery'][tab];
+  }
 }
