@@ -23,13 +23,11 @@ export class TabsComponent {
 
   loadedTabs: Set<Options> = new Set<Options>([Options.AboutMe]);
   currentTab: Options = Options.AboutMe;
-  previousTab: Options | null = null;
 
   selectTab(tab: Options) {
     if (tab === this.currentTab) return;
 
     this.loadedTabs.add(tab);
-    this.previousTab = this.currentTab;
     this.currentTab = tab;
   }
 

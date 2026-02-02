@@ -2,6 +2,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  position: fixed;
+  z-index: 1000;
 }
 
 .tab-nav, .mobile-tab-nav {
@@ -14,7 +16,6 @@
 
 .tab-nav {
   border-radius: 0 0 2rem 2rem;
-  z-index: 1000;
 }
 
 .mobile-tab-nav {
@@ -108,9 +109,10 @@
 }
 
 .tab-content-wrapper {
+  padding-top: 4rem;
   position: relative;
-  overflow: hidden;
-  min-height: 80%;
+  overflow-x: hidden;
+  height: 100%;
 }
 
 .tab-content-wrapper > * {
