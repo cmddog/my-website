@@ -6,16 +6,58 @@
 }
 
 #sidebar {
-  outline: solid red 1px;
-  min-height: 20rem;
+  position: relative;
+
+  div.simple-card {
+    position: sticky;
+    top: 0;
+
+    button {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: none;
+      border: none;
+      color: var(--primary-color);
+      font-size: 18pt;
+      border-radius: 2rem;
+      padding-inline: 1rem;
+      padding-block: .5rem;
+      transition: background-color 200ms;
+
+      svg {
+        fill: var(--primary-color);
+        height: 1.75rem;
+        width: 1.75rem;
+      }
+    }
+
+    button:hover {
+      background-color: var(--primary-color-hover);
+    }
+  }
+
+  #divider {
+    background-color: var(--primary-color);
+    margin-block: 1rem;
+    height: 2px;
+    border-radius: 4px;
+  }
+
+  #no-filters {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+  }
 }
 
 #gallery {
-  outline: solid red 1px;
-  min-height: 20rem;
+  border-radius: 2rem;
+  border: red solid 1px;
+  height: 100rem;
 }
 
 #spacer {
-  outline: solid red 1px;
-  min-height: 20rem;
 }

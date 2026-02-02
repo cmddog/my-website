@@ -9,4 +9,5 @@ import {BreakpointService} from '@services';
 })
 export class GalleryComponent {
   protected readonly breakpointService = inject(BreakpointService);
+  protected filters: string[] = [];
 }
