@@ -1,4 +1,4 @@
-name: Deploy frontend to Oracle
+name: Deploy frontend to VPS
 permissions:
   contents: read
 
@@ -51,7 +51,7 @@ jobs:
           name: frontend-build
           path: frontend
 
-      - name: Copy files to Oracle via SCP
+      - name: Copy files to VPS via SCP
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.REMOTE_HOST }}
