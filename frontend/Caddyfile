@@ -3,3 +3,7 @@ shiru.dog {
   file_server
   try_files {path} /index.html
 }
+
+matrix.shiru.dog {
+    reverse_proxy homeserver:6167
+}
