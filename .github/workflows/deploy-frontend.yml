@@ -12,9 +12,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -30,6 +30,27 @@ jobs:
           npm ci
           npm run build -- --configuration production
 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: |
+            frontend/dist
+            frontend/Dockerfile
+            frontend/Caddyfile
+          retention-days: 1
+
+  upload:
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: frontend
+
       - name: Copy files to Oracle via SCP
         uses: appleboy/scp-action@v1
         with:
@@ -39,6 +60,11 @@ jobs:
           source: "frontend/dist,frontend/Dockerfile,frontend/Caddyfile"
           target: "~/website-deploy"
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: upload
+    
+    steps:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
         with:
