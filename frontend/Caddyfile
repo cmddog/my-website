@@ -1,4 +1,7 @@
 shiru.dog {
+  respond /.well-known/matrix/server `{"m.server":"matrix.shiru.dog:443"}`
+  respond /.well-known/matrix/client `{"m.server":{"base_url":"https://matrix.shiru.dog"},"m.homeserver":{"base_url":"https://matrix.shiru.dog"},"org.matrix.msc3575.proxy":{"url":"https://matrix.shiru.dog"}}`
+
   root * /var/www/html
   file_server
   try_files {path} /index.html
