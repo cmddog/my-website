@@ -77,4 +77,8 @@ jobs:
             docker rm website || true
             docker image prune -f
             docker build -t website .
-            docker run -d --name website --restart unless-stopped -p 80:80 -p 443:443 website
+            docker network create caddy || true
+            docker run -d --name website --restart unless-stopped \
+              --network caddy \
+              -p 80:80 -p 443:443 \
+              website
