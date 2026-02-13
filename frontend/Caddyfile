@@ -1,15 +1,6 @@
 shiru.dog {
-  @wellknown_server path /.well-known/matrix/server
-  handle @wellknown_server {
-                             header Content-Type application/json
-                             respond `{"m.server":"matrix.shiru.dog:443"}` 200
-                           }
-
-  @wellknown_client path /.well-known/matrix/client
-  handle @wellknown_client {
-                             header Content-Type application/json
-                             respond `{"m.homeserver":{"base_url":"https://matrix.shiru.dog"},"m.server":"matrix.shiru.dog:443","org.matrix.msc3575.proxy":{"url":"https://matrix.shiru.dog"}}` 200
-                           }
+  respond /.well-known/matrix/server `{"m.server":"matrix.shiru.dog:443"}`
+  respond /.well-known/matrix/client `{"m.server":{"base_url":"https://matrix.shiru.dog"},"m.homeserver":{"base_url":"https://matrix.shiru.dog"},"org.matrix.msc3575.proxy":{"url":"https://matrix.shiru.dog"}}`
 
   root * /var/www/html
   file_server
@@ -17,5 +8,5 @@ shiru.dog {
 }
 
 matrix.shiru.dog {
-  reverse_proxy homeserver:6167
+    reverse_proxy homeserver:6167
 }
