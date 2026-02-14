@@ -14,7 +14,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -43,7 +43,7 @@ jobs:
   upload:
     runs-on: ubuntu-latest
     needs: build
-    
+
     steps:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
@@ -63,7 +63,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: upload
-    
+
     steps:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
@@ -78,7 +78,9 @@ jobs:
             docker image prune -f
             docker build -t website .
             docker network create caddy || true
+            docker volume create caddy-data || true
             docker run -d --name website --restart unless-stopped \
               --network caddy \
               -p 80:80 -p 443:443 \
+              -v caddy-data:/data \
               website
