@@ -6,9 +6,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
   workflow_dispatch:
 
 jobs:
@@ -36,8 +33,6 @@ jobs:
           name: frontend-build
           path: |
             frontend/dist
-            frontend/Dockerfile
-            frontend/Caddyfile
           retention-days: 1
 
   upload:
@@ -57,30 +52,5 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "frontend/dist,frontend/Dockerfile,frontend/Caddyfile"
-          target: "~/website-deploy"
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: upload
-
-    steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd ~/website-deploy/frontend
-            docker stop website || true
-            docker rm website || true
-            docker image prune -f
-            docker build -t website .
-            docker network create caddy || true
-            docker volume create caddy-data || true
-            docker run -d --name website --restart unless-stopped \
-              --network caddy \
-              -p 80:80 -p 443:443 \
-              -v caddy-data:/data \
-              website
+          source: "frontend/dist"
+          target: "~/website"

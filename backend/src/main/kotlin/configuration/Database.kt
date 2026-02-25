@@ -1,0 +1,28 @@
+package com.cmddog.configuration
+
+import com.zaxxer.hikari.HikariConfig
+import com.zaxxer.hikari.HikariDataSource
+import io.ktor.server.application.*
+import org.flywaydb.core.Flyway
+import org.ktorm.database.Database
+
+fun Application.configureDatabase(): Database {
+    val config = HikariConfig().apply {
+        driverClassName = "org.postgresql.Driver"
+        jdbcUrl = System.getenv("DATABASE_URL") ?: "jdbc:postgresql://localhost:5432/website"
+        username = System.getenv("DATABASE_USER") ?: "postgres"
+        password = System.getenv("DATABASE_PASSWORD") ?: "postgres"
+        maximumPoolSize = 3
+    }
+
+    val dataSource = HikariDataSource(config)
+
+    // Run Flyway migrations
+    val flyway = Flyway.configure()
+        .dataSource(dataSource)
+        .load()
+    flyway.migrate()
+
+    // Connect Ktorm to database and return instance
+    return Database.connect(dataSource)
+}
