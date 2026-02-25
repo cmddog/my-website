@@ -6,9 +6,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
   workflow_dispatch:
 
 jobs:
@@ -72,15 +69,12 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ~/website-deploy/frontend
+            cd ~/website/frontend
             docker stop website || true
             docker rm website || true
             docker image prune -f
             docker build -t website .
             docker network create caddy || true
-            docker volume create caddy-data || true
             docker run -d --name website --restart unless-stopped \
               --network caddy \
-              -p 80:80 -p 443:443 \
-              -v caddy-data:/data \
               website
