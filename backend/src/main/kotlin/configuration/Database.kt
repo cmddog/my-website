@@ -9,7 +9,7 @@ import org.ktorm.database.Database
 fun Application.configureDatabase(): Database {
     val config = HikariConfig().apply {
         driverClassName = "org.postgresql.Driver"
-        jdbcUrl = System.getenv("DATABASE_URL") ?: "jdbc:postgresql://localhost:5432/commissions"
+        jdbcUrl = System.getenv("DATABASE_URL") ?: "jdbc:postgresql://localhost:5432/website"
         username = System.getenv("DATABASE_USER") ?: "postgres"
         password = System.getenv("DATABASE_PASSWORD") ?: "postgres"
         maximumPoolSize = 3

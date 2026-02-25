@@ -26,10 +26,6 @@ fun Application.configureRouting() {
         route("/api") {
             // Public routes, rate limited
             rateLimit {
-                get("/queue") {
-                    call.respond(publicInfoService.getQueue())
-                }
-
                 // Admin login
                 post("/admin/login") {
                     val pass = call.receive<LoginRequest>().password
@@ -72,16 +68,6 @@ fun Application.configureRouting() {
                 post("/logout") {
                     call.sessions.clear<AdminSession>()
                     call.respond(HttpStatusCode.OK)
-                }
-
-                get("/commissions") {
-//                call.respond(commissionService.getAllCommissions())
-                }
-
-                post("/commissions") {
-                    val commission = call.receive<Commission>()
-//                val id = commissionService.createCommission(commission)
-//                call.respond(HttpStatusCode.Created, mapOf("id" to id))
                 }
             }
         }

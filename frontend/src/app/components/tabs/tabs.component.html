@@ -5,7 +5,7 @@
       @for (tab of tabs; track tab) {
         <button
           class="tab-button"
-          [disabled]="tab === Options.Commissions"
+          [disabled]="tab === Options.Commissions || tab === Options.Gallery"
           [class.tab-button-selected]="currentTab === tab"
           (click)="selectTab(tab)"
         >
@@ -22,7 +22,7 @@
     @for (tab of tabs; track tab) {
       <button
         class="mobile-tab-button"
-        [disabled]="tab === Options.Commissions"
+        [disabled]="tab === Options.Commissions || Options.Gallery"
         [class.mobile-tab-button-selected]="currentTab === tab"
         (click)="selectTab(tab)"
       >
@@ -54,12 +54,6 @@
     <app-about-me
       [class.active]="currentTab === Options.AboutMe"
       [class.slide-left]="currentTab === Options.Gallery"
-    />
-  }
-  @if (loadedTabs.has(Options.Gallery)) {
-    <app-gallery
-      [class.active]="currentTab === Options.Gallery"
-      [class.slide-right]="currentTab === Options.AboutMe"
     />
   }
 </div>

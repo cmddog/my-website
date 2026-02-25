@@ -2,7 +2,6 @@ import {AfterViewInit, Component, ElementRef, inject, ViewChild} from '@angular/
 import {AsyncPipe} from '@angular/common';
 import {BreakpointService} from '@services';
 import {AboutMeComponent} from '../about-me/about-me.component';
-import {GalleryComponent} from '../gallery/gallery.component';
 
 enum Options {
   Commissions = 0,
@@ -12,7 +11,7 @@ enum Options {
 
 @Component({
   selector: 'app-tabs',
-  imports: [AsyncPipe, AboutMeComponent, GalleryComponent],
+  imports: [AsyncPipe, AboutMeComponent],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss',
 })
