@@ -46,6 +46,9 @@ jobs:
           name: frontend-build
           path: frontend
 
+      - name: Check structure
+        run: find frontend -type f
+
       - name: Copy files to VPS via SCP
         uses: appleboy/scp-action@v1
         with:
