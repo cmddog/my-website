@@ -31,8 +31,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: frontend-build
-          path: |
-            frontend/dist
+          path: frontend/dist/frontend/browser
           retention-days: 1
 
   upload:
@@ -44,10 +43,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: frontend-build
-          path: frontend
-
-      - name: Check structure
-        run: find frontend -type f
+          path: browser-dist
 
       - name: Copy files to VPS via SCP
         uses: appleboy/scp-action@v1
@@ -55,5 +51,5 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "frontend/dist"
-          target: "~/website"
+          source: "browser-dist/"
+          target: "~/website/frontend"
