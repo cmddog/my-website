@@ -35,22 +35,23 @@ jobs:
 
   upload:
     runs-on: ubuntu-latest
-    needs: build
 
     steps:
+      - uses: actions/checkout@v3
+
       - name: Copy compose to VPS
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "backend/docker-compose.yml,backend/init-db.sql"
+          source: "backend/compose.yaml,backend/init-db.sql"
           target: "~/website/backend"
 
   deploy:
     runs-on: ubuntu-latest
     needs: upload
-    
+
     steps:
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1
