@@ -54,9 +54,7 @@ jobs:
 
     steps:
       - name: Deploy to VPS
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: cd ~/website/backend && docker compose pull backend && docker compose up -d
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > /tmp/key
+          chmod 600 /tmp/key
+          ssh -i /tmp/key -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "cd ~/website/backend && docker compose pull backend && docker compose up -d"
