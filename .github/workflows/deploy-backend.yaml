@@ -62,4 +62,4 @@ jobs:
           script: |
             cd ~/website/backend
             docker compose pull backend
-            docker compose up -d
+            docker compose --profile prod up -d --build

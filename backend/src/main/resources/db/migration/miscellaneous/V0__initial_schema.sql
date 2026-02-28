@@ -27,3 +27,12 @@ CREATE OR REPLACE TRIGGER validate_user_trigger
     ON users
     FOR EACH ROW
 EXECUTE FUNCTION validate_user();
+
+INSERT INTO users VALUES (
+                          'shiru',
+                          'Shiru',
+                          '$2a$12$PTQS3qkVQPTWKeu22/VUZedli8wMcL3w1IZ3eGMkJYuWdkGvv9Dkm',
+                          0,
+                          to_timestamp('01/01/0000', 'DD/MM/YYYY'),
+                          DEFAULT
+                         );

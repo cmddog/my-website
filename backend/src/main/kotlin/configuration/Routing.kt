@@ -1,7 +1,9 @@
 package com.cmddog.configuration
 
+import com.cmddog.DatabaseSingleton
 import com.cmddog.models.ErrorResponse
 import com.cmddog.models.LoginRequest
+import com.cmddog.services.UserService
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -26,15 +28,15 @@ fun Application.configureRouting() {
                 // Admin login
                 post("/admin/login") {
                     val pass = call.receive<LoginRequest>().password
-                    val adminPassHash = System.getenv("ADMIN_PASS_HASH")
+                    val passHash = UserService.getUserFromName("shiru")?.passwordHash
 
-                    if (adminPassHash == null) {
+                    if (passHash == null) {
+                        logger.error { "Attempted to log into admin, but got null for password hash." }
                         call.respond(HttpStatusCode.InternalServerError)
-                        logger.error { "Missing ADMIN_PASS_HASH environment variable." }
                         return@post
                     }
 
-                    if (!BCrypt.checkpw(pass, adminPassHash)) {
+                    if (!BCrypt.checkpw(pass, passHash)) {
                         call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Incorrect Password"))
                         return@post
                     }

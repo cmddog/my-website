@@ -22,8 +22,32 @@ services:
 
   backend:
     image: ghcr.io/cmddog/website-backend:latest
+    profiles:
+      - prod
     container_name: website-backend
     restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - internal
+      - caddy
+    environment:
+      COMMISSIONS_DATABASE_URL: jdbc:postgresql://db:5432/commissions
+      GALLERY_DATABASE_URL: jdbc:postgresql://db:5432/gallery
+      MISCELLANEOUS_DATABASE_URL: jdbc:postgresql://db:5432/miscellaneous
+      DATABASE_USER: ${POSTGRES_USER:-postgres}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      ADMIN_PASS_HASH: ${ADMIN_PASS_HASH}
+
+  backend-dev:
+    build: ./
+    profiles:
+      - dev
+    container_name: website-backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
     depends_on:
       db:
         condition: service_healthy
