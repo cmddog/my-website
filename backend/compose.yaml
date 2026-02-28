@@ -6,7 +6,7 @@ services:
     container_name: website-postgres
     restart: unless-stopped
     networks:
-      - caddy
+      - internal
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
@@ -27,6 +27,9 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - internal
+      - caddy
     environment:
       COMMISSIONS_DATABASE_URL: jdbc:postgresql://db:5432/commissions
       GALLERY_DATABASE_URL: jdbc:postgresql://db:5432/gallery
@@ -36,6 +39,7 @@ services:
       ADMIN_PASS_HASH: ${ADMIN_PASS_HASH}
 
 networks:
+  internal:
   caddy:
     external: true
     name: caddy
