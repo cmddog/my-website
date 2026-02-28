@@ -6,23 +6,23 @@ import io.ktor.server.application.*
 import org.flywaydb.core.Flyway
 import org.ktorm.database.Database
 
-fun Application.configureDatabase(): Database {
+fun Application.configureDatabase(name: String): Database {
     val config = HikariConfig().apply {
         driverClassName = "org.postgresql.Driver"
-        jdbcUrl = System.getenv("DATABASE_URL") ?: "jdbc:postgresql://localhost:5432/website"
-        username = System.getenv("DATABASE_USER") ?: "postgres"
-        password = System.getenv("DATABASE_PASSWORD") ?: "postgres"
+        jdbcUrl = System.getenv("${name.uppercase()}_DATABASE_URL")
+            ?: "jdbc:postgresql://localhost:5432/$name"
+        username = "postgres"
+        password = "postgres"
         maximumPoolSize = 3
     }
 
     val dataSource = HikariDataSource(config)
 
-    // Run Flyway migrations
-    val flyway = Flyway.configure()
+    Flyway.configure()
         .dataSource(dataSource)
+        .locations("classpath:db/migration/$name")
         .load()
-    flyway.migrate()
+        .migrate()
 
-    // Connect Ktorm to database and return instance
     return Database.connect(dataSource)
 }

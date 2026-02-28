@@ -1,27 +1,24 @@
 package com.cmddog.configuration
 
-import com.cmddog.models.Commission
 import com.cmddog.models.ErrorResponse
 import com.cmddog.models.LoginRequest
-import com.cmddog.services.PublicInfoService
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.plugins.origin
 import io.ktor.server.plugins.ratelimit.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
-import org.ktorm.logging.Logger
 import org.mindrot.jbcrypt.BCrypt
-import org.slf4j.LoggerFactory
 import java.util.*
 
-private val logger = KotlinLogging.logger {  }
+private val logger = KotlinLogging.logger { }
 
 fun Application.configureRouting() {
     routing {
-        val publicInfoService = PublicInfoService()
+//        val publicInfoService = PublicInfoService()
 
         route("/api") {
             // Public routes, rate limited
@@ -44,6 +41,10 @@ fun Application.configureRouting() {
 
                     val session = AdminSession(UUID.randomUUID().toString())
 
+                    val ip = call.request.headers["X-Forwarded-For"]
+                        ?: call.request.origin.remoteHost
+
+                    logger.info { "Successful admin login from $ip" }
                     call.sessions.set(session)
                     call.respond(HttpStatusCode.OK)
                 }

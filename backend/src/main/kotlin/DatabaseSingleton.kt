@@ -3,9 +3,13 @@ package com.cmddog
 import org.ktorm.database.Database
 
 object DatabaseSingleton {
-    lateinit var database: Database private set
+    lateinit var commissions: Database private set
+    lateinit var gallery: Database private set
+    lateinit var miscellaneous: Database private set
 
-    fun initialize(database: Database) {
-        this.database = database
+    fun initialize(commissions: Database, gallery: Database, miscellaneous: Database) {
+        this.commissions = commissions
+        this.gallery = gallery
+        this.miscellaneous = miscellaneous
     }
 }

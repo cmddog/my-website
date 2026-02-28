@@ -15,7 +15,10 @@ fun Application.module() {
     configureSerialization()
     configureSessions()
     configureRateLimiting()
-    val database = configureDatabase()
-    DatabaseSingleton.initialize(database)
+    DatabaseSingleton.initialize(
+        commissions = configureDatabase("commissions"),
+        gallery = configureDatabase("gallery"),
+        miscellaneous = configureDatabase("miscellaneous")
+    )
     configureRouting()
 }

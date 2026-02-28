@@ -1,18 +1,17 @@
-name: website-backend
+name: website
 
 services:
   db:
     image: postgres:15
-    container_name: commissions-postgres
+    container_name: website-postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      POSTGRES_DB: ${POSTGRES_DB:-postgres}
-    ports:
-      - "5432:5432"
+      POSTGRES_DB: ${POSTGRES_DB:-website}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
       interval: 10s
@@ -20,25 +19,19 @@ services:
       retries: 5
 
   backend:
-    build: ./
+    image: ghcr.io/cmddog/website-backend:latest
     container_name: website-backend
     restart: unless-stopped
-    ports:
-      - "8080:8080"
     depends_on:
       db:
         condition: service_healthy
     environment:
-      DATABASE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-commissions}
+      COMMISSIONS_DATABASE_URL: jdbc:postgresql://db:5432/commissions
+      GALLERY_DATABASE_URL: jdbc:postgresql://db:5432/gallery
+      MISCELLANEOUS_DATABASE_URL: jdbc:postgresql://db:5432/miscellaneous
       DATABASE_USER: ${POSTGRES_USER:-postgres}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       ADMIN_PASS_HASH: ${ADMIN_PASS_HASH}
-    develop:
-      watch:
-        - action: rebuild
-          path: ./src
-        - action: rebuild
-          path: ./build.gradle.kts
 
 volumes:
   postgres_data:
