@@ -5,6 +5,8 @@ services:
     image: postgres:15
     container_name: website-postgres
     restart: unless-stopped
+    networks:
+      - caddy
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
@@ -32,6 +34,11 @@ services:
       DATABASE_USER: ${POSTGRES_USER:-postgres}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       ADMIN_PASS_HASH: ${ADMIN_PASS_HASH}
+
+networks:
+  caddy:
+    external: true
+    name: caddy
 
 volumes:
   postgres_data:
