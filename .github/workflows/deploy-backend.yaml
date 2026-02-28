@@ -53,6 +53,12 @@ jobs:
     needs: [ build, upload ]
 
     steps:
+      - name: Debug secrets presence
+        run: |
+          echo "HOST length: ${#REMOTE_HOST}"
+        env:
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1
         with:
