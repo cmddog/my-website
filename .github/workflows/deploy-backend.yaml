@@ -54,12 +54,9 @@ jobs:
 
     steps:
       - name: Deploy to VPS
-        uses: appleboy/ssh-action@v1.2.0
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd ~/website/backend
-            docker compose pull backend
-            docker compose up -d
+          script: cd ~/website/backend && docker compose pull backend && docker compose up -d
