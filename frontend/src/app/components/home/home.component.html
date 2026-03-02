@@ -1,0 +1,22 @@
+<div class="wrapper">
+  <section>
+    <app-draggable-container
+      (closeButtonClicked)="displayIntroduction = false"
+      [allowResize]="false"
+      [class.hidden]="!displayIntroduction"
+      [prefWidth]="40 * 16"
+      cardTitle="Introduction"
+    >
+      <app-about-me />
+    </app-draggable-container>
+  </section>
+  <section>
+    <app-draggable-container
+      (closeButtonClicked)="displayChangelog = false"
+      [class.hidden]="!displayChangelog"
+      cardTitle="Feature Log"
+    >
+      <app-change-log/>
+    </app-draggable-container>
+  </section>
+</div>

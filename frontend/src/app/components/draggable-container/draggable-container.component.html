@@ -1,0 +1,34 @@
+<div
+  #cardEl
+  class="draggable-card"
+  [ngStyle]="cardStyles"
+>
+  <!-- Drag handle header -->
+  <div
+    class="card-header"
+    (mousedown)="onHeaderMouseDown($event)"
+  >
+    <span class="card-title">{{ cardTitle() }}</span>
+    <button class="header-x" (click)="closeButtonClicked.emit()">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+    </button>
+  </div>
+
+  <!-- Card body – projects whatever the consumer puts inside -->
+  <div class="card-body">
+    <ng-content />
+  </div>
+
+  <!-- Resize handle (bottom-right corner) -->
+  <div
+    [class.hidden]="!allowResize()"
+    class="resize-handle"
+    (mousedown)="onResizeMouseDown($event)"
+    title="Drag to resize"
+  >
+    <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+      <line x1="3" y1="10" x2="10" y2="3" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="6" y1="10" x2="10" y2="6" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+  </div>
+</div>

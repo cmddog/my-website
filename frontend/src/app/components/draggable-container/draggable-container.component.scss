@@ -1,0 +1,96 @@
+.draggable-card {
+  position: fixed;
+  z-index: 1000;
+
+  width: fit-content;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+
+  background:  color-mix(in srgb, var(--bg-secondary) 66%, transparent);
+  backdrop-filter: blur(32px);
+  border: 1px solid var(--bg-secondary-border);
+  border-radius: var(--card-radius, 12px);
+  box-shadow:
+    0 4px 6px -1px color-mix(in srgb, var(--shadow-color) 50%, transparent),
+    0 10px 24px -4px color-mix(in srgb, var(--shadow-color) 50%, transparent);
+
+  overflow: hidden;
+  transition: box-shadow 150ms ease;
+
+  &:hover {
+    box-shadow:
+      0 6px 9px -1.5px color-mix(in srgb, var(--shadow-color) 75%, transparent),
+      0 15px 36px -6px color-mix(in srgb, var(--shadow-color) 75%, transparent);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: color-mix(in srgb, var(--bg-tertiary) 66%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--bg-secondary-border) 50%, transparent);
+  cursor: move;
+  flex-shrink: 0;
+}
+
+.card-title {
+  padding: .5rem 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-card-header);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-x {
+  height: 40px;
+  width: 50px;
+  border: none;
+  background: transparent;
+
+  transition: background 150ms ease;
+
+  svg {
+    fill: var(--text-card-header)
+  }
+}
+
+.header-x:hover {
+  background: color-mix(in srgb, var(--bg-secondary-border) 33%, transparent);
+}
+
+.card-body {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: var(--card-padding, 16px);
+  min-width: 0;
+  min-height: 0;
+}
+
+.resize-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 2rem;
+  height: 2rem;
+  cursor: se-resize;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 3px;
+  color: var(--bg-secondary-border);
+  transition: color 0.15s;
+
+  &:hover {
+    color: var(--card-dot-hover, #64748b);
+  }
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}

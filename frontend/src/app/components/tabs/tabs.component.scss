@@ -9,9 +9,9 @@
 .tab-nav, .mobile-tab-nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background-color: var(--bg-secondary);
+  background:  color-mix(in srgb, var(--bg-tertiary) 66%, transparent);
+  backdrop-filter: blur(24px);
   position: relative;
-  overflow: hidden;
 }
 
 .tab-nav {
@@ -111,7 +111,6 @@
 .tab-content-wrapper {
   padding-top: 4rem;
   position: relative;
-  overflow-x: hidden;
   height: 100%;
 }
 

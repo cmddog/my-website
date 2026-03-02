@@ -1,0 +1,19 @@
+.wrapper {
+  height: calc(100dvh - 4.25rem);
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+
+.wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100dvh - 4.25rem);
+  margin: 0;
+  scroll-snap-align: center;
+}
