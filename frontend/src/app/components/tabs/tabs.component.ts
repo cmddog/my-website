@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, ElementRef, inject, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, output, ViewChild} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {BreakpointService} from '@services';
 import {AboutMeComponent} from '../home/about-me/about-me.component';
 import {HomeComponent} from '../home/home.component';
 
-enum Options {
+enum Option {
   Commissions = 0,
   Home = 1,
   Creations = 2,
@@ -18,20 +18,21 @@ enum Options {
 })
 export class TabsComponent {
   protected readonly breakpointService = inject(BreakpointService);
-  protected readonly tabs: Options[] = [Options.Commissions, Options.Home, Options.Creations];
-  protected readonly Options = Options;
+  protected readonly tabs: Option[] = [Option.Commissions, Option.Home, Option.Creations];
+  protected readonly Options = Option;
 
-  loadedTabs: Set<Options> = new Set<Options>([Options.Home]);
-  currentTab: Options = Options.Home;
+  loadedTabs: Set<Option> = new Set<Option>([Option.Home]);
+  currentTab: Option = Option.Home;
 
-  selectTab(tab: Options) {
+
+  selectTab(tab: Option) {
     if (tab === this.currentTab) return;
 
     this.loadedTabs.add(tab);
     this.currentTab = tab;
   }
 
-  getTabName(tab: Options): string {
+  getTabName(tab: Option): string {
     return ['Commissions', 'Home', 'Creations'][tab];
   }
 }
