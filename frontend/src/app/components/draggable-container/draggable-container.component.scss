@@ -8,21 +8,21 @@
   display: flex;
   flex-direction: column;
 
-  background:  color-mix(in srgb, var(--bg-secondary) 66%, transparent);
-  backdrop-filter: blur(32px);
-  border: 1px solid var(--bg-secondary-border);
-  border-radius: var(--card-radius, 12px);
+  background: var(--transparent-card-background-colour);
+  backdrop-filter: blur(var(--transparent-card-blur));
+  border: 1px solid var(--transparent-card-border-colour);
+  border-radius: var(--transparent-card-radius);
   box-shadow:
-    0 4px 6px -1px color-mix(in srgb, var(--shadow-colour) 50%, transparent),
-    0 10px 24px -4px color-mix(in srgb, var(--shadow-colour) 50%, transparent);
+    0 4px 6px -1px var(--shadow-colour-2),
+    0 10px 24px -4px var(--shadow-colour-2);
 
   overflow: hidden;
   transition: box-shadow 150ms ease;
 
   &:hover {
     box-shadow:
-      0 6px 9px -1.5px color-mix(in srgb, var(--shadow-colour) 75%, transparent),
-      0 15px 36px -6px color-mix(in srgb, var(--shadow-colour) 75%, transparent);
+      0 6px 9px -1.5px var(--shadow-colour-3),
+      0 15px 36px -6px var(--shadow-colour-3);
   }
 }
 
@@ -30,8 +30,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: color-mix(in srgb, var(--bg-tertiary) 66%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--bg-secondary-border) 50%, transparent);
+  background: var(--transparent-card-seconary-background-colour);
+  border-bottom: 1px solid color-mix(in srgb, var(--transparent-card-border-colour) 50%, transparent);
   cursor: move;
   flex-shrink: 0;
 }
@@ -40,7 +40,7 @@
   padding: .5rem 1rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: var(--text-card-header);
+  color: var(--transparent-card-border-colour);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -55,12 +55,12 @@
   transition: background 150ms ease;
 
   svg {
-    fill: var(--text-card-header)
+    fill: var(--transparent-card-border-colour)
   }
 }
 
 .header-x:hover {
-  background: color-mix(in srgb, var(--bg-secondary-border) 33%, transparent);
+  background: color-mix(in srgb, var(--transparent-card-border-colour) 33%, transparent);
 }
 
 .card-body {
@@ -75,18 +75,18 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   cursor: se-resize;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
   padding: 3px;
-  color: var(--bg-secondary-border);
+  color: var(--transparent-card-border-colour);
   transition: color 0.15s;
 
   &:hover {
-    color: var(--card-dot-hover, #64748b);
+    color: var(--text-primary);
   }
 
   svg {

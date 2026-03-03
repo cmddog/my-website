@@ -11,15 +11,15 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   background:  color-mix(in srgb, var(--bg-tertiary) 66%, transparent);
-  backdrop-filter: blur(24px);
+  backdrop-filter: blur(var(--transparent-card-blur));
   position: relative;
 }
 
 .tab-nav {
   border-radius: 0 0 2rem 2rem;
   box-shadow:
-    0 4px 6px -1px color-mix(in srgb, var(--shadow-colour) 25%, transparent),
-    0 10px 24px -4px color-mix(in srgb, var(--shadow-colour) 25%, transparent);
+    0 4px 6px -1px var(--shadow-colour-1),
+    0 10px 24px -4px var(--shadow-colour-1);
 }
 
 .mobile-tab-nav {

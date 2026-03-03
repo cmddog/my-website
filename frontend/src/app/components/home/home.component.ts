@@ -16,5 +16,5 @@ import {DraggableContainerComponent} from '../draggable-container/draggable-cont
 })
 export class HomeComponent {
   displayIntroduction = true;
-  displayChangelog = false;
+  displayChangelog = true;
 }

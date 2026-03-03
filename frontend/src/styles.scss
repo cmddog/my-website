@@ -4,24 +4,31 @@
   --bg-primary: #0e151c;
   --bg-secondary: #1f2534;
   --bg-tertiary: #19202d;
-  --bg-secondary-border: #454b67;
 
   --text-primary: #f1f5f9;
   --text-grey: #5c6677;
   --text-green: #41884e;
   --text-blue: #41679b;
-  --text-card-header: var(--bg-secondary-border);
 
   --primary-colour: #faaf3a;
   --primary-highlight-colour: #f8be70;
   --accent-colour: #6446ea;
   --accent-highlight-colour: #705be3;
 
-  --shadow-colour: rgba(0, 0, 0, 0.4);
+  --shadow-colour-4: rgba(0, 0, 0, 0.4);
+  --shadow-colour-3: rgba(0, 0, 0, 0.3);
+  --shadow-colour-2: rgba(0, 0, 0, 0.2);
+  --shadow-colour-1: rgba(0, 0, 0, 0.1);
 
   --highlight-colour: rgba(134, 100, 206, 0.1);
   --skeleton-base: #374151;
   --skeleton-highlight: #4b5563;
+
+  --transparent-card-border-colour: #454b67;
+  --transparent-card-background-colour: color-mix(in srgb, var(--bg-secondary) 66%, transparent);
+  --transparent-card-seconary-background-colour: color-mix(in srgb, var(--bg-tertiary) 66%, transparent);
+  --transparent-card-blur: 32px;
+  --transparent-card-radius: .75rem;
 }
 
 html, body {
@@ -81,7 +88,7 @@ body {
     box-shadow 250ms ease-in-out,
     color 0.3s ease;
   box-shadow:
-    inset 0 0 0 var(--shadow-colour),
+    inset 0 0 0 var(--shadow-colour-4),
     inset 0 0 0 var(--highlight-colour);
 }
 
@@ -105,7 +112,7 @@ body {
 
 .inset-button:hover {
   box-shadow:
-    inset 2px 2px 6px var(--shadow-colour),
+    inset 2px 2px 6px var(--shadow-colour-4),
     inset -3px -3px 6px var(--highlight-colour);
 }
 
