@@ -2,8 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
 import { map, shareReplay } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { ThemeService } from '@services';
-import {BreakpointService} from '@services';
 
 @Component({
   selector: 'app-about-me',
@@ -19,7 +17,6 @@ export class AboutMeComponent implements OnInit {
   protected spriteLoadedArray: boolean[] = [false, false, false];
 
   private readonly breakpointObserver = inject(BreakpointObserver);
-  protected readonly themeService = inject(ThemeService);
   protected readonly sizeDynamic$ = this.breakpointObserver
     .observe([`(max-width: 47.5rem)`])
     .pipe(

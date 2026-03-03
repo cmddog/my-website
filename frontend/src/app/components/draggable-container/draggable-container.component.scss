@@ -13,16 +13,16 @@
   border: 1px solid var(--bg-secondary-border);
   border-radius: var(--card-radius, 12px);
   box-shadow:
-    0 4px 6px -1px color-mix(in srgb, var(--shadow-color) 50%, transparent),
-    0 10px 24px -4px color-mix(in srgb, var(--shadow-color) 50%, transparent);
+    0 4px 6px -1px color-mix(in srgb, var(--shadow-colour) 50%, transparent),
+    0 10px 24px -4px color-mix(in srgb, var(--shadow-colour) 50%, transparent);
 
   overflow: hidden;
   transition: box-shadow 150ms ease;
 
   &:hover {
     box-shadow:
-      0 6px 9px -1.5px color-mix(in srgb, var(--shadow-color) 75%, transparent),
-      0 15px 36px -6px color-mix(in srgb, var(--shadow-color) 75%, transparent);
+      0 6px 9px -1.5px color-mix(in srgb, var(--shadow-colour) 75%, transparent),
+      0 15px 36px -6px color-mix(in srgb, var(--shadow-colour) 75%, transparent);
   }
 }
 

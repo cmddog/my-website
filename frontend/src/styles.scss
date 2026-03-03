@@ -1,31 +1,6 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
 :root {
-  --bg-primary: #f8eae2;
-  --bg-secondary: #fcf7f5;
-  --bg-tertiary: #fdf9f8;
-  --bg-secondary-border: #d2c8c3;
-
-  --text-primary: #000000;
-  --text-card-header: #000000;
-  --text-grey: #b2a99e;
-  --text-green: #6fb667;
-  --text-blue: #5387b2;
-
-  --primary-color: #faaf3a;
-  --primary-color-hover: rgba(250, 175, 58, 0.1);
-  --primary-highlight-color: #f8be70;
-  --accent-color: #6446ea;
-  --accent-highlight-color: #705be3;
-
-  --shadow-color: rgba(61, 64, 82, 0.25);
-
-  --highlight-color: white;
-  --skeleton-base: #e2e8f0;
-  --skeleton-highlight: #f1f5f9;
-}
-
-[data-theme="dark"] {
   --bg-primary: #0e151c;
   --bg-secondary: #1f2534;
   --bg-tertiary: #19202d;
@@ -37,15 +12,14 @@
   --text-blue: #41679b;
   --text-card-header: var(--bg-secondary-border);
 
-  --primary-color: #6446ea;
-  --primary-color-hover: rgba(100, 70, 234, 0.1);
-  --primary-highlight-color: #705be3;
-  --accent-color: #faaf3a;
-  --accent-highlight-color: #f8be70;
+  --primary-colour: #faaf3a;
+  --primary-highlight-colour: #f8be70;
+  --accent-colour: #6446ea;
+  --accent-highlight-colour: #705be3;
 
-  --shadow-color: rgba(0, 0, 0, 0.4);
+  --shadow-colour: rgba(0, 0, 0, 0.4);
 
-  --highlight-color: rgba(134, 100, 206, 0.1);
+  --highlight-colour: rgba(134, 100, 206, 0.1);
   --skeleton-base: #374151;
   --skeleton-highlight: #4b5563;
 }
@@ -59,13 +33,13 @@ html, body {
 
 body {
   background-size: cover;
-  //background: url("/assets/img.png") center;
-  background-color: var(--bg-primary);
+  background: url("/assets/img_1.png") center;
+  //background-color: var(--bg-primary);
   color: var(--text-primary);
 }
 
 .color-primary {
-  color: var(--primary-color)
+  color: var(--primary-colour)
 }
 
 .hidden {
@@ -99,7 +73,7 @@ body {
   min-height: 3.5rem;
   min-width: 3.5rem;
   border-radius: 4rem;
-  color: var(--primary-color);
+  color: var(--primary-colour);
   background-color: transparent;
   border: none;
   text-decoration: none;
@@ -107,8 +81,8 @@ body {
     box-shadow 250ms ease-in-out,
     color 0.3s ease;
   box-shadow:
-    inset 0 0 0 var(--shadow-color),
-    inset 0 0 0 var(--highlight-color);
+    inset 0 0 0 var(--shadow-colour),
+    inset 0 0 0 var(--highlight-colour);
 }
 
 .inset-button img {
@@ -121,7 +95,7 @@ body {
 .icon-svg {
   width: 2.75rem;
   height: 2.75rem;
-  fill: var(--primary-color);
+  fill: var(--primary-colour);
   transition: scale 0.3s ease, fill 0.3s ease;
 }
 
@@ -131,8 +105,8 @@ body {
 
 .inset-button:hover {
   box-shadow:
-    inset 2px 2px 6px var(--shadow-color),
-    inset -3px -3px 6px var(--highlight-color);
+    inset 2px 2px 6px var(--shadow-colour),
+    inset -3px -3px 6px var(--highlight-colour);
 }
 
 .inset-button-text {

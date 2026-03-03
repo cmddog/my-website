@@ -18,8 +18,8 @@
 .tab-nav {
   border-radius: 0 0 2rem 2rem;
   box-shadow:
-    0 4px 6px -1px color-mix(in srgb, var(--shadow-color) 25%, transparent),
-    0 10px 24px -4px color-mix(in srgb, var(--shadow-color) 25%, transparent);
+    0 4px 6px -1px color-mix(in srgb, var(--shadow-colour) 25%, transparent),
+    0 10px 24px -4px color-mix(in srgb, var(--shadow-colour) 25%, transparent);
 }
 
 .mobile-tab-nav {
@@ -55,7 +55,7 @@
 .tab-indicator {
   position: absolute;
   height: .25rem;
-  background-color: var(--primary-color);
+  background-color: var(--primary-colour);
   transition: left 0.3s ease, width 0.3s ease;
   pointer-events: none;
   width: 33.333%;
