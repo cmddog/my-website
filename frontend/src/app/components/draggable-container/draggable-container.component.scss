@@ -1,6 +1,6 @@
 .draggable-card {
-  position: fixed;
-  z-index: 1000;
+  position: absolute;
+  z-index: 500;
 
   width: fit-content;
   height: fit-content;
