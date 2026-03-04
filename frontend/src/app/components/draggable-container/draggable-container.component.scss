@@ -12,17 +12,15 @@
   backdrop-filter: blur(var(--transparent-card-blur));
   border: 1px solid var(--transparent-card-border-colour);
   border-radius: var(--transparent-card-radius);
-  box-shadow:
-    0 4px 6px -1px var(--shadow-colour-2),
-    0 10px 24px -4px var(--shadow-colour-2);
+  box-shadow: 0 4px 6px -1px var(--shadow-colour-2),
+  0 10px 24px -4px var(--shadow-colour-2);
 
   overflow: hidden;
   transition: box-shadow 150ms ease;
 
   &:hover {
-    box-shadow:
-      0 6px 9px -1.5px var(--shadow-colour-3),
-      0 15px 36px -6px var(--shadow-colour-3);
+    box-shadow: 0 6px 9px -1.5px var(--shadow-colour-3),
+    0 15px 36px -6px var(--shadow-colour-3);
   }
 }
 

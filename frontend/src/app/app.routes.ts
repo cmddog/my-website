@@ -1,11 +1,11 @@
-import {Routes} from '@angular/router';
-import {CommissionPageComponent} from './components/commission-page/commission-page.component';
-import {TabsComponent} from './components/tabs/tabs.component';
+import { Routes } from '@angular/router';
+import { CommissionPageComponent } from './components/commission-page/commission-page.component';
+import { TabsComponent } from './components/tabs/tabs.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: TabsComponent,
+    component: TabsComponent
   },
   {
     path: 'commissions',
@@ -14,11 +14,11 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES),
+    loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES)
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
-  },
+    pathMatch: 'full'
+  }
 ];

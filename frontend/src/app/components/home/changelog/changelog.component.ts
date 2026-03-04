@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-changelog',
@@ -6,4 +6,5 @@ import {Component} from '@angular/core';
   templateUrl: './changelog.component.html',
   styleUrl: './changelog.component.scss'
 })
-export class ChangelogComponent {}
+export class ChangelogComponent {
+}

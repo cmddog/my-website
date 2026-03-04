@@ -1,7 +1,7 @@
-import {Component, inject} from '@angular/core';
-import {AsyncPipe} from '@angular/common';
-import {BreakpointService} from '@services';
-import {HomeComponent} from '../home/home.component';
+import { Component, inject } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { BreakpointService } from '@services';
+import { HomeComponent } from '../home/home.component';
 
 enum Option {
   Commissions = 0,
@@ -13,16 +13,14 @@ enum Option {
   selector: 'app-tabs',
   imports: [AsyncPipe, HomeComponent],
   templateUrl: './tabs.component.html',
-  styleUrl: './tabs.component.scss',
+  styleUrl: './tabs.component.scss'
 })
 export class TabsComponent {
+  loadedTabs: Set<Option> = new Set<Option>([Option.Home]);
+  currentTab: Option = Option.Home;
   protected readonly breakpointService = inject(BreakpointService);
   protected readonly tabs: Option[] = [Option.Commissions, Option.Home, Option.Creations];
   protected readonly Options = Option;
-
-  loadedTabs: Set<Option> = new Set<Option>([Option.Home]);
-  currentTab: Option = Option.Home;
-
 
   selectTab(tab: Option) {
     if (tab === this.currentTab) return;

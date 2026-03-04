@@ -1,27 +1,26 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {AsyncPipe, NgClass, NgOptimizedImage} from '@angular/common';
-import {map, shareReplay} from 'rxjs';
-import {BreakpointObserver} from '@angular/cdk/layout';
+import { Component, inject, OnInit } from '@angular/core';
+import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
+import { map, shareReplay } from 'rxjs';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-about-me',
   imports: [NgOptimizedImage, NgClass, AsyncPipe],
   templateUrl: './about-me.component.html',
-  styleUrl: './about-me.component.scss',
+  styleUrl: './about-me.component.scss'
 })
 export class AboutMeComponent implements OnInit {
-  private previousSprite = 0;
   protected spriteNumber = 0;
   protected isChanging = true;
   protected initialAnimation = true;
   protected spriteLoadedArray: boolean[] = [false, false, false];
-
+  private previousSprite = 0;
   private readonly breakpointObserver = inject(BreakpointObserver);
   protected readonly sizeDynamic$ = this.breakpointObserver
     .observe([`(max-width: 47.5rem)`])
     .pipe(
       map((result) => result.matches),
-      shareReplay({ bufferSize: 1, refCount: true }),
+      shareReplay({ bufferSize: 1, refCount: true })
     );
 
   ngOnInit(): void {
@@ -34,14 +33,6 @@ export class AboutMeComponent implements OnInit {
     setTimeout(() => {
       this.initialAnimation = false;
     }, 200);
-  }
-
-  private randomSprite(n?: number) {
-    if (!n) this.spriteNumber = 0;
-    do {
-      n = Math.floor(Math.random() * 3) + 1;
-    } while (n === this.previousSprite);
-    return n;
   }
 
   protected changeSprite() {
@@ -64,5 +55,13 @@ export class AboutMeComponent implements OnInit {
         this.isChanging = false;
       }, 150);
     }
+  }
+
+  private randomSprite(n?: number) {
+    if (!n) this.spriteNumber = 0;
+    do {
+      n = Math.floor(Math.random() * 3) + 1;
+    } while (n === this.previousSprite);
+    return n;
   }
 }

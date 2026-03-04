@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-wip-card',
@@ -6,4 +6,5 @@ import {Component} from '@angular/core';
   templateUrl: './wip-card.component.html',
   styleUrl: './wip-card.component.scss'
 })
-export class WipCardComponent {}
+export class WipCardComponent {
+}
