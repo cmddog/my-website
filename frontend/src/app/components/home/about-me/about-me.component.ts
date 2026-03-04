@@ -1,7 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
-import { map, shareReplay } from 'rxjs';
-import { BreakpointObserver } from '@angular/cdk/layout';
+import {Component, inject, OnInit} from '@angular/core';
+import {AsyncPipe, NgClass, NgOptimizedImage} from '@angular/common';
+import {map, shareReplay} from 'rxjs';
+import {BreakpointObserver} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-about-me',

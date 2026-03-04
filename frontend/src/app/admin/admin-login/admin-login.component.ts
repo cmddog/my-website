@@ -1,9 +1,9 @@
 import {Component, inject} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {LoginService} from '../../services/login.service';
+import {LoginService} from '@services';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {catchError, EMPTY, noop, of, throwError} from 'rxjs';
+import {catchError, EMPTY, noop, throwError} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 
 @Component({

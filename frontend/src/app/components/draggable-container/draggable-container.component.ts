@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild, input, output, signal} from '@angular/core';
+import {Component, ElementRef, input, OnDestroy, OnInit, output, signal, ViewChild} from '@angular/core';
 import {NgStyle} from '@angular/common';
 
 @Component({

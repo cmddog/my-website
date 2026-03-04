@@ -1,7 +1,6 @@
-import {AfterViewInit, Component, ElementRef, inject, output, ViewChild} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {BreakpointService} from '@services';
-import {AboutMeComponent} from '../home/about-me/about-me.component';
 import {HomeComponent} from '../home/home.component';
 
 enum Option {

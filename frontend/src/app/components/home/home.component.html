@@ -1,7 +1,9 @@
 <div class="window-constraint">
   <app-draggable-container
+    animate.enter="window-enter"
+    animate.leave="window-leave"
     (closeButtonClicked)="close('introduction')"
-    [class.hidden]="!openWindows().has('introduction')"
+    [class.hide]="!openWindows().has('introduction')"
     [allowResize]="false"
     [prefWidth]="40 * 16"
     cardTitle="Introduction"
@@ -11,7 +13,7 @@
 
   <app-draggable-container
     (closeButtonClicked)="close('changelog')"
-    [class.hidden]="!openWindows().has('changelog')"
+    [class.hide]="!openWindows().has('changelog')"
     cardTitle="Feature Log"
   >
     <app-changelog/>

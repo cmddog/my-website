@@ -1,11 +1,8 @@
-import { Component } from '@angular/core';
-import {NgOptimizedImage} from '@angular/common';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-wip-card',
-  imports: [
-    NgOptimizedImage
-  ],
+  imports: [],
   templateUrl: './wip-card.component.html',
   styleUrl: './wip-card.component.scss'
 })
