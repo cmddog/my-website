@@ -1,29 +1,40 @@
 <div class="window-constraint">
-  <app-draggable-container
-    (closeButtonClicked)="close('introduction')"
-    [allowResize]="false"
-    [class.hide]="!openWindows().has('introduction')"
-    [prefWidth]="40 * 16"
-    animate.enter="window-enter"
-    animate.leave="window-leave"
-    cardTitle="Introduction"
-  >
-    <app-about-me />
-  </app-draggable-container>
+  @if (openWindows().has('introduction')) {
+    <app-draggable-container
+      (closeButtonClicked)="close('introduction')"
+      [allowResize]="false"
+      [class.hide]="!openWindows().has('introduction')"
+      [prefWidth]="40 * 16"
+      animate.enter="window-enter"
+      animate.leave="window-leave"
+      cardTitle="Introduction"
+    >
+      <app-about-me />
+    </app-draggable-container>
+  }
 
-  <app-draggable-container
-    (closeButtonClicked)="close('changelog')"
-    [class.hide]="!openWindows().has('changelog')"
-    cardTitle="Feature Log"
-  >
-    <app-changelog />
-  </app-draggable-container>
+  @if (openWindows().has('changelog')) {
+    <app-draggable-container
+      (closeButtonClicked)="close('changelog')"
+      [class.hide]="!openWindows().has('changelog')"
+      [minWidth]="25 * 16"
+      [minHeight]="16 * 16"
+      [maxWidth]="50 * 16"
+      animate.enter="window-enter"
+      animate.leave="window-leave"
+      cardTitle="Changelog"
+    >
+      <app-changelog />
+    </app-draggable-container>
+  }
 </div>
 
 <div class="taskbar">
   @for (entry of windows; track entry[0]) {
     @if (!openWindows().has(entry[0])) {
-      <button (click)="open(entry[0])">{{ entry[1] }}
+      <button (click)="open(entry[0])"
+              animate.enter="tab-enter"
+              animate.leave="tab-leave">{{ entry[1] }}
         @if (entry[0] == 'introduction') {
           <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
                fill="currentColor">

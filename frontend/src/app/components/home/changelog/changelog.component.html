@@ -1,44 +1,19 @@
+<h1>Planned</h1>
 <ul>
-  <li>
-    <div class="status planned nunito-bold">Planned</div>
-    <div class="text">Multiple scenes for the background</div>
-  </li>
-  <li>
-    <div class="status"></div>
-    <div class="text">Commissions Tab</div>
-  </li>
-  <li>
-    <div class="status"></div>
-    <div class="text">Profile Pictures</div>
-  </li>
-  <li>
-    <div class="status"></div>
-    <div class="text">Art & Photo Gallery</div>
-  </li>
-  <li>
-    <div class="status"></div>
-    <div class="text">Blog</div>
-  </li>
-  <li>
-    <div class="status"></div>
-    <div class="text">Minecraft-esque REST based chat</div>
-  </li>
+  <li>Live Minecraft background that's controlled by everyone on the website</li>
+  <li>Minecraft-style chat with accounts</li>
+  <li>Gallery tab to view my art and photos</li>
+  <li>Commission tab. Originally meant only for drawings, will probably be expanded to more</li>
 </ul>
-<ul>
-  <li>
-    <div class="status in-progress nunito-bold">In Progress</div>
-    <div class="text">Live, controllable Minecraft background</div>
-  </li>
-</ul>
-<ul>
-  <li>
-    <div class="status completed nunito-bold">Completed</div>
-    <div class="text">Settings menu</div>
-    <div class="nunito-light">2026-03-02</div>
-  </li>
-  <li>
-    <div class="status"></div>
-    <div class="text">This changelog</div>
-    <div class="nunito-light">2026-03-02</div>
-  </li>
-</ul>
+<hr />
+<div class="changes">
+  @for (entry of changelog; track entry.date) {
+    <app-changelog-entry
+      [additions]="entry.additions ?? undefined"
+      [changes]="entry.changes ?? undefined"
+      [fixes]="entry.fixes ?? undefined"
+      [removals]="entry.removals ?? undefined"
+      [date]="entry.date ?? '0001-01-01'"
+    />
+  }
+</div>

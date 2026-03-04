@@ -41,3 +41,41 @@
     transform: translateY(0);
   }
 }
+
+.window-enter {
+  animation: window-in 150ms ease-out;
+}
+
+.window-leave {
+  animation: window-out 150ms ease-in forwards;
+}
+
+.tab-enter {
+  animation: tab-in 200ms ease-out;
+}
+
+.tab-leave {
+  animation: tab-out 150ms ease-in forwards;
+}
+
+@keyframes tab-in {
+  from {
+    opacity: 0;
+    translate: 0 100%;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes tab-out {
+  from {
+    opacity: 1;
+    translate: 0 0;
+  }
+  to {
+    opacity: 0;
+    translate: 0 100%;
+  }
+}
