@@ -69,9 +69,7 @@
     target="_blank"
   >
     <img
-      [ngSrc]="
-            '/assets/logos/artfight.png'
-          "
+      [ngSrc]="themeService.isSwapped() ? '/assets/logos/artfight_purple.png' : '/assets/logos/artfight_gold.png'"
       alt="Art Fight Icon"
       height="48"
       width="48"

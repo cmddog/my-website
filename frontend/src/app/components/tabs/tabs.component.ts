@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { BreakpointService } from '@services';
+import { BreakpointService, ThemeService } from '@services';
 import { HomeComponent } from '../home/home.component';
 
 enum Option {
@@ -21,6 +21,12 @@ export class TabsComponent {
   protected readonly breakpointService = inject(BreakpointService);
   protected readonly tabs: Option[] = [Option.Commissions, Option.Home, Option.Creations];
   protected readonly Options = Option;
+
+  constructor() {
+    if (localStorage.getItem('colour-swap')) {
+      inject(ThemeService).toggle(true);
+    }
+  }
 
   selectTab(tab: Option) {
     if (tab === this.currentTab) return;

@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
 import { map, shareReplay } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { ThemeService } from '@services';
 
 @Component({
   selector: 'app-about-me',
@@ -10,6 +11,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
   styleUrl: './about-me.component.scss'
 })
 export class AboutMeComponent implements OnInit {
+  protected readonly themeService = inject(ThemeService);
+
   protected spriteNumber = 0;
   protected isChanging = true;
   protected initialAnimation = true;

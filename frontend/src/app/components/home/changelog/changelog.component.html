@@ -1,9 +1,8 @@
 <h1>Planned</h1>
 <ul>
-  <li>Live Minecraft background that's controlled by everyone on the website</li>
-  <li>Minecraft-style chat with accounts</li>
-  <li>Gallery tab to view my art and photos</li>
-  <li>Commission tab. Originally meant only for drawings, will probably be expanded to more</li>
+  @for (entry of planned; track entry) {
+    <li>{{ entry }}</li>
+  }
 </ul>
 <hr />
 <div class="changes">

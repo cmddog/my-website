@@ -34,6 +34,16 @@
   --transparent-card-radius: .75rem;
 }
 
+[data-theme="swap"] {
+  --accent-colour-highlight: #f8be70;
+  --accent-colour: #faaf3a;
+  --accent-colour-2: #f47a20;
+  --accent-colour-3: #e04e1a;
+  --accent-colour-4: #c42b14;
+  --primary-colour-highlight: #705be3;
+  --primary-colour: #6446ea;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -48,8 +58,12 @@ body {
   color: var(--text-primary);
 }
 
-.color-primary {
+.colour-primary {
   color: var(--primary-colour)
+}
+
+.colour-accent {
+  color: var(--accent-colour)
 }
 
 .hidden {

@@ -26,6 +26,7 @@ export class DraggableContainerComponent implements OnInit, OnDestroy {
   readonly top = signal(0);
   readonly width = signal<number | null>(null); // null = fit-content
   readonly height = signal<number | null>(null);
+  readonly zIndex = input<number>(0);
   // Drag state
   private isDragging = false;
   private dragStartX = 0;
@@ -43,6 +44,7 @@ export class DraggableContainerComponent implements OnInit, OnDestroy {
     return {
       left: `${this.left()}px`,
       top: `${this.top()}px`,
+      zIndex: `${this.zIndex()}`,
       ...(this.width() !== null && { width: `${this.width()}px` }),
       ...(this.height() !== null && { height: `${this.height()}px` })
     };
