@@ -3,11 +3,11 @@
   [ngStyle]="cardStyles"
   class="draggable-card"
 >
-  <!-- Drag handle header -->
   <div
     (mousedown)="onHeaderMouseDown($event)"
     class="card-header"
   >
+    <!-- header -->
     <span class="card-title">{{ cardTitle() }}</span>
     <button (click)="closeButtonClicked.emit()" class="header-x">
       <svg height="24px" viewBox="0 -960 960 960" width="24px" xmlns="http://www.w3.org/2000/svg">
@@ -16,21 +16,22 @@
     </button>
   </div>
 
-  <!-- Card body – projects whatever the consumer puts inside -->
+  <!-- body -->
   <div class="card-body">
     <ng-content />
   </div>
 
-  <!-- Resize handle (bottom-right corner) -->
-  <div
-    (mousedown)="onResizeMouseDown($event)"
-    [class.hidden]="!allowResize()"
-    class="resize-handle"
-    title="Drag to resize"
-  >
-    <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
-      <line stroke="currentColor" stroke-width="1.5" x1="3" x2="10" y1="10" y2="3" />
-      <line stroke="currentColor" stroke-width="1.5" x1="6" x2="10" y1="10" y2="6" />
-    </svg>
-  </div>
+  <!-- optional resize handle -->
+  @if (allowResize()) {
+    <div
+      (mousedown)="onResizeMouseDown($event)"
+      class="resize-handle"
+      title="Drag to resize"
+    >
+      <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+        <line stroke="currentColor" stroke-width="1.5" x1="3" x2="10" y1="10" y2="3" />
+        <line stroke="currentColor" stroke-width="1.5" x1="6" x2="10" y1="10" y2="6" />
+      </svg>
+    </div>
+  }
 </div>
