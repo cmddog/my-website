@@ -6,7 +6,7 @@ import { HomeComponent } from '../home/home.component';
 enum Option {
   Commissions = 0,
   Home = 1,
-  Creations = 2,
+  Gallery = 2,
 }
 
 @Component({
@@ -19,7 +19,7 @@ export class TabsComponent {
   loadedTabs: Set<Option> = new Set<Option>([Option.Home]);
   currentTab: Option = Option.Home;
   protected readonly breakpointService = inject(BreakpointService);
-  protected readonly tabs: Option[] = [Option.Commissions, Option.Home, Option.Creations];
+  protected readonly tabs: Option[] = [Option.Commissions, Option.Home, Option.Gallery];
   protected readonly Options = Option;
 
   constructor() {
@@ -36,6 +36,6 @@ export class TabsComponent {
   }
 
   getTabName(tab: Option): string {
-    return ['Commissions', 'Home', 'Creations'][tab];
+    return ['Commissions', 'Home', 'Gallery'][tab];
   }
 }

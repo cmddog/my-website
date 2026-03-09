@@ -5,7 +5,7 @@
       @for (tab of tabs; track tab) {
         <button
           class="tab-button"
-          [disabled]="tab === Options.Commissions || tab === Options.Creations"
+          [disabled]="tab === Options.Commissions || tab === Options.Gallery"
           [class.tab-button-selected]="currentTab === tab"
           (click)="selectTab(tab)"
         >
@@ -22,7 +22,7 @@
     @for (tab of tabs; track tab) {
       <button
         class="mobile-tab-button"
-        [disabled]="tab === Options.Commissions || Options.Creations"
+        [disabled]="tab === Options.Commissions || Options.Gallery"
         [class.mobile-tab-button-selected]="currentTab === tab"
         (click)="selectTab(tab)"
       >
@@ -36,7 +36,7 @@
           <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path d="M18 3v2H2V3h16zm-6 4v2H2V7h10zm6 0v2h-4V7h4zM8 11v2H2v-2h6zm10 0v2h-8v-2h8zm-4 4v2H2v-2h12z" />
           </svg>
-        } @else if (tab === Options.Creations) {
+        } @else if (tab === Options.Gallery) {
           <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path
               d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4.86 8.86l-3 3.87L9 13.14L6 17h12l-3.86-5.14z" />
@@ -53,7 +53,7 @@
   @if (loadedTabs.has(Options.Home)) {
     <app-home
       [class.active]="currentTab === Options.Home"
-      [class.slide-left]="currentTab === Options.Creations"
+      [class.slide-left]="currentTab === Options.Gallery"
     />
   }
 </div>

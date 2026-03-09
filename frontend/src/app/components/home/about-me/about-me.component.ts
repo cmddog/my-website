@@ -10,14 +10,9 @@ import { ThemeService } from '@services';
   templateUrl: './about-me.component.html',
   styleUrl: './about-me.component.scss'
 })
-export class AboutMeComponent implements OnInit {
+export class AboutMeComponent {
   protected readonly themeService = inject(ThemeService);
 
-  protected spriteNumber = 0;
-  protected isChanging = true;
-  protected initialAnimation = true;
-  protected spriteLoadedArray: boolean[] = [false, false, false];
-  private previousSprite = 0;
   private readonly breakpointObserver = inject(BreakpointObserver);
   protected readonly sizeDynamic$ = this.breakpointObserver
     .observe([`(max-width: 47.5rem)`])
@@ -25,46 +20,4 @@ export class AboutMeComponent implements OnInit {
       map((result) => result.matches),
       shareReplay({ bufferSize: 1, refCount: true })
     );
-
-  ngOnInit(): void {
-    if (localStorage.getItem('alreadyVisited')) {
-      this.spriteNumber = this.randomSprite();
-    } else {
-      this.spriteNumber = 1;
-      localStorage.setItem('alreadyVisited', 'true');
-    }
-    setTimeout(() => {
-      this.initialAnimation = false;
-    }, 200);
-  }
-
-  protected changeSprite() {
-    if (this.isChanging) return;
-    this.previousSprite = this.spriteNumber;
-    this.spriteNumber = 0;
-    this.isChanging = true;
-    setTimeout(() => {
-      this.spriteNumber = this.randomSprite(this.previousSprite);
-      setTimeout(() => {
-        this.isChanging = false;
-      }, 150);
-    }, 200);
-  }
-
-  protected spriteLoaded(n: number) {
-    this.spriteLoadedArray[n - 1] = true;
-    if (n === this.spriteNumber) {
-      setTimeout(() => {
-        this.isChanging = false;
-      }, 150);
-    }
-  }
-
-  private randomSprite(n?: number) {
-    if (!n) this.spriteNumber = 0;
-    do {
-      n = Math.floor(Math.random() * 3) + 1;
-    } while (n === this.previousSprite);
-    return n;
-  }
 }

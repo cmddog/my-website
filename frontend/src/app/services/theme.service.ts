@@ -7,6 +7,7 @@ export class ThemeService {
   toggle(checked: boolean): void {
     this.isSwapped.set(checked);
     if (checked) localStorage.setItem('colour-swap', 'true');
+    else localStorage.removeItem('colour-swap');
     document.documentElement.setAttribute('data-theme', checked ? 'swap' : 'none');
   }
 }
