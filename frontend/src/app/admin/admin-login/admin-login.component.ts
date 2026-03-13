@@ -1,10 +1,10 @@
-import {Component, inject} from '@angular/core';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {LoginService} from '../../services/login.service';
-import {HttpErrorResponse} from '@angular/common/http';
-import {Router} from '@angular/router';
-import {catchError, EMPTY, noop, of, throwError} from 'rxjs';
-import {finalize} from 'rxjs/operators';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginService } from '@services';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { catchError, EMPTY, noop, throwError } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-login',
@@ -16,11 +16,10 @@ import {finalize} from 'rxjs/operators';
   styleUrl: './admin-login.component.scss'
 })
 export class AdminLoginComponent {
-  private readonly loginService = inject(LoginService);
-  private readonly router = inject(Router);
-
   protected readonly password = new FormControl;
   protected isLoading = false;
+  private readonly loginService = inject(LoginService);
+  private readonly router = inject(Router);
 
   constructor() {
     if (localStorage.getItem('adminRedirect')) this.router.navigate(['/']).then(noop);
@@ -32,7 +31,7 @@ export class AdminLoginComponent {
         }
         return throwError(() => err);
       })
-    ).subscribe(_ => this.router.navigate(['/admin/dashboard']))
+    ).subscribe(_ => this.router.navigate(['/admin/dashboard']));
   }
 
   protected submit(): void {

@@ -1,6 +1,6 @@
-import {inject, Injectable} from '@angular/core';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {map, Observable, shareReplay} from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map, Observable, shareReplay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class BreakpointService {
       .observe(Breakpoints.HandsetPortrait)
       .pipe(
         map((result) => result.matches),
-        shareReplay(),
+        shareReplay()
       );
   }
 }

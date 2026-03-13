@@ -1,0 +1,51 @@
+.toggle-setting {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: calc(1.5rem * 2 + 4px * 2);
+  height: calc(1.5rem + 4px * 2);
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-tertiary);
+  transition: .4s;
+  border-radius: 2rem;
+  outline: 1px solid color-mix(in srgb, var(--transparent-card-border-colour) 50%, transparent)
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.5rem;
+  width: 1.5rem;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--transparent-card-border-colour);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+
+}
+
+input:checked + .slider:before {
+  background-color: var(--text-green);
+  transform: translateX(1.5rem);
+}

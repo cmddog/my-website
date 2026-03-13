@@ -1,13 +1,12 @@
 package com.cmddog.configuration
 
-import com.cmddog.DatabaseSingleton
 import com.cmddog.models.ErrorResponse
 import com.cmddog.models.LoginRequest
 import com.cmddog.services.UserService
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.plugins.origin
+import io.ktor.server.plugins.*
 import io.ktor.server.plugins.ratelimit.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*

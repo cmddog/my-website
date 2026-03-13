@@ -1,0 +1,62 @@
+.card-desktop {
+  position: relative;
+  min-width: 40rem;
+  max-width: 40rem;
+}
+
+@media (max-width: 47.5rem) {
+  .card-mobile {
+    position: relative;
+    min-width: calc(100dvw - 4rem);
+    max-width: calc(100dvw - 4rem);
+    margin: 0 auto;
+  }
+}
+
+h1 {
+  font-size: 28pt;
+  margin: 1rem;
+}
+
+p {
+  font-size: 14pt;
+}
+
+.separator {
+  height: 1px;
+  border-radius: 1px;
+  width: calc(100% - 2rem);
+  background-color: var(--primary-colour);
+  margin: 1.5rem 1rem 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+}
+
+.social-button-mobile {
+  padding: .5rem;
+  min-width: 3rem;
+  min-height: 3rem;
+  box-shadow: none;
+}
+
+.social-button-mobile:hover {
+  box-shadow: none;
+}
+
+.inner-button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: fit-content;
+  flex-grow: 1;
+}
+

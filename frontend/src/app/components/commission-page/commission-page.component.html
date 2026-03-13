@@ -1,9 +1,9 @@
 <div class="wrapper">
   @let isPortrait = isHandsetPortrait$ | async;
   <div
-    class="simple-card"
     [class.card-desktop]="!isPortrait"
     [class.card-mobile]="isPortrait"
+    class="simple-card"
   >
     <div class="text-and-back">
       <div>
@@ -15,7 +15,7 @@
         </p>
       </div>
       <div>
-        <a href="/" class="inset-button inset-button-text">Back to Socials</a>
+        <a class="inset-button inset-button-text" href="/">Back to Socials</a>
       </div>
     </div>
     @if (!isPortrait) {

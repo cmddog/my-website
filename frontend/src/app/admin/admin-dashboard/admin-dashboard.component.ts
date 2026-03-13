@@ -1,7 +1,7 @@
-import {Component, inject} from '@angular/core';
-import {LoginService} from '@services';
-import {Router} from '@angular/router';
-import {noop} from 'rxjs';
+import { Component, inject } from '@angular/core';
+import { LoginService } from '@services';
+import { Router } from '@angular/router';
+import { noop } from 'rxjs';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -11,13 +11,13 @@ import {noop} from 'rxjs';
 })
 export class AdminDashboardComponent {
   private readonly loginService = inject(LoginService);
-  private readonly router = inject(Router)
+  private readonly router = inject(Router);
 
   constructor() {
     this.loginService.verify().subscribe({
       error: _ => {
-        this.router.navigate(['admin']).then(noop)
+        this.router.navigate(['admin']).then(noop);
       }
-    })
+    });
   }
 }

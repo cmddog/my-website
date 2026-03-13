@@ -12,14 +12,14 @@
   width: 40rem;
   height: 5rem;
   border-radius: 1rem;
-  outline: 4px solid var(--primary-color);
+  outline: 4px solid var(--primary-colour);
   padding: 1rem;
   transition: background-color 250ms ease, outline 100ms;
 }
 
 .input-container:hover, .input-container:focus-within {
   background-color: var(--bg-secondary);
-  outline: 2px solid var(--primary-color)
+  outline: 2px solid var(--primary-colour)
 }
 
 button {
@@ -38,7 +38,7 @@ input {
 }
 
 svg {
-  fill: var(--primary-color);
+  fill: var(--primary-colour);
   height: 3em;
   width: 3em;
 }

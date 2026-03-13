@@ -1,0 +1,45 @@
+#date {
+  color: var(--text-grey);
+  font-size: 11pt;
+  margin-bottom: .5rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  display: flex;
+
+  div:first-child {
+    min-width: 5rem;
+  }
+}
+
+#additions li div:first-child {
+  color: var(--primary-colour);
+  &:before {
+    content: "Added";
+  }
+}
+
+#changes li div:first-child {
+  color: var(--primary-colour-2);
+  &:before {
+    content: "Changed";
+  }
+}
+
+#fixes li div:first-child {
+  color: var(--primary-colour-3);
+  &:before {
+    content: "Fixed";
+  }
+}
+
+#removals li div:first-child {
+  color: var(--primary-colour-4);
+  &:before {
+    content: "Removed";
+  }
+}

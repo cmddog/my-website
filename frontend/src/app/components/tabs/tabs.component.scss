@@ -4,18 +4,21 @@
   justify-content: center;
   position: fixed;
   z-index: 1000;
+  pointer-events: none;
 }
 
 .tab-nav, .mobile-tab-nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background-color: var(--bg-secondary);
+  background: color-mix(in srgb, var(--bg-tertiary) 66%, transparent);
+  backdrop-filter: blur(var(--transparent-card-blur));
   position: relative;
-  overflow: hidden;
 }
 
 .tab-nav {
   border-radius: 0 0 2rem 2rem;
+  box-shadow: 0 4px 6px -1px var(--shadow-colour-1),
+  0 10px 24px -4px var(--shadow-colour-1);
 }
 
 .mobile-tab-nav {
@@ -51,7 +54,7 @@
 .tab-indicator {
   position: absolute;
   height: .25rem;
-  background-color: var(--primary-color);
+  background-color: var(--primary-colour);
   transition: left 0.3s ease, width 0.3s ease;
   pointer-events: none;
   width: 33.333%;
@@ -67,7 +70,7 @@
 
 // Desktop indicator positioning - check 2nd child because 4th child is the indicator
 .tab-nav:has(.tab-button:nth-child(1).tab-button-selected) #desktop-tab-indicator,
-.mobile-tab-nav:has(.mobile-tab-button:nth-child(1).mobile-tab-button-selected) #mobile-tab-indicator{
+.mobile-tab-nav:has(.mobile-tab-button:nth-child(1).mobile-tab-button-selected) #mobile-tab-indicator {
   left: 0;
 }
 
@@ -77,7 +80,7 @@
 }
 
 .tab-nav:has(.tab-button:nth-child(3).tab-button-selected) #desktop-tab-indicator,
-.mobile-tab-nav:has(.mobile-tab-button:nth-child(3).mobile-tab-button-selected) #mobile-tab-indicator{
+.mobile-tab-nav:has(.mobile-tab-button:nth-child(3).mobile-tab-button-selected) #mobile-tab-indicator {
   left: 66.666%;
 }
 
@@ -109,9 +112,7 @@
 }
 
 .tab-content-wrapper {
-  padding-top: 4rem;
   position: relative;
-  overflow-x: hidden;
   height: 100%;
 }
 

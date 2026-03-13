@@ -1,0 +1,37 @@
+<div
+  #cardEl
+  [ngStyle]="cardStyles"
+  class="draggable-card"
+>
+  <div
+    (mousedown)="onHeaderMouseDown($event)"
+    class="card-header"
+  >
+    <!-- header -->
+    <span class="card-title">{{ cardTitle() }}</span>
+    <button (click)="closeButtonClicked.emit()" class="header-x">
+      <svg height="24px" viewBox="0 -960 960 960" width="24px" xmlns="http://www.w3.org/2000/svg">
+        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- body -->
+  <div class="card-body">
+    <ng-content />
+  </div>
+
+  <!-- optional resize handle -->
+  @if (allowResize()) {
+    <div
+      (mousedown)="onResizeMouseDown($event)"
+      class="resize-handle"
+      title="Drag to resize"
+    >
+      <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+        <line stroke="currentColor" stroke-width="1.5" x1="3" x2="10" y1="10" y2="3" />
+        <line stroke="currentColor" stroke-width="1.5" x1="6" x2="10" y1="10" y2="6" />
+      </svg>
+    </div>
+  }
+</div>

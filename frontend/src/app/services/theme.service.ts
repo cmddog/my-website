@@ -1,38 +1,13 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class ThemeService {
-  private isDarkMode = new BehaviorSubject<boolean>(this.getInitialTheme());
-  isDarkMode$ = this.isDarkMode.asObservable();
+  readonly isSwapped = signal(false);
 
-  constructor() {
-    this.applyTheme(this.isDarkMode.value);
-  }
-
-  private getInitialTheme(): boolean {
-    const saved = localStorage.getItem('theme');
-    if (saved) return saved === 'dark';
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  }
-
-  toggleTheme(): void {
-    const newTheme = !this.isDarkMode.value;
-    this.setTheme(newTheme);
-  }
-
-  setTheme(isDark: boolean): void {
-    this.isDarkMode.next(isDark);
-    //localStorage.setItem('theme', isDark ? 'dark' : 'light'); Add back once there is a theme toggle
-    this.applyTheme(isDark);
-  }
-
-  private applyTheme(isDark: boolean): void {
-    document.documentElement.setAttribute(
-      'data-theme',
-      isDark ? 'dark' : 'light',
-    );
+  toggle(checked: boolean): void {
+    this.isSwapped.set(checked);
+    if (checked) localStorage.setItem('colour-swap', 'true');
+    else localStorage.removeItem('colour-swap');
+    document.documentElement.setAttribute('data-theme', checked ? 'swap' : 'none');
   }
 }
