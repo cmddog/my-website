@@ -22,7 +22,7 @@
   </div>
 
   <!-- optional resize handle -->
-  @if (allowResize()) {
+  @if (resizable()) {
     <div
       (mousedown)="onResizeMouseDown($event)"
       class="resize-handle"

@@ -18,7 +18,7 @@ export class DraggableContainerComponent implements OnInit, OnDestroy {
   maxHeight = input<number>();
   prefHeight = input<number>();
 
-  allowResize = input<boolean>(true);
+  resizable = input<boolean>(true);
   cardTitle = input<string>('Card');
 
   @ViewChild('cardEl', { static: true }) cardElRef!: ElementRef<HTMLElement>;
@@ -50,15 +50,14 @@ export class DraggableContainerComponent implements OnInit, OnDestroy {
     };
   }
 
-  // but have no size of their own.
   private get container(): HTMLElement {
     let el = this.cardElRef.nativeElement.parentElement;
+    // Walks up from the card element to find the first ancestor with actual dimensions.
+    // Needed because Angular host elements sit between #cardEl and .wrapper in the DOM
+    // but have no size of their own.
     while (el && el.clientWidth === 0 && el.clientHeight === 0) el = el.parentElement;
     return el as HTMLElement;
   }
-
-  // Walks up from the card element to find the first ancestor with actual dimensions.
-  // Needed because Angular host elements sit between #cardEl and .wrapper in the DOM
 
   private get el(): HTMLElement {
     return this.cardElRef.nativeElement;

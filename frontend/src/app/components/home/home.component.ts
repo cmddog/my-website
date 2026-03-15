@@ -1,9 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AboutMeComponent } from './about-me/about-me.component';
 import { DraggableContainerComponent } from '../draggable-container/draggable-container.component';
 import { ChangelogComponent } from './changelog/changelog.component';
 import { NeighbourhoodComponent } from './neighbourhood/neighbourhood.component';
 import { SettingsComponent } from './settings/settings.component';
+import { BreakpointService } from '@services';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -12,12 +14,16 @@ import { SettingsComponent } from './settings/settings.component';
     DraggableContainerComponent,
     ChangelogComponent,
     NeighbourhoodComponent,
-    SettingsComponent
+    SettingsComponent,
+    AsyncPipe
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  // tmp
+  protected readonly breakpointService = inject(BreakpointService);
+
   readonly windows = new Map([
     ['introduction', 'Introduction'],
     ['changelog', 'Changelog'],

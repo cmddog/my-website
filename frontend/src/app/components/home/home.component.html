@@ -1,64 +1,74 @@
 <div class="window-constraint">
-  @if (openWindows().has('introduction')) {
-    <app-draggable-container
-      (closeButtonClicked)="close('introduction')"
-      (mousedown)="bringToFront('introduction')"
-      [allowResize]="false"
-      [prefWidth]="42 * 16"
-      [zIndex]="zIndices()['introduction']"
-      animate.enter="window-enter"
-      animate.leave="window-leave"
-      cardTitle="Introduction"
-    >
-      <app-about-me />
-    </app-draggable-container>
-  }
+  @let isMobile = breakpointService.isMobile$() | async;
+  @if (!isMobile) {
+    @if (openWindows().has('introduction')) {
+      <app-draggable-container
+        (closeButtonClicked)="close('introduction')"
+        (mousedown)="bringToFront('introduction')"
+        [resizable]="false"
+        [prefWidth]="42 * 16"
+        [zIndex]="zIndices()['introduction']"
+        animate.enter="window-enter"
+        animate.leave="window-leave"
+        cardTitle="Introduction"
+      >
+        <app-about-me />
+      </app-draggable-container>
+    }
 
-  @if (openWindows().has('changelog')) {
-    <app-draggable-container
-      (closeButtonClicked)="close('changelog')"
-      (mousedown)="bringToFront('changelog')"
-      [minWidth]="25 * 16"
-      [minHeight]="16 * 16"
-      [maxWidth]="50 * 16"
-      [prefWidth]="50 * 16"
-      [zIndex]="zIndices()['changelog']"
-      animate.enter="window-enter"
-      animate.leave="window-leave"
-      cardTitle="Changelog"
-    >
-      <app-changelog />
-    </app-draggable-container>
-  }
+    @if (openWindows().has('changelog')) {
+      <app-draggable-container
+        (closeButtonClicked)="close('changelog')"
+        (mousedown)="bringToFront('changelog')"
+        [minWidth]="25 * 16"
+        [minHeight]="16 * 16"
+        [maxWidth]="50 * 16"
+        [prefWidth]="50 * 16"
+        [zIndex]="zIndices()['changelog']"
+        animate.enter="window-enter"
+        animate.leave="window-leave"
+        cardTitle="Changelog"
+      >
+        <app-changelog />
+      </app-draggable-container>
+    }
 
-  @if (openWindows().has('neighbourhood')) {
-    <app-draggable-container
-      (closeButtonClicked)="close('neighbourhood')"
-      (mousedown)="bringToFront('neighbourhood')"
-      [minWidth]="30 * 16"
-      [minHeight]="18 * 16"
-      [prefHeight]="18 * 16"
-      [prefWidth]="30 * 16"
-      [zIndex]="zIndices()['neighbourhood']"
-      animate.enter="window-enter"
-      animate.leave="window-leave"
-      cardTitle="Neighbourhood"
-    >
-      <app-neighbourhood />
-    </app-draggable-container>
-  }
+    @if (openWindows().has('neighbourhood')) {
+      <app-draggable-container
+        (closeButtonClicked)="close('neighbourhood')"
+        (mousedown)="bringToFront('neighbourhood')"
+        [minWidth]="30 * 16"
+        [minHeight]="18 * 16"
+        [prefHeight]="18 * 16"
+        [prefWidth]="30 * 16"
+        [zIndex]="zIndices()['neighbourhood']"
+        animate.enter="window-enter"
+        animate.leave="window-leave"
+        cardTitle="Neighbourhood"
+      >
+        <app-neighbourhood />
+      </app-draggable-container>
+    }
 
-  @if (openWindows().has('settings')) {
-    <app-draggable-container
-      (closeButtonClicked)="close('settings')"
-      (mousedown)="bringToFront('settings')"
-      [allowResize]="false"
-      [zIndex]="zIndices()['settings']"
-      animate.enter="window-enter"
-      animate.leave="window-leave"
-      cardTitle="Settings"
-    >
-      <app-settings />
+    @if (openWindows().has('settings')) {
+      <app-draggable-container
+        (closeButtonClicked)="close('settings')"
+        (mousedown)="bringToFront('settings')"
+        [resizable]="false"
+        [zIndex]="zIndices()['settings']"
+        animate.enter="window-enter"
+        animate.leave="window-leave"
+        cardTitle="Settings"
+      >
+        <app-settings />
+      </app-draggable-container>
+    }
+  } @else {
+    <app-draggable-container [cardTitle]="'Whoopsie Daisy'" [class.hidden]="!(breakpointService.isMobile$() | async)" [resizable]="false">
+      <div>
+        <h1>Whoops!</h1>
+        <p>Yeah so I forgot to make the most recent update mobile compatible. If you wanna look at the website on your phone, switch to desktop mode until I fix that</p>
+      </div>
     </app-draggable-container>
   }
 </div>
