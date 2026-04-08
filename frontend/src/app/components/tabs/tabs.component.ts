@@ -12,7 +12,7 @@ enum Option {
 
 @Component({
   selector: 'app-tabs',
-  imports: [AsyncPipe, HomeComponent, DraggableContainerComponent],
+  imports: [AsyncPipe, HomeComponent],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss'
 })

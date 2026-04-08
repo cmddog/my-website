@@ -6,7 +6,7 @@ import { ThemeService } from '@services';
 
 @Component({
   selector: 'app-about-me',
-  imports: [NgOptimizedImage, NgClass, AsyncPipe],
+  imports: [NgOptimizedImage, AsyncPipe],
   templateUrl: './about-me.component.html',
   styleUrl: './about-me.component.scss'
 })
