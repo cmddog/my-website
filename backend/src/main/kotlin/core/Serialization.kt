@@ -1,4 +1,4 @@
-package com.cmddog.configuration
+package com.cmddog.core
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
