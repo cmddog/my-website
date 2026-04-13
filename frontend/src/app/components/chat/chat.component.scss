@@ -1,0 +1,35 @@
+.chat-bar {
+  position: absolute;
+  bottom: .5rem;
+  left: .5rem;
+  font-family: "Minecraft", sans-serif;
+  padding: 0 .25rem;
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+#chat-bar-hint {
+  font-style: italic;
+  color: var(--text-grey);
+  opacity: 75%;
+}
+
+#chat-bar-input:focus ~ #chat-bar-hint {
+  display: none;
+}
+
+#chat-bar-input {
+  opacity: 0;
+  pointer-events: none;
+  width: calc(100% - 1rem);
+
+  background-color: rgba(0, 0, 0, 50%);
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+}
+
+#chat-bar-input:focus {
+  opacity: 1;
+  pointer-events: unset;
+}
