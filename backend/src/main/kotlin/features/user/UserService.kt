@@ -1,8 +1,8 @@
-package com.cmddog.services
+package com.cmddog.features.user
 
-import com.cmddog.DatabaseSingleton
-import models.User
-import models.Users
+import com.cmddog.core.DatabaseSingleton
+import com.cmddog.features.user.models.database.User
+import com.cmddog.features.user.models.database.Users
 import org.ktorm.dsl.eq
 import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
