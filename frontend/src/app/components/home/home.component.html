@@ -12,7 +12,7 @@
         animate.leave="window-leave"
         cardTitle="Introduction"
       >
-        <app-about-me />
+        <app-about-me/>
       </app-draggable-container>
     }
 
@@ -29,7 +29,7 @@
         animate.leave="window-leave"
         cardTitle="Changelog"
       >
-        <app-changelog />
+        <app-changelog/>
       </app-draggable-container>
     }
 
@@ -46,7 +46,7 @@
         animate.leave="window-leave"
         cardTitle="Neighbourhood"
       >
-        <app-neighbourhood />
+        <app-neighbourhood/>
       </app-draggable-container>
     }
 
@@ -60,55 +60,59 @@
         animate.leave="window-leave"
         cardTitle="Settings"
       >
-        <app-settings />
+        <app-settings/>
       </app-draggable-container>
     }
   } @else {
-    <app-draggable-container [cardTitle]="'Whoopsie Daisy'" [class.hidden]="!(breakpointService.isMobile$() | async)" [resizable]="false">
+    <app-draggable-container [cardTitle]="'Whoopsie Daisy'" [class.hidden]="!(breakpointService.isMobile$() | async)"
+                             [resizable]="false">
       <div>
         <h1>Whoops!</h1>
-        <p>Yeah so I forgot to make the most recent update mobile compatible. If you wanna look at the website on your phone, switch to desktop mode until I fix that</p>
+        <p>Yeah so I forgot to make the most recent update mobile compatible. If you wanna look at the website on your
+          phone, switch to desktop mode until I fix that</p>
       </div>
     </app-draggable-container>
   }
 </div>
 
-<div class="taskbar">
-  @for (entry of windows; track entry[0]) {
-    @if (!openWindows().has(entry[0])) {
-      <button (click)="open(entry[0])"
-              animate.enter="tab-enter"
-              animate.leave="tab-leave">{{ entry[1] }}
-        @if (entry[0] == 'introduction') {
-          <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
-               fill="currentColor">
-            <path
-              d="M237-285q54-38 115.5-56.5T480-360q66 0 127.5 18.5T723-285q35-41 52-91t17-104q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 54 17 104t52 91Zm141-165q-42-42-42-102t42-102q42-42 102-42t102 42q42 42 42 102t-42 102q-42 42-102 42t-102-42ZM480-96q-79 0-149-30t-122.5-82.5Q156-261 126-331T96-480q0-80 30-149.5t82.5-122Q261-804 331-834t149-30q80 0 149.5 30t122 82.5Q804-699 834-629.5T864-480q0 79-30 149t-82.5 122.5Q699-156 629.5-126T480-96Zm100-88.5q48-16.5 90-48.5-43-27-91-41t-99-14q-51 0-99.5 13.5T290-233q42 32 90 48.5T480-168q52 0 100-16.5ZM531-501q21-21 21-51t-21-51q-21-21-51-21t-51 21q-21 21-21 51t21 51q21 21 51 21t51-21Zm-51-51Zm0 319Z" />
-          </svg>
-        } @else if (entry[0] == 'changelog') {
-          <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
-               fill="currentColor">
-            <path
-              d="M216-312h528v-72H216v72Zm0-132h528v-72H216v72Zm0-132h384v-72H216v72Zm-48 384q-29.7 0-50.85-21.16Q96-234.32 96-264.04v-432.24Q96-726 117.15-747T168-768h624q29.7 0 50.85 21.16Q864-725.68 864-695.96v432.24Q864-234 842.85-213T792-192H168Zm0-72h624v-432H168v432Zm0 0v-432 432Z" />
-          </svg>
-        } @else if (entry[0] == 'neighbourhood') {
-          <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
-               fill="currentColor">
-            <path
-              d="M192-144v-337l-64 49-44-58 108-82v-124h72v69l216-165 396 302-44 58-64-49v337H192Zm72-72h180v-144.27h72V-216h180v-320.33L480-701 264-537v321Zm-72-528q0-48 30-78t78-30q17 0 26.5-9.5T336-888h72q0 48-30 78t-78 30q-17 0-26.5 9.5T264-744h-72Zm72 528h432-432Z" />
-          </svg>
-        } @else if (entry[0] == 'settings') {
-          <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
-            <path
-              d="m403-96-22-114q-23-9-44.5-21T296-259l-110 37-77-133 87-76q-2-12-3-24t-1-25q0-13 1-25t3-24l-87-76 77-133 110 37q19-16 40.5-28t44.5-21l22-114h154l22 114q23 9 44.5 21t40.5 28l110-37 77 133-87 76q2 12 3 24t1 25q0 13-1 25t-3 24l87 76-77 133-110-37q-19 16-40.5 28T579-210L557-96H403Zm59-72h36l19-99q38-7 71-26t57-48l96 32 18-30-76-67q6-17 9.5-35.5T696-480q0-20-3.5-38.5T683-554l76-67-18-30-96 32q-24-29-57-48t-71-26l-19-99h-36l-19 99q-38 7-71 26t-57 48l-96-32-18 30 76 67q-6 17-9.5 35.5T264-480q0 20 3.5 38.5T277-406l-76 67 18 30 96-32q24 29 57 48t71 26l19 99Zm18-168q60 0 102-42t42-102q0-60-42-102t-102-42q-60 0-102 42t-42 102q0 60 42 102t102 42Zm0-144Z" />
-          </svg>
-        } @else {
-          <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px"
-               fill="currentColor">
-            <path d="M120-120v-320h80v184l504-504H520v-80h320v320h-80v-184L256-200h184v80H120Z" />
-          </svg>
-        }
-      </button>
-    }
-  }
-</div>
+@for (entry of taskbarEntries(); track entry[0]) {
+  <button class="task-bar-button"
+          #taskBarButton
+          (click)="open(entry[0])"
+          animate.enter="tab-enter"
+          animate.leave="tab-leave"
+          [style.right.px]="taskbarButtonPositions()[$index] ?? 0">
+    @if (entry[0] == 'introduction') {
+      <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
+           fill="currentColor">
+        <path
+          d="M237-285q54-38 115.5-56.5T480-360q66 0 127.5 18.5T723-285q35-41 52-91t17-104q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 54 17 104t52 91Zm141-165q-42-42-42-102t42-102q42-42 102-42t102 42q42 42 42 102t-42 102q-42 42-102 42t-102-42ZM480-96q-79 0-149-30t-122.5-82.5Q156-261 126-331T96-480q0-80 30-149.5t82.5-122Q261-804 331-834t149-30q80 0 149.5 30t122 82.5Q804-699 834-629.5T864-480q0 79-30 149t-82.5 122.5Q699-156 629.5-126T480-96Zm100-88.5q48-16.5 90-48.5-43-27-91-41t-99-14q-51 0-99.5 13.5T290-233q42 32 90 48.5T480-168q52 0 100-16.5ZM531-501q21-21 21-51t-21-51q-21-21-51-21t-51 21q-21 21-21 51t21 51q21 21 51 21t51-21Zm-51-51Zm0 319Z"/>
+      </svg>
+    } @else if (entry[0] == 'changelog') {
+      <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
+           fill="currentColor">
+        <path
+          d="M216-312h528v-72H216v72Zm0-132h528v-72H216v72Zm0-132h384v-72H216v72Zm-48 384q-29.7 0-50.85-21.16Q96-234.32 96-264.04v-432.24Q96-726 117.15-747T168-768h624q29.7 0 50.85 21.16Q864-725.68 864-695.96v432.24Q864-234 842.85-213T792-192H168Zm0-72h624v-432H168v432Zm0 0v-432 432Z"/>
+      </svg>
+    } @else if (entry[0] == 'neighbourhood') {
+      <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
+           fill="currentColor">
+        <path
+          d="M192-144v-337l-64 49-44-58 108-82v-124h72v69l216-165 396 302-44 58-64-49v337H192Zm72-72h180v-144.27h72V-216h180v-320.33L480-701 264-537v321Zm-72-528q0-48 30-78t78-30q17 0 26.5-9.5T336-888h72q0 48-30 78t-78 30q-17 0-26.5 9.5T264-744h-72Zm72 528h432-432Z"/>
+      </svg>
+    } @else if (entry[0] == 'settings') {
+      <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
+           fill="currentColor">
+        <path
+          d="m403-96-22-114q-23-9-44.5-21T296-259l-110 37-77-133 87-76q-2-12-3-24t-1-25q0-13 1-25t3-24l-87-76 77-133 110 37q19-16 40.5-28t44.5-21l22-114h154l22 114q23 9 44.5 21t40.5 28l110-37 77 133-87 76q2 12 3 24t1 25q0 13-1 25t-3 24l87 76-77 133-110-37q-19 16-40.5 28T579-210L557-96H403Zm59-72h36l19-99q38-7 71-26t57-48l96 32 18-30-76-67q6-17 9.5-35.5T696-480q0-20-3.5-38.5T683-554l76-67-18-30-96 32q-24-29-57-48t-71-26l-19-99h-36l-19 99q-38 7-71 26t-57 48l-96-32-18 30 76 67q-6 17-9.5 35.5T264-480q0 20 3.5 38.5T277-406l-76 67 18 30 96-32q24 29 57 48t71 26l19 99Zm18-168q60 0 102-42t42-102q0-60-42-102t-102-42q-60 0-102 42t-42 102q0 60 42 102t102 42Zm0-144Z"/>
+      </svg>
+    } @else {
+      <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px"
+           fill="currentColor">
+        <path d="M120-120v-320h80v184l504-504H520v-80h320v320h-80v-184L256-200h184v80H120Z"/>
+      </svg>
+    }{{ entry[1] }}
+  </button>
+}
+
+<app-chat/>
