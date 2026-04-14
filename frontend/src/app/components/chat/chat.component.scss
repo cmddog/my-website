@@ -1,3 +1,11 @@
+.chat-window {
+  position: absolute;
+  bottom: 2rem;
+
+  display: flex;
+  flex-direction: row;
+}
+
 .chat-bar {
   position: absolute;
   bottom: .5rem;

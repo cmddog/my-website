@@ -81,7 +81,7 @@
           (click)="open(entry[0])"
           animate.enter="tab-enter"
           animate.leave="tab-leave"
-          [style.right.px]="taskbarButtonPositions()[$index] ?? 0">
+          [style.right.px]="taskbarButtonPositions()[$index]">
     @if (entry[0] == 'introduction') {
       <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
            fill="currentColor">
