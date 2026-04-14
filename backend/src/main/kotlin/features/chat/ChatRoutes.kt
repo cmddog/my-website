@@ -79,6 +79,11 @@ fun Route.chatRoutes() {
                     return@post
                 }
 
+                if (call.sessions.get<UserSession>() !== null) {
+                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Logged in users can not send guest messages"))
+                    return@post
+                }
+
                 val guestSession = call.sessions.get<GuestSession>()
                     ?: GuestSession(
                         guestNumber = (1000..9999).random(),
