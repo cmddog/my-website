@@ -97,7 +97,7 @@ fun Route.chatRoutes() {
                         sessionId = UUID.randomUUID().toString()
                     ).also { call.sessions.set(it) }
 
-                val msg = ChatService.addMessage("Guest #${guestSession.guestNumber}", req.content)
+                val msg = ChatService.addMessage("Guest#${guestSession.guestNumber}", req.content)
                 ChatService.broadcast(ChatEvent(ChatEventType.MESSAGE, Json.encodeToString(msg)))
                 call.respond(HttpStatusCode.OK)
             }

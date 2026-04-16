@@ -31,7 +31,10 @@ export class ChatComponent {
       chatInput.blur();
     } else if (event.key === 'Enter') {
       this.chat.sendMessage$(chatInput.value).subscribe({
-        next: (_) => console.log('success'),
+        next: (_) => {
+          chatInput.value = '';
+          chatInput.blur();
+        },
         error: (err) => console.log('nope ', err),
         complete: () => console.log('completed'),
       });
