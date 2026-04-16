@@ -1,7 +1,9 @@
-<div class="chat-window">
+<input class="chat-bar" id="chat-bar-input" #chatInput/>
+
+<p class="chat-bar" id="chat-bar-hint" (click)="chatInput.focus()">Press 't' or click here to chat...</p>
+
+<div id="chat-window">
   @for (m of chat.messages(); track m.id) {
-    <p> <{{ m.sender }}> {{ m.content }}</p>
+    <p class="minecraft"><{{ m.sender }}>&nbsp;{{ m.content }}</p>
   }
 </div>
-<input class="chat-bar" id="chat-bar-input" #chatInput/>
-<p class="chat-bar" id="chat-bar-hint" (click)="chatInput.focus()">Press 't' or click here to chat...</p>

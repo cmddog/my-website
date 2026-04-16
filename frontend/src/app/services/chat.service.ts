@@ -11,17 +11,12 @@ export interface ChatMessage {
 }
 
 export interface ChatEvent {
-  type: 'message' | 'history' | 'join' | 'leave';
+  type: 'MESSAGE' | 'HISTORY' | 'JOIN' | 'LEAVE';
   payload: string;
 }
 
-export interface MeResponse {
-  type: 'user' | 'guest' | 'anonymous';
-  displayName: string | null;
-}
-
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ChatService {
   private readonly http = inject(HttpClient);
@@ -44,22 +39,19 @@ export class ChatService {
   }
 
   connect(): void {
-    console.log('trying to connect');
     if (this.eventSource) return;
 
     this.eventSource = new EventSource('/api/chat/stream', {
-      withCredentials: true,
+      withCredentials: true
     });
-
-    console.log('eventSource: ', this.eventSource);
 
     this.eventSource.addEventListener('chat', (e: MessageEvent) => {
       const event: ChatEvent = JSON.parse(e.data);
 
-      if (event.type === 'history') {
+      if (event.type === 'HISTORY') {
         const msgs: ChatMessage[] = JSON.parse(event.payload);
         this._messages.set(msgs);
-      } else if (event.type === 'message') {
+      } else if (event.type === 'MESSAGE') {
         const msg: ChatMessage = JSON.parse(event.payload);
         this._messages.update((msgs) => [...msgs, msg].slice(0, 99));
       }
@@ -67,23 +59,16 @@ export class ChatService {
 
     this.auth.refresh$();
 
-    console.log('user: ', this.auth.identity());
-
     this.eventSource.onopen = () => {
       this.retries = 0;
       this._connected.set(true);
     };
+
     this.eventSource.onerror = () => {
       this._connected.set(false);
 
       if (this.retries < this.MAX_RETRIES) {
         setTimeout(() => {
-          console.log(
-            'failed, retrying. Count: ',
-            this.retries,
-            ', delay: ',
-            this.retryDelay(),
-          );
           this.retries++;
           this.eventSource?.close();
           this.eventSource = null;
@@ -100,18 +85,15 @@ export class ChatService {
     this.eventSource?.close();
     this.eventSource = null;
     this._connected.set(false);
-    console.log('disconnected');
   }
 
   sendMessage$(content: string): Observable<any> {
-    console.log('sending message');
     if (content.length > 256)
       return throwError(() => new Error('Message too long'));
 
     const endpoint = this.auth.isUser()
       ? '/api/chat/message'
       : '/api/chat/message/guest';
-    console.log('is user? ', this.auth.isUser(), ', endpoint: ', endpoint);
 
     return this.http.post(endpoint, { content }, { withCredentials: true });
   }
