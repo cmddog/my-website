@@ -18,6 +18,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.util.UUID
 import kotlin.collections.isNotEmpty
+import kotlin.time.Duration.Companion.seconds
 
 private fun String.isSafeMessage() = isNotBlank() && length <= 500
 
@@ -27,6 +28,12 @@ data class SendMessageRequest(val content: String)
 fun Route.chatRoutes() {
     route("/chat") {
         sse("/stream") {
+            println("New SSE connection made");
+            heartbeat {
+                period = 1.seconds
+                event = ServerSentEvent("heartbeat");
+            }
+
             // Send history to this client immediately on connect
             val history = ChatService.getHistory()
             if (history.isNotEmpty()) {
