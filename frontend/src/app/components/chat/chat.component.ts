@@ -29,6 +29,12 @@ export class ChatComponent {
       event.preventDefault();
     } else if (event.key === 'Escape') {
       chatInput.blur();
+    } else if (event.key === 'Enter') {
+      this.chat.sendMessage$(chatInput.value).subscribe({
+        next: (_) => console.log('success'),
+        error: (err) => console.log('nope ', err),
+        complete: () => console.log('completed'),
+      });
     }
   }
 
