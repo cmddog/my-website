@@ -104,12 +104,14 @@ export class ChatService {
   }
 
   sendMessage$(content: string): Observable<any> {
+    console.log('sending message');
     if (content.length > 256)
       return throwError(() => new Error('Message too long'));
 
     const endpoint = this.auth.isUser()
       ? '/api/chat/message'
       : '/api/chat/message/guest';
+    console.log('is user? ', this.auth.isUser(), ', endpoint: ', endpoint);
 
     return this.http.post(endpoint, { content }, { withCredentials: true });
   }
