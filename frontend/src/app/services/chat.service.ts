@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -16,7 +16,7 @@ export interface ChatEvent {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatService {
   private readonly http = inject(HttpClient);
@@ -27,12 +27,28 @@ export class ChatService {
   private readonly MAX_RETRIES = 5;
   private readonly BASE_DELAY = 1000;
   private readonly MAX_DELAY = 30000;
+  private readonly MESSAGE_FADEOUT = 10 * 1000;
+  private readonly tick = signal(0);
 
   private readonly _messages = signal<ChatMessage[]>([]);
   private readonly _connected = signal(false);
 
   readonly messages = this._messages.asReadonly();
+  readonly recentMessages = computed(() => {
+    this.tick();
+    return this.messages()
+      .slice(-10)
+      .filter((m) => Date.now() - m.timestamp < this.MESSAGE_FADEOUT);
+  });
   readonly connected = this._connected.asReadonly();
+
+  constructor() {
+    effect(() => {
+      const lastMessage = this.messages().at(-1);
+      if (!lastMessage) return;
+      setTimeout(() => this.tick.update((t) => t + 1), this.MESSAGE_FADEOUT);
+    });
+  }
 
   private retryDelay() {
     return Math.min(this.BASE_DELAY * 2 ** this.retries, this.MAX_DELAY);
@@ -42,7 +58,7 @@ export class ChatService {
     if (this.eventSource) return;
 
     this.eventSource = new EventSource('/api/chat/stream', {
-      withCredentials: true
+      withCredentials: true,
     });
 
     this.eventSource.addEventListener('chat', (e: MessageEvent) => {
@@ -88,7 +104,7 @@ export class ChatService {
   }
 
   sendMessage$(content: string): Observable<any> {
-    if (content.length > 256)
+    if (content.length > 256 || !content.trim())
       return throwError(() => new Error('Message too long'));
 
     const endpoint = this.auth.isUser()
