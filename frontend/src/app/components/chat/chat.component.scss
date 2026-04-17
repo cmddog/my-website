@@ -1,14 +1,15 @@
-#chat-window {
-  display: none;
+#chat-window, #recent-messages {
   position: absolute;
   bottom: 5rem;
   width: clamp(30rem, 33%, 45rem);
+  max-height: 12.5rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   flex-direction: column;
   font-size: 1.25rem;
-  padding-left: .75rem;
-
-  background-color: rgba(0, 0, 0, 50%);
 
   p {
     margin: 0;
@@ -18,8 +19,43 @@
   }
 }
 
-#chat-bar-input:focus ~ #chat-window {
+#chat-window {
+  display: none;
+  overflow-y: auto;
+  scrollbar-width: none;
+  background-color: rgba(0, 0, 0, 50%);
+  padding-left: .75rem;
+}
+
+#recent-messages {
   display: flex;
+  overflow-y: hidden;
+  p {
+    background-color: rgba(0, 0, 0, 50%);
+    padding-left: .75rem;
+  }
+}
+
+#chat-container:focus-within #chat-window {
+  display: flex;
+}
+
+#chat-container:focus-within #recent-messages {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.message-fade {
+  animation: message-fade 1s forwards;
+}
+
+@keyframes message-fade {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .chat-bar {
@@ -32,17 +68,17 @@
   font-size: 1.25rem;
 }
 
-#chat-bar-hint {
+#chat-hint {
   font-style: italic;
   color: var(--text-grey);
   opacity: 75%;
 }
 
-#chat-bar-input:focus ~ #chat-bar-hint {
+#chat-container:focus-within #chat-hint {
   display: none;
 }
 
-#chat-bar-input {
+#chat-input {
   opacity: 0;
   pointer-events: none;
   width: calc(100% - 1rem);
@@ -53,7 +89,11 @@
   color: var(--text-primary);
 }
 
-#chat-bar-input:focus {
+#chat-input:read-only {
+  color: var(--text-grey);
+}
+
+#chat-container:focus-within #chat-input {
   opacity: 1;
   pointer-events: unset;
 }

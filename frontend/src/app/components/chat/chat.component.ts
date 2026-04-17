@@ -3,6 +3,7 @@ import {
   ElementRef,
   HostListener,
   inject,
+  signal,
   viewChild,
   ViewChild,
 } from '@angular/core';
@@ -19,6 +20,9 @@ export class ChatComponent {
 
   private readonly chatInputRef =
     viewChild.required<ElementRef<HTMLInputElement>>('chatInput');
+  private readonly chatWindowRef =
+    viewChild.required<ElementRef<HTMLDivElement>>('chatWindow');
+  protected readonly sending = signal(false);
 
   @HostListener('window:keydown', ['$event'])
   handleKeydown(event: KeyboardEvent) {
@@ -29,20 +33,30 @@ export class ChatComponent {
       event.preventDefault();
     } else if (event.key === 'Escape') {
       chatInput.blur();
-    } else if (event.key === 'Enter') {
-      this.chat.sendMessage$(chatInput.value).subscribe({
-        next: (_) => {
-          chatInput.value = '';
-          chatInput.blur();
-        },
-        error: (err) => console.log('nope ', err),
-        complete: () => console.log('completed'),
-      });
     }
   }
 
   openChat() {
     if (!this.chat.connected()) this.chat.connect();
+    const chatWindow = this.chatWindowRef().nativeElement;
+    setTimeout(() => (chatWindow.scrollTop = chatWindow.scrollHeight));
     this.chatInputRef().nativeElement.focus();
+  }
+
+  async sendMessage(): Promise<void> {
+    if (this.sending()) return;
+    this.sending.set(true);
+
+    const chatInput = this.chatInputRef().nativeElement;
+
+    this.chat.sendMessage$(chatInput.value).subscribe({
+      next: (_) => {
+        chatInput.value = '';
+        chatInput.blur();
+      },
+      complete: () => {
+        this.sending.set(false);
+      },
+    });
   }
 }
