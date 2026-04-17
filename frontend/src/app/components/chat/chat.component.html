@@ -1,6 +1,6 @@
 <div id="chat-container">
   <div id="recent-messages">
-    @for(m of chat.recentMessages(); track m.id) {
+    @for (m of chat.recentMessages(); track m.id) {
       <p class="minecraft" animate.leave="message-fade"><{{ m.sender }}> {{ m.content }}</p>
     }
   </div>
@@ -11,8 +11,17 @@
     }
   </div>
 
-  <input class="chat-bar" id="chat-input" (keydown.enter)="sendMessage()" [attr.readonly]="sending() ? '' : null"
-         #chatInput/>
+  <input class="chat-bar" [class.red]="chatInput.value.length > 256" id="chat-input" (keydown.enter)="sendMessage()"
+         [attr.readonly]="sending() ? '' : null"
+         #chatInput />
+
+  <p
+    id="message-length-warning"
+    [class.hidden]="chatInput.value.length < 200"
+    [class.red]="chatInput.value.length > 256"
+  >
+    {{ chatInput.value.length }}/256
+  </p>
 
   <p class="chat-bar" id="chat-hint" (click)="chatInput.focus()">Press 't' or click here to chat...</p>
 </div>

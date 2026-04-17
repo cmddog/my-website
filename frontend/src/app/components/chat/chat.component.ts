@@ -5,15 +5,16 @@ import {
   inject,
   signal,
   viewChild,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chat',
   imports: [],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss',
+  styleUrl: './chat.component.scss'
 })
 export class ChatComponent {
   protected readonly chat = inject(ChatService);
@@ -43,20 +44,21 @@ export class ChatComponent {
     this.chatInputRef().nativeElement.focus();
   }
 
-  async sendMessage(): Promise<void> {
+  sendMessage() {
     if (this.sending()) return;
     this.sending.set(true);
 
     const chatInput = this.chatInputRef().nativeElement;
 
-    this.chat.sendMessage$(chatInput.value).subscribe({
-      next: (_) => {
-        chatInput.value = '';
-        chatInput.blur();
-      },
-      complete: () => {
-        this.sending.set(false);
-      },
-    });
+    this.chat.sendMessage$(chatInput.value)
+      .pipe(finalize(() => this.sending.set(false)))
+      .subscribe({
+        next: (_) => {
+          chatInput.value = '';
+          chatInput.blur();
+        },
+        error: (_) => {
+        }
+      });
   }
 }

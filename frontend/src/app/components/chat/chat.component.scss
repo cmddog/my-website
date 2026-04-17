@@ -97,3 +97,22 @@
   opacity: 1;
   pointer-events: unset;
 }
+
+#message-length-warning {
+  display: none;
+  position: absolute;
+  right: .75rem;
+  bottom: 1.5rem;
+  font-family: "Minecraft", sans-serif;
+  font-size: 1.25em;
+  color: var(--text-primary);
+  pointer-events: none;
+}
+
+#chat-container:focus-within #message-length-warning {
+  display: unset;
+}
+
+.red {
+  color: var(--text-red) !important;
+}
