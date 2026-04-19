@@ -8,7 +8,7 @@ import { ThemeService } from '@services';
   selector: 'app-about-me',
   imports: [NgOptimizedImage, AsyncPipe],
   templateUrl: './about-me.component.html',
-  styleUrl: './about-me.component.scss'
+  styleUrl: './about-me.component.scss',
 })
 export class AboutMeComponent {
   protected readonly themeService = inject(ThemeService);
@@ -18,6 +18,6 @@ export class AboutMeComponent {
     .observe([`(max-width: 47.5rem)`])
     .pipe(
       map((result) => result.matches),
-      shareReplay({ bufferSize: 1, refCount: true })
+      shareReplay({ bufferSize: 1, refCount: true }),
     );
 }

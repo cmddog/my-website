@@ -1,11 +1,13 @@
 @let sizeDynamic = sizeDynamic$ | async;
 <h1 class="nunito-regular text-center">Hey, I'm Shiru!</h1>
 <p class="nunito-regular text-center">
-  I'm a fox on the internet who studies computer science and does art & photography in his free time. Everything you see
-  here was hand-coded and designed by yours truly! The Commissions and Gallery parts of this website are still in the
-  works right now, but you'll be able to view my stuff in the latter once it's done! I'm also working on something
-  reaaaally cool for the background right now, so stay tuned! In the meantime, you can find links to my socials (and
-  E-Mail) below—feel free to check them out :3
+  I'm a fox on the internet who studies computer science and does art &
+  photography in his free time. Everything you see here was hand-coded and
+  designed by yours truly! The Commissions and Gallery parts of this website are
+  still in the works right now, but you'll be able to view my stuff in the
+  latter once it's done! I'm also working on something reaaaally cool for the
+  background right now, so stay tuned! In the meantime, you can find links to my
+  socials (and E-Mail) below—feel free to check them out :3
 </p>
 <div class="separator"></div>
 <div class="button-container">
@@ -68,7 +70,11 @@
     target="_blank"
   >
     <img
-      [ngSrc]="themeService.isSwapped() ? '/assets/logos/artfight_purple.png' : '/assets/logos/artfight_gold.png'"
+      [ngSrc]="
+        themeService.isSwapped()
+          ? '/assets/logos/artfight_purple.png'
+          : '/assets/logos/artfight_gold.png'
+      "
       alt="Art Fight Icon"
       height="48"
       width="48"

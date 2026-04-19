@@ -5,20 +5,21 @@ import { TabsComponent } from './components/tabs/tabs.component';
 export const routes: Routes = [
   {
     path: '',
-    component: TabsComponent
+    component: TabsComponent,
   },
   {
     path: 'commissions',
     component: CommissionPageComponent,
-    title: 'Commissions'
+    title: 'Commissions',
   },
   {
     path: 'admin',
-    loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES)
+    loadChildren: () =>
+      import('./admin/admin.routes').then((m) => m.ADMIN_ROUTES),
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];

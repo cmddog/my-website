@@ -14,13 +14,17 @@ enum Option {
   selector: 'app-tabs',
   imports: [AsyncPipe, HomeComponent],
   templateUrl: './tabs.component.html',
-  styleUrl: './tabs.component.scss'
+  styleUrl: './tabs.component.scss',
 })
 export class TabsComponent {
   loadedTabs: Set<Option> = new Set<Option>([Option.Home]);
   currentTab: Option = Option.Home;
   protected readonly breakpointService = inject(BreakpointService);
-  protected readonly tabs: Option[] = [Option.Commissions, Option.Home, Option.Gallery];
+  protected readonly tabs: Option[] = [
+    Option.Commissions,
+    Option.Home,
+    Option.Gallery,
+  ];
   protected readonly Options = Option;
 
   constructor() {

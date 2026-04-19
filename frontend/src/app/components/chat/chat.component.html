@@ -1,22 +1,33 @@
 <div id="chat-container">
   <div id="recent-messages">
     @for (m of chat.recentMessages(); track m.id) {
-      <p class="minecraft" animate.leave="message-fade"><{{ m.sender }}> {{ m.content }}</p>
+      <p class="minecraft" animate.leave="message-fade">
+        <{{ m.sender }}> {{ m.content }}
+      </p>
     }
   </div>
 
-  <div id="chat-window" tabindex="-1" #chatWindow
-       (scroll)="onChatWindowScroll(chatWindow)"
-       (wheel)="onChatWindowWheel($event, chatWindow)">
+  <div
+    id="chat-window"
+    tabindex="-1"
+    #chatWindow
+    (scroll)="onChatWindowScroll(chatWindow)"
+    (wheel)="onChatWindowWheel($event, chatWindow)"
+  >
     @for (m of chat.messages(); track m.id) {
       <p class="minecraft"><{{ m.sender }}>&nbsp;{{ m.content }}</p>
     }
   </div>
   <div id="scrollbar"></div>
 
-  <input class="chat-bar" [class.red]="chatInput.value.length > 256" id="chat-input" (keydown.enter)="sendMessage()"
-         [attr.readonly]="sending() ? '' : null"
-         #chatInput />
+  <input
+    class="chat-bar"
+    [class.red]="chatInput.value.length > 256"
+    id="chat-input"
+    (keydown.enter)="sendMessage()"
+    [attr.readonly]="sending() ? '' : null"
+    #chatInput
+  />
 
   <p
     id="message-length-warning"
@@ -26,5 +37,7 @@
     {{ chatInput.value.length }}/256
   </p>
 
-  <p class="chat-bar" id="chat-hint" (click)="chatInput.focus()">Press 't' or click here to chat...</p>
+  <p class="chat-bar" id="chat-hint" (click)="chatInput.focus()">
+    Press 't' or click here to chat...
+  </p>
 </div>

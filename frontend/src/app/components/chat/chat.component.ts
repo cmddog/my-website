@@ -1,12 +1,14 @@
 import {
   AfterViewInit,
-  Component, computed, effect,
+  Component,
+  computed,
+  effect,
   ElementRef,
   HostListener,
   inject,
   signal,
   viewChild,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { finalize } from 'rxjs/operators';
@@ -15,7 +17,7 @@ import { finalize } from 'rxjs/operators';
   selector: 'app-chat',
   imports: [],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss'
+  styleUrl: './chat.component.scss',
 })
 export class ChatComponent {
   protected readonly chat = inject(ChatService);
@@ -29,7 +31,7 @@ export class ChatComponent {
   constructor() {
     effect(() => {
       this.chat.messages();
-    })
+    });
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -60,15 +62,15 @@ export class ChatComponent {
 
     const chatInput = this.chatInputRef().nativeElement;
 
-    this.chat.sendMessage$(chatInput.value)
+    this.chat
+      .sendMessage$(chatInput.value)
       .pipe(finalize(() => this.sending.set(false)))
       .subscribe({
         next: (_) => {
           chatInput.value = '';
           chatInput.blur();
         },
-        error: (_) => {
-        }
+        error: (_) => {},
       });
   }
 

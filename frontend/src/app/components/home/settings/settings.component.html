@@ -1,8 +1,11 @@
 <div class="settings">
   <div class="toggle-setting mb-4">
-    <div>Swap <span class="colour-primary">primary</span> and <span class="colour-accent">accent</span> colours</div>
+    <div>
+      Swap <span class="colour-primary">primary</span> and
+      <span class="colour-accent">accent</span> colours
+    </div>
     <label class="switch">
-      <input #checkbox type="checkbox" (change)="onThemeSwap($event)">
+      <input #checkbox type="checkbox" (change)="onThemeSwap($event)" />
       <span class="slider"></span>
     </label>
   </div>

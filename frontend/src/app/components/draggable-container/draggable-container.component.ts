@@ -1,11 +1,20 @@
-import { Component, ElementRef, input, OnDestroy, OnInit, output, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  input,
+  OnDestroy,
+  OnInit,
+  output,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-draggable-container',
   imports: [NgStyle],
   templateUrl: './draggable-container.component.html',
-  styleUrl: './draggable-container.component.scss'
+  styleUrl: './draggable-container.component.scss',
 })
 export class DraggableContainerComponent implements OnInit, OnDestroy {
   closeButtonClicked = output();
@@ -46,7 +55,7 @@ export class DraggableContainerComponent implements OnInit, OnDestroy {
       top: `${this.top()}px`,
       zIndex: `${this.zIndex()}`,
       ...(this.width() !== null && { width: `${this.width()}px` }),
-      ...(this.height() !== null && { height: `${this.height()}px` })
+      ...(this.height() !== null && { height: `${this.height()}px` }),
     };
   }
 
@@ -55,7 +64,8 @@ export class DraggableContainerComponent implements OnInit, OnDestroy {
     // Walks up from the card element to find the first ancestor with actual dimensions.
     // Needed because Angular host elements sit between #cardEl and .wrapper in the DOM
     // but have no size of their own.
-    while (el && el.clientWidth === 0 && el.clientHeight === 0) el = el.parentElement;
+    while (el && el.clientWidth === 0 && el.clientHeight === 0)
+      el = el.parentElement;
     return el as HTMLElement;
   }
 
@@ -102,8 +112,12 @@ export class DraggableContainerComponent implements OnInit, OnDestroy {
   }
 
   private centerCard(): void {
-    this.left.set(Math.max(0, (this.container.clientWidth - this.el.offsetWidth) / 2));
-    this.top.set(Math.max(0, (this.container.clientHeight - this.el.offsetHeight) / 2));
+    this.left.set(
+      Math.max(0, (this.container.clientWidth - this.el.offsetWidth) / 2),
+    );
+    this.top.set(
+      Math.max(0, (this.container.clientHeight - this.el.offsetHeight) / 2),
+    );
   }
 
   private constrainCard(): void {
@@ -114,8 +128,18 @@ export class DraggableContainerComponent implements OnInit, OnDestroy {
     if (this.el.offsetWidth > cW) this.width.set(Math.max(minW, cW));
     if (this.el.offsetHeight > cH) this.height.set(Math.max(minH, cH));
 
-    this.left.set(Math.min(this.left(), Math.max(0, cW - (this.width() ?? this.el.offsetWidth))));
-    this.top.set(Math.min(this.top(), Math.max(0, cH - (this.height() ?? this.el.offsetHeight))));
+    this.left.set(
+      Math.min(
+        this.left(),
+        Math.max(0, cW - (this.width() ?? this.el.offsetWidth)),
+      ),
+    );
+    this.top.set(
+      Math.min(
+        this.top(),
+        Math.max(0, cH - (this.height() ?? this.el.offsetHeight)),
+      ),
+    );
   }
 
   // --- Mouse Down Handlers ---
@@ -137,8 +161,18 @@ export class DraggableContainerComponent implements OnInit, OnDestroy {
 
   private performDrag(e: MouseEvent): void {
     const { clientWidth: cW, clientHeight: cH } = this.container;
-    this.left.set(Math.min(Math.max(0, this.dragStartLeft + e.clientX - this.dragStartX), cW - this.el.offsetWidth));
-    this.top.set(Math.min(Math.max(0, this.dragStartTop + e.clientY - this.dragStartY), cH - this.el.offsetHeight));
+    this.left.set(
+      Math.min(
+        Math.max(0, this.dragStartLeft + e.clientX - this.dragStartX),
+        cW - this.el.offsetWidth,
+      ),
+    );
+    this.top.set(
+      Math.min(
+        Math.max(0, this.dragStartTop + e.clientY - this.dragStartY),
+        cH - this.el.offsetHeight,
+      ),
+    );
   }
 
   // --- Template Binding ---
@@ -148,8 +182,16 @@ export class DraggableContainerComponent implements OnInit, OnDestroy {
     let newW = this.resizeStartW + e.clientX - this.resizeStartX;
     let newH = this.resizeStartH + e.clientY - this.resizeStartY;
 
-    newW = Math.min(Math.max(newW, this.minWidth() ?? 50), this.maxWidth() ?? Infinity, cW - this.left());
-    newH = Math.min(Math.max(newH, this.minHeight() ?? 50), this.maxHeight() ?? Infinity, cH - this.top());
+    newW = Math.min(
+      Math.max(newW, this.minWidth() ?? 50),
+      this.maxWidth() ?? Infinity,
+      cW - this.left(),
+    );
+    newH = Math.min(
+      Math.max(newH, this.minHeight() ?? 50),
+      this.maxHeight() ?? Infinity,
+      cH - this.top(),
+    );
 
     this.width.set(newW);
     this.height.set(newH);

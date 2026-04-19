@@ -7,7 +7,8 @@
   pointer-events: none;
 }
 
-.tab-nav, .mobile-tab-nav {
+.tab-nav,
+.mobile-tab-nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   background: color-mix(in srgb, var(--bg-tertiary) 66%, transparent);
@@ -17,8 +18,9 @@
 
 .tab-nav {
   border-radius: 0 0 2rem 2rem;
-  box-shadow: 0 4px 6px -1px var(--shadow-colour-1),
-  0 10px 24px -4px var(--shadow-colour-1);
+  box-shadow:
+    0 4px 6px -1px var(--shadow-colour-1),
+    0 10px 24px -4px var(--shadow-colour-1);
 }
 
 .mobile-tab-nav {
@@ -28,10 +30,11 @@
   z-index: 1000;
 }
 
-.tab-button, .mobile-tab-button {
+.tab-button,
+.mobile-tab-button {
   background: transparent;
   border: none;
-  border-top: solid .25rem transparent;
+  border-top: solid 0.25rem transparent;
   color: var(--text-primary);
   position: relative;
 }
@@ -44,18 +47,20 @@
 }
 
 .mobile-tab-button {
-  padding-block: .5rem;
+  padding-block: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: .25rem;
+  gap: 0.25rem;
   align-items: center;
 }
 
 .tab-indicator {
   position: absolute;
-  height: .25rem;
+  height: 0.25rem;
   background-color: var(--primary-colour);
-  transition: left 0.3s ease, width 0.3s ease;
+  transition:
+    left 0.3s ease,
+    width 0.3s ease;
   pointer-events: none;
   width: 33.333%;
 }
@@ -69,23 +74,30 @@
 }
 
 // Desktop indicator positioning - check 2nd child because 4th child is the indicator
-.tab-nav:has(.tab-button:nth-child(1).tab-button-selected) #desktop-tab-indicator,
-.mobile-tab-nav:has(.mobile-tab-button:nth-child(1).mobile-tab-button-selected) #mobile-tab-indicator {
+.tab-nav:has(.tab-button:nth-child(1).tab-button-selected)
+  #desktop-tab-indicator,
+.mobile-tab-nav:has(.mobile-tab-button:nth-child(1).mobile-tab-button-selected)
+  #mobile-tab-indicator {
   left: 0;
 }
 
-.tab-nav:has(.tab-button:nth-child(2).tab-button-selected) #desktop-tab-indicator,
-.mobile-tab-nav:has(.mobile-tab-button:nth-child(2).mobile-tab-button-selected) #mobile-tab-indicator {
+.tab-nav:has(.tab-button:nth-child(2).tab-button-selected)
+  #desktop-tab-indicator,
+.mobile-tab-nav:has(.mobile-tab-button:nth-child(2).mobile-tab-button-selected)
+  #mobile-tab-indicator {
   left: 33.333%;
 }
 
-.tab-nav:has(.tab-button:nth-child(3).tab-button-selected) #desktop-tab-indicator,
-.mobile-tab-nav:has(.mobile-tab-button:nth-child(3).mobile-tab-button-selected) #mobile-tab-indicator {
+.tab-nav:has(.tab-button:nth-child(3).tab-button-selected)
+  #desktop-tab-indicator,
+.mobile-tab-nav:has(.mobile-tab-button:nth-child(3).mobile-tab-button-selected)
+  #mobile-tab-indicator {
   left: 66.666%;
 }
 
-.tab-button:disabled, .mobile-tab-button:disabled {
-  opacity: .2;
+.tab-button:disabled,
+.mobile-tab-button:disabled {
+  opacity: 0.2;
   cursor: auto;
 }
 
@@ -108,7 +120,7 @@
 .icon-svg {
   height: 2rem;
   width: 2rem;
-  fill: var(--text-primary)
+  fill: var(--text-primary);
 }
 
 .tab-content-wrapper {
