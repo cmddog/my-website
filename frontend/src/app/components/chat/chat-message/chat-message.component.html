@@ -1,0 +1,5 @@
+@if (message().kind === 'chat') {
+  <p class="minecraft-regular"><{{ message().sender }}>&nbsp;{{ message().content }}</p>
+} @else {
+  <p [class]="message().color" class="minecraft-regular">[Server] {{ message().text }}</p>
+}
