@@ -1,3 +1,7 @@
+p, span, input {
+  font-family: Minecraft, sans-serif;
+}
+
 #chat-window,
 #recent-messages {
   position: absolute;
@@ -10,13 +14,6 @@
 
   flex-direction: column;
   font-size: 1.25rem;
-
-  p {
-    margin: 0;
-    line-height: 1.25rem;
-    overflow-wrap: break-word;
-    hyphens: auto;
-  }
 }
 
 #chat-window {
@@ -44,7 +41,7 @@
   display: flex;
   overflow-y: hidden;
   max-height: 12.5rem;
-  p {
+  app-chat-message {
     background-color: rgba(0, 0, 0, 50%);
     padding-left: 0.75rem;
   }
@@ -80,7 +77,6 @@
   position: absolute;
   bottom: 0.5rem;
   left: 0.5rem;
-  font-family: "Minecraft", sans-serif;
   padding: 0 0.25rem;
   margin: 0;
   font-size: 1.25rem;
@@ -121,7 +117,6 @@
   position: absolute;
   right: 0.75rem;
   bottom: 1.5rem;
-  font-family: "Minecraft", sans-serif;
   font-size: 1.25em;
   color: var(--text-primary);
   pointer-events: none;
@@ -132,5 +127,10 @@
 }
 
 .red {
-  color: var(--text-red) !important;
+  color: #FF5555 !important;
+}
+
+.clickable {
+  text-decoration: underline;
+  cursor: pointer;
 }

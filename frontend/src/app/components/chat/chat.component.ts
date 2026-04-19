@@ -6,14 +6,14 @@ import {
   inject,
   signal,
   viewChild,
-
 } from '@angular/core';
-import { ChatService } from '../../services/chat.service';
+import { ChatService } from '@services';
 import { finalize } from 'rxjs/operators';
+import { ChatMessageComponent } from './chat-message/chat-message.component';
 
 @Component({
   selector: 'app-chat',
-  imports: [],
+  imports: [ChatMessageComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
@@ -45,7 +45,7 @@ export class ChatComponent {
   }
 
   openChat() {
-    if (!this.chat.connected()) this.chat.connect();
+    if (!this.chat.connectionState()) this.chat.connect();
     const chatWindow = this.chatWindowRef().nativeElement;
     setTimeout(() => {
       chatWindow.scrollTop = chatWindow.scrollHeight;

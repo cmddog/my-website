@@ -16,8 +16,7 @@ import io.ktor.server.sse.*
 import io.ktor.sse.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import java.util.UUID
-import kotlin.collections.isNotEmpty
+import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
 private fun String.isSafeMessage() = isNotBlank() && length <= 500
@@ -36,14 +35,12 @@ fun Route.chatRoutes() {
 
             // Send history to this client immediately on connect
             val history = ChatService.getHistory()
-            if (history.isNotEmpty()) {
                 send(ServerSentEvent(
                     data = Json.encodeToString(
                         ChatEvent(ChatEventType.HISTORY, Json.encodeToString(history))
                     ),
                     event = "chat"
                 ))
-            }
 
             // Subscribe to broadcasts until the client disconnects
             ChatService.subscribe { event ->

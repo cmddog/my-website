@@ -1,9 +1,7 @@
 <div id="chat-container">
   <div id="recent-messages">
     @for (m of chat.recentMessages(); track m.id) {
-      <p class="minecraft" animate.leave="message-fade">
-        <{{ m.sender }}> {{ m.content }}
-      </p>
+      <app-chat-message [message]="m" animate.leave="message-fade"></app-chat-message>
     }
   </div>
 
@@ -15,7 +13,21 @@
     (wheel)="onChatWindowWheel($event, chatWindow)"
   >
     @for (m of chat.messages(); track m.id) {
-      <p class="minecraft"><{{ m.sender }}>&nbsp;{{ m.content }}</p>
+      <app-chat-message [message]="m" animate.leave="message-fade"></app-chat-message>
+    }
+    @if (!chat.connected()) {
+      @if (chat.connectionState() === 'connecting' || chat.connectionState() === 'idle') {
+        <p>[Server] Connecting...</p>
+      } @else {
+        <p class="red">
+          [Server] Failed to connect to server.&ensp;
+          @if (chat.connectionState() === 'failed') {
+            <span class="clickable" (click)="chat.connect()">Click here</span> to retry.
+          } @else {
+            Retrying in {{ chat.retryIn() }} {{ chat.retryIn() === 1 ? 'second' : 'seconds' }}.
+          }
+        </p>
+      }
     }
   </div>
   <div id="scrollbar"></div>
