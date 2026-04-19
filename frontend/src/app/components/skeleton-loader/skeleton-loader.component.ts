@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: 'skeleton-loader.component.html',
-  styleUrl: 'skeleton-loader.component.scss'
+  styleUrl: 'skeleton-loader.component.scss',
 })
 export class SkeletonLoaderComponent implements OnInit, OnDestroy {
   width = input<string>('100%');

@@ -6,11 +6,11 @@ export const ADMIN_ROUTES: Routes = [
   {
     path: '',
     component: AdminLoginComponent,
-    title: 'Login'
+    title: 'Login',
   },
   {
     path: 'dashboard',
     component: AdminDashboardComponent,
-    title: 'Admin Dashboard'
-  }
+    title: 'Admin Dashboard',
+  },
 ];

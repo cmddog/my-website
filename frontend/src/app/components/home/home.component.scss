@@ -24,7 +24,8 @@
   background: var(--transparent-card-seconary-background-colour);
   backdrop-filter: blur(var(--transparent-card-blur));
   color: var(--transparent-card-border-colour);
-  border-radius: var(--transparent-card-radius) var(--transparent-card-radius) 0 0;
+  border-radius: var(--transparent-card-radius) var(--transparent-card-radius) 0
+    0;
 
   padding-inline: 1rem;
   padding-top: 0.5rem;

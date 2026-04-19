@@ -7,7 +7,7 @@ import { AsyncPipe } from '@angular/common';
   selector: 'app-commission-page',
   imports: [AsyncPipe],
   templateUrl: './commission-page.component.html',
-  styleUrl: './commission-page.component.scss'
+  styleUrl: './commission-page.component.scss',
 })
 export class CommissionPageComponent {
   private breakpointObserver = inject(BreakpointObserver);
@@ -15,6 +15,6 @@ export class CommissionPageComponent {
     .observe([Breakpoints.HandsetPortrait])
     .pipe(
       map((result) => result.matches),
-      shareReplay({ bufferSize: 1, refCount: true })
+      shareReplay({ bufferSize: 1, refCount: true }),
     );
 }
