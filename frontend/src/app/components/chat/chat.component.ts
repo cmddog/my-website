@@ -1,14 +1,12 @@
 import {
-  AfterViewInit,
   Component,
-  computed,
   effect,
   ElementRef,
   HostListener,
   inject,
   signal,
   viewChild,
-  ViewChild,
+
 } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { finalize } from 'rxjs/operators';
@@ -66,21 +64,15 @@ export class ChatComponent {
       .sendMessage$(chatInput.value)
       .pipe(finalize(() => this.sending.set(false)))
       .subscribe({
-        next: (_) => {
+        next: () => {
           chatInput.value = '';
           chatInput.blur();
         },
-        error: (_) => {},
+        error: () => {},
       });
   }
 
   // ----- scrollbar stuff -----
-  protected readonly scrollThumb = computed(() => {
-    // depend on messages so it recalculates when content changes
-    this.chat.messages();
-    return { height: 0, top: 0 };
-  });
-
   onChatWindowScroll(el: HTMLDivElement) {
     const thumb = document.getElementById('scrollbar') as HTMLElement;
     if (!thumb) return;

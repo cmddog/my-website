@@ -103,7 +103,7 @@ export class ChatService {
     this._connected.set(false);
   }
 
-  sendMessage$(content: string): Observable<any> {
+  sendMessage$(content: string): Observable<never> {
     if (content.length > 256 || !content.trim())
       return throwError(() => new Error('Message too long'));
 
@@ -111,6 +111,6 @@ export class ChatService {
       ? '/api/chat/message'
       : '/api/chat/message/guest';
 
-    return this.http.post(endpoint, { content }, { withCredentials: true });
+    return this.http.post<never>(endpoint, { content }, { withCredentials: true });
   }
 }

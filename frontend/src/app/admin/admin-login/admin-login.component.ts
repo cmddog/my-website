@@ -32,7 +32,7 @@ export class AdminLoginComponent {
           return throwError(() => err);
         }),
       )
-      .subscribe((_) => this.router.navigate(['/admin/dashboard']));
+      .subscribe(() => this.router.navigate(['/admin/dashboard']));
   }
 
   protected submit(): void {
@@ -48,7 +48,7 @@ export class AdminLoginComponent {
         }),
       )
       .subscribe({
-        next: (_) => {
+        next: () => {
           this.router.navigate(['/admin/dashboard']).then(noop);
         },
         error: (err: HttpErrorResponse) => {

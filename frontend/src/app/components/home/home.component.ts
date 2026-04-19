@@ -14,7 +14,7 @@ import { ChangelogComponent } from './changelog/changelog.component';
 import { NeighbourhoodComponent } from './neighbourhood/neighbourhood.component';
 import { SettingsComponent } from './settings/settings.component';
 import { BreakpointService } from '@services';
-import { AsyncPipe, NgStyle } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChatComponent } from '../chat/chat.component';
 
 @Component({

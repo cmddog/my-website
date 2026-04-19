@@ -15,7 +15,7 @@ export class AdminDashboardComponent {
 
   constructor() {
     this.loginService.verify().subscribe({
-      error: (_) => {
+      error: () => {
         this.router.navigate(['admin']).then(noop);
       },
     });
