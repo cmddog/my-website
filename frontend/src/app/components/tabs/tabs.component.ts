@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { BreakpointService, ThemeService } from '@services';
 import { HomeComponent } from '../home/home.component';
-import { DraggableContainerComponent } from '../draggable-container/draggable-container.component';
 
 enum Option {
   Commissions = 0,
