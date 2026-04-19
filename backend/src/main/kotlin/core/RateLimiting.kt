@@ -10,10 +10,10 @@ fun Application.configureRateLimiting() {
             rateLimiter(limit = 100, refillPeriod = 10.seconds)
         }
         register(RateLimitName("chat-user")) {
-            rateLimiter(limit = 60, refillPeriod = 60.seconds)
+            rateLimiter(limit = 1, refillPeriod = 1.seconds)
         }
         register(RateLimitName("chat-guest")) {
-            rateLimiter(limit = 15, refillPeriod = 60.seconds)
+            rateLimiter(limit = 1, refillPeriod = 4.seconds)
         }
     }
 }
