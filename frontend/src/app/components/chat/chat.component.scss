@@ -2,7 +2,6 @@
   position: absolute;
   bottom: 5rem;
   width: clamp(30rem, 33%, 45rem);
-  max-height: 12.5rem;
 
   &::-webkit-scrollbar {
     display: none;
@@ -25,11 +24,23 @@
   scrollbar-width: none;
   background-color: rgba(0, 0, 0, 50%);
   padding-left: .75rem;
+  max-height: 25rem;
+}
+
+#scrollbar {
+  position: absolute;
+  right: calc(100% - clamp(30rem, 33%, 45rem) - 2px); // aligns with right edge of chat window
+  bottom: 5rem; // same as chat-window bottom
+  width: 3px;
+  background-color: #5a5975;
+  display: none;
+  pointer-events: none;
 }
 
 #recent-messages {
   display: flex;
   overflow-y: hidden;
+  max-height: 12.5rem;
   p {
     background-color: rgba(0, 0, 0, 50%);
     padding-left: .75rem;
@@ -38,6 +49,10 @@
 
 #chat-container:focus-within #chat-window {
   display: flex;
+}
+
+#chat-container:focus-within #scrollbar {
+  display: unset;
 }
 
 #chat-container:focus-within #recent-messages {
