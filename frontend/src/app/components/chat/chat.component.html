@@ -5,11 +5,14 @@
     }
   </div>
 
-  <div id="chat-window" tabindex="-1" #chatWindow>
+  <div id="chat-window" tabindex="-1" #chatWindow
+       (scroll)="onChatWindowScroll(chatWindow)"
+       (wheel)="onChatWindowWheel($event, chatWindow)">
     @for (m of chat.messages(); track m.id) {
       <p class="minecraft"><{{ m.sender }}>&nbsp;{{ m.content }}</p>
     }
   </div>
+  <div id="scrollbar"></div>
 
   <input class="chat-bar" [class.red]="chatInput.value.length > 256" id="chat-input" (keydown.enter)="sendMessage()"
          [attr.readonly]="sending() ? '' : null"
