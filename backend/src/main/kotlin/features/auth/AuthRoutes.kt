@@ -7,6 +7,7 @@ import com.cmddog.core.models.api.ErrorResponse
 import com.cmddog.features.auth.models.api.IdentityType
 import com.cmddog.features.auth.models.api.LoginRequest
 import com.cmddog.features.auth.models.api.MeResponse
+import com.cmddog.features.auth.models.api.RegisterRequest
 import com.cmddog.features.user.UserService
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.http.*
@@ -38,13 +39,31 @@ fun Route.authRoutes() {
                 call.sessions.set(UserSession(user.username, sessionId))
 
                 if (user.username in adminUsernames) {
+                    val ip = call.request.headers["X-Forwarded-For"]
+                        ?: call.request.origin.remoteHost
+                    logger.info { "Login: ${user.username} from $ip" }
+
                     call.sessions.set(AdminSession(sessionId))
                 }
 
-                val ip = call.request.headers["X-Forwarded-For"]
-                    ?: call.request.origin.remoteHost
-                logger.info { "Login: ${user.username} from $ip" }
                 call.respond(HttpStatusCode.OK)
+            }
+
+            post("/register") {
+                val req = call.receive<RegisterRequest>()
+                val result = UserService.registerUser(
+                    req.username,
+                    req.password,
+                    req.securityQuestion,
+                    req.securityAnswer
+                )
+
+                if (result === null) {
+                    call.sessions.set(UserSession(req.username, UUID.randomUUID().toString()))
+                    call.respond(HttpStatusCode.OK)
+                } else {
+                    call.respond(HttpStatusCode.BadRequest, result)
+                }
             }
         }
 
