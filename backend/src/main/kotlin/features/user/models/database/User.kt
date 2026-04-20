@@ -17,6 +17,8 @@ interface User : Entity<User> {
     val messagesSent: Int
     val created: LocalDate
     val lastSeen: LocalDate
+    val securityQuestion: String
+    val securityAnswer: String
 }
 
 object Users : Table<User>("users") {
@@ -28,4 +30,6 @@ object Users : Table<User>("users") {
     val messages_sent = int("messages_sent").bindTo { it.messagesSent }
     val created = date("created").bindTo { it.created }
     val last_seen = date("last_seen").bindTo { it.lastSeen }
+    val security_question = varchar("security_question").bindTo { it.securityQuestion }
+    val security_answer = varchar("security_answer").bindTo { it.securityAnswer }
 }

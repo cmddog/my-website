@@ -1,13 +1,15 @@
 CREATE TABLE users
 (
-    username        VARCHAR(32) PRIMARY KEY, -- must be lowercase
-    display_name    VARCHAR(32),             -- must be identical to username except for capitalization
-    password_hash   VARCHAR(128) NOT NULL,
-    bio             VARCHAR(500),
-    profile_picture VARCHAR(512),
-    messages_sent   INT,
-    created         DATE DEFAULT now(),
-    last_seen       DATE DEFAULT now()
+    username          VARCHAR(32) PRIMARY KEY, -- must be lowercase
+    display_name      VARCHAR(32),             -- must be identical to username except for capitalization
+    password_hash     VARCHAR(128) NOT NULL,
+    bio               VARCHAR(500),
+    profile_picture   VARCHAR(512),
+    messages_sent     INT,
+    created           DATE DEFAULT now(),
+    last_seen         DATE DEFAULT now(),
+    security_question VARCHAR(500),
+    security_answer   VARCHAR(500)
 );
 
 CREATE OR REPLACE FUNCTION validate_user()
