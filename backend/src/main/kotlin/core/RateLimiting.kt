@@ -7,12 +7,12 @@ import kotlin.time.Duration.Companion.seconds
 fun Application.configureRateLimiting() {
     install(RateLimit) {
         register(RateLimitName("auth")) {
-            rateLimiter(limit = 100, refillPeriod = 10.seconds)
+            rateLimiter(limit = 10, refillPeriod = 10.seconds)
         }
-        register(RateLimitName("chat-user")) {
+        register(RateLimitName("user")) {
             rateLimiter(limit = 1, refillPeriod = 1.seconds)
         }
-        register(RateLimitName("chat-guest")) {
+        register(RateLimitName("guest")) {
             rateLimiter(limit = 1, refillPeriod = 4.seconds)
         }
     }

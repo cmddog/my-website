@@ -19,7 +19,7 @@ import kotlinx.serialization.json.Json
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
-private fun String.isSafeMessage() = isNotBlank() && length <= 500
+private fun String.isSafeMessage() = isNotBlank() && length <= 256
 
 @Serializable
 data class SendMessageRequest(val content: String)
@@ -34,25 +34,28 @@ fun Route.chatRoutes() {
             }
 
             // Send history to this client immediately on connect
-            val history = ChatService.getHistory()
-                send(ServerSentEvent(
+            send(
+                ServerSentEvent(
                     data = Json.encodeToString(
-                        ChatEvent(ChatEventType.HISTORY, Json.encodeToString(history))
-                    ),
-                    event = "chat"
-                ))
+                        ChatEvent(
+                            ChatEventType.HISTORY, Json.encodeToString(ChatService.getHistory())
+                        )
+                    ), event = "chat"
+                )
+            )
 
             // Subscribe to broadcasts until the client disconnects
             ChatService.subscribe { event ->
-                send(ServerSentEvent(
-                    data = Json.encodeToString(event),
-                    event = "chat"
-                ))
+                send(
+                    ServerSentEvent(
+                        data = Json.encodeToString(event), event = "chat"
+                    )
+                )
             }
         }
 
         // Logged-in users
-        rateLimit(RateLimitName("chat-user")) {
+        rateLimit(RateLimitName("user")) {
             post("/message") {
                 val userSession = call.sessions.get<UserSession>()
                 if (userSession == null) {
@@ -75,7 +78,7 @@ fun Route.chatRoutes() {
         }
 
         // Guests
-        rateLimit(RateLimitName("chat-guest")) {
+        rateLimit(RateLimitName("guest")) {
             post("/message/guest") {
                 val req = call.receive<SendMessageRequest>()
                 if (!req.content.isSafeMessage()) {
@@ -84,15 +87,15 @@ fun Route.chatRoutes() {
                 }
 
                 if (call.sessions.get<UserSession>() !== null) {
-                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Logged in users can not send guest messages"))
+                    call.respond(
+                        HttpStatusCode.BadRequest, ErrorResponse("Logged in users can not send guest messages")
+                    )
                     return@post
                 }
 
-                val guestSession = call.sessions.get<GuestSession>()
-                    ?: GuestSession(
-                        guestNumber = (1000..9999).random(),
-                        sessionId = UUID.randomUUID().toString()
-                    ).also { call.sessions.set(it) }
+                val guestSession = call.sessions.get<GuestSession>() ?: GuestSession(
+                    guestNumber = (1000..9999).random(), sessionId = UUID.randomUUID().toString()
+                ).also { call.sessions.set(it) }
 
                 val msg = ChatService.addMessage("Guest#${guestSession.guestNumber}", req.content)
                 ChatService.broadcast(ChatEvent(ChatEventType.MESSAGE, Json.encodeToString(msg)))

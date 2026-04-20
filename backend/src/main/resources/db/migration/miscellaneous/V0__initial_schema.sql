@@ -5,7 +5,7 @@ CREATE TABLE users
     password_hash     VARCHAR(128) NOT NULL,
     bio               VARCHAR(500),
     profile_picture   VARCHAR(512),
-    messages_sent     INT,
+    messages_sent     INT  DEFAULT 0,
     created           DATE DEFAULT now(),
     last_seen         DATE DEFAULT now(),
     security_question VARCHAR(500),
