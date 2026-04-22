@@ -7,7 +7,7 @@
         (mousedown)="bringToFront('introduction')"
         [resizable]="false"
         [prefWidth]="42 * 16"
-        [zIndex]="zIndices()['introduction']"
+        [zIndex]="zIndices()['introduction'] ?? 1"
         animate.enter="window-enter"
         animate.leave="window-leave"
         cardTitle="Introduction"

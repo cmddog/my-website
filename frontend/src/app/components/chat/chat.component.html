@@ -1,7 +1,10 @@
 <div id="chat-container">
   <div id="recent-messages">
     @for (m of chat.recentMessages(); track m.id) {
-      <app-chat-message [message]="m" animate.leave="message-fade"></app-chat-message>
+      <app-chat-message
+        [message]="m"
+        animate.leave="message-fade"
+      ></app-chat-message>
     }
   </div>
 
@@ -13,21 +16,33 @@
     (wheel)="onChatWindowWheel($event, chatWindow)"
   >
     @for (m of chat.messages(); track m.id) {
-      <app-chat-message [message]="m" animate.leave="message-fade"></app-chat-message>
+      <app-chat-message
+        [message]="m"
+        animate.leave="message-fade"
+      ></app-chat-message>
     }
     @if (!chat.connected()) {
-      @if (chat.connectionState() === 'connecting' || chat.connectionState() === 'idle') {
+      @if (
+        chat.connectionState() === "connecting" ||
+        chat.connectionState() === "idle"
+      ) {
         <p>[Server] Connecting...</p>
       } @else {
         <p class="red">
           [Server] Failed to connect to server.&ensp;
-          @if (chat.connectionState() === 'failed') {
-            <span class="clickable" (click)="chat.connect()">Click here</span> to retry.
+          @if (chat.connectionState() === "failed") {
+            <span class="clickable" (click)="chat.connect()">Click here</span>
+            to retry.
           } @else {
-            Retrying in {{ chat.retryIn() }} {{ chat.retryIn() === 1 ? 'second' : 'seconds' }}.
+            Retrying in {{ chat.retryIn() }}
+            {{ chat.retryIn() === 1 ? "second" : "seconds" }}.
           }
         </p>
       }
+    } @else if (!auth.isLoggedIn()) {
+      <p class="grey">
+        <span class="clickable" (click)="loggingIn.set(true)">Log In</span> / <span class="clickable" (click)="registering.set(true)">Register</span>
+      </p>
     }
   </div>
   <div id="scrollbar"></div>
@@ -52,4 +67,16 @@
   <p class="chat-bar" id="chat-hint" (click)="chatInput.focus()">
     Press 't' or click here to chat...
   </p>
+</div>
+
+<div class="account">
+  @if (loggingIn()) {
+    <app-draggable-container
+      cardTitle="Log In"
+      [resizable]="false"
+      (closeButtonClicked)="loggingIn.set(false)"
+    >
+      waow
+    </app-draggable-container>
+  }
 </div>

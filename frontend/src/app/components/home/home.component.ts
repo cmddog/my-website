@@ -44,7 +44,7 @@ export class HomeComponent {
 
   private readonly taskBarButtons =
     viewChildren<ElementRef<HTMLButtonElement>>('taskBarButton');
-  private zCounter = 0;
+  private zCounter = 1;
   readonly taskbarButtonPositions = signal<number[]>([]);
   readonly zIndices = signal<Record<string, number>>({});
   readonly openWindows = signal(new Set(['introduction']));

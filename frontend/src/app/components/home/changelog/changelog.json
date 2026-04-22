@@ -1,7 +1,7 @@
 [
   {
     "date": "3000",
-    "additions": ["Minecraft-like Chat"],
+    "additions": ["The chat", "Account registration and login"],
     "changes": [
       "Fonts are now loaded locally instead of through google fonts",
       "Tabs at the bottom of the screen now collapse if there is too little space"

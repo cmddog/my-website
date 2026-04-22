@@ -1,8 +1,7 @@
 [
   "Add the goober sprites on the windows back (the old ones weren't transferable to the new windows and I've been too lazy to make new ones)",
   "Live Minecraft background that's controlled by everyone on the website",
-  "Minecraft-style chat with accounts",
-  "/whisper command for the chat",
+  "Chat additions: /whisper command, account details with bios, profile pictures",
   "Gallery tab to view my art and photos",
   "Commission tab. Originally meant only for drawings, will probably be expanded to more",
   "Window for blog posts"

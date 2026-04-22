@@ -28,7 +28,7 @@ fun Route.authRoutes() {
         rateLimit(RateLimitName("auth")) {
             post("/login") {
                 val req = call.receive<LoginRequest>()
-                val user = UserService.getUserFromName(req.username)
+                val user = UserService.getUserFromName(req.username.lowercase())
 
                 if (user == null || !BCrypt.checkpw(req.password, user.passwordHash)) {
                     call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Invalid credentials"))
@@ -51,7 +51,7 @@ fun Route.authRoutes() {
 
             post("/register") {
                 val req = call.receive<RegisterRequest>()
-                val result = UserService.registerUser(
+                val result = UserService.addUser(
                     req.username,
                     req.password,
                     req.securityQuestion,

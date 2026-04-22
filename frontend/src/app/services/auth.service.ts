@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 export interface MeResponse {
   type: 'USER' | 'GUEST' | 'ANONYMOUS';
@@ -19,9 +19,53 @@ export class AuthService {
   });
 
   readonly identity = this._identity.asReadonly();
-  readonly isUser = computed<boolean>(() => this.identity().type === 'USER');
+  readonly isLoggedIn = computed<boolean>(
+    () => this.identity().type === 'USER',
+  );
 
   refresh$(): Observable<MeResponse> {
     return this.http.get<MeResponse>('/api/auth/me', { withCredentials: true });
+  }
+
+  login$(username: string, password: string): Observable<never> {
+    return this.http
+      .post<never>(
+        '/api/auth/login',
+        { username, password },
+        { withCredentials: true },
+      )
+      .pipe(
+        tap(() => this._identity.set({ type: 'USER', displayName: username })),
+      );
+  }
+
+  register$(
+    username: string,
+    password: string,
+    securityQuestion: string,
+    securityAnswer: string,
+  ): Observable<never> {
+    return this.http
+      .post<never>(
+        '/api/auth/register',
+        {
+          username,
+          password,
+          securityQuestion,
+          securityAnswer,
+        },
+        { withCredentials: true },
+      )
+      .pipe(
+        tap(() => this._identity.set({ type: 'USER', displayName: username })),
+      );
+  }
+
+  logout$(): Observable<never> {
+    return this.http
+      .post<never>('/api/auth/logout', { withCredentials: true })
+      .pipe(
+        tap(() => this._identity.set({ type: 'ANONYMOUS', displayName: null })),
+      );
   }
 }
