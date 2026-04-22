@@ -131,7 +131,7 @@ export class ChatService {
     if (content.length > 256 || !content.trim())
       return throwError(() => new Error('Message too long'));
 
-    const endpoint = this.auth.isUser()
+    const endpoint = this.auth.isLoggedIn()
       ? '/api/chat/message'
       : '/api/chat/message/guest';
 

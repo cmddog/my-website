@@ -7,24 +7,29 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { ChatService } from '@services';
+import { AuthService, ChatService } from '@services';
 import { finalize } from 'rxjs/operators';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
+import { DraggableContainerComponent } from '../draggable-container/draggable-container.component';
 
 @Component({
   selector: 'app-chat',
-  imports: [ChatMessageComponent],
+  imports: [ChatMessageComponent, DraggableContainerComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
 export class ChatComponent {
   protected readonly chat = inject(ChatService);
+  protected readonly auth = inject(AuthService);
 
   private readonly chatInputRef =
     viewChild.required<ElementRef<HTMLInputElement>>('chatInput');
   private readonly chatWindowRef =
     viewChild.required<ElementRef<HTMLDivElement>>('chatWindow');
-  protected readonly sending = signal(false);
+  readonly sending = signal(false);
+
+  readonly loggingIn = signal(false);
+  readonly registering = signal(false);
 
   constructor() {
     effect(() => {
@@ -46,12 +51,13 @@ export class ChatComponent {
 
   openChat() {
     if (!this.chat.connectionState()) this.chat.connect();
-    const chatWindow = this.chatWindowRef().nativeElement;
-    setTimeout(() => {
+    this.chatInputRef().nativeElement.focus();
+
+    requestAnimationFrame(() => {
+      const chatWindow = this.chatWindowRef().nativeElement;
       chatWindow.scrollTop = chatWindow.scrollHeight;
       this.onChatWindowScroll(chatWindow);
     });
-    this.chatInputRef().nativeElement.focus();
   }
 
   sendMessage() {

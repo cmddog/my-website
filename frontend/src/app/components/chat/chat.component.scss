@@ -1,4 +1,20 @@
-p, span, input {
+.account {
+  z-index: 10000;
+  position: absolute;
+  bottom: .5rem;
+  left: .5rem;
+  width: 50%;
+  height: 50%;
+  pointer-events: none;
+
+  * {
+    pointer-events: auto;
+  }
+}
+
+p,
+span,
+input {
   font-family: Minecraft, sans-serif;
 }
 
@@ -124,8 +140,8 @@ p {
   display: none;
   position: absolute;
   right: 0.75rem;
-  bottom: 1.5rem;
-  font-size: 1.25em;
+  bottom: 2.5rem;
+  font-size: 1.25rem;
   color: var(--text-primary);
   pointer-events: none;
 }
@@ -135,7 +151,11 @@ p {
 }
 
 .red {
-  color: #FF5555 !important;
+  color: #ff5555 !important;
+}
+
+.grey {
+  color: #aaaaaa !important;
 }
 
 .clickable {
