@@ -15,17 +15,11 @@
     (scroll)="onChatWindowScroll(chatWindow)"
     (wheel)="onChatWindowWheel($event, chatWindow)"
   >
-    @for (m of chat.messages(); track m.id) {
-      <app-chat-message
-        [message]="m"
-        animate.leave="message-fade"
-      ></app-chat-message>
-    }
     @if (!chat.connected()) {
       @if (
         chat.connectionState() === "connecting" ||
         chat.connectionState() === "idle"
-      ) {
+        ) {
         <p>[Server] Connecting...</p>
       } @else {
         <p class="red">
@@ -43,6 +37,12 @@
       <p class="grey">
         <span class="clickable" (click)="loggingIn.set(true)">Log In</span> / <span class="clickable" (click)="registering.set(true)">Register</span>
       </p>
+    }
+    @for (m of chat.messages().toReversed(); track m.id) {
+      <app-chat-message
+        [message]="m"
+
+      ></app-chat-message>
     }
   </div>
   <div id="scrollbar"></div>
@@ -76,7 +76,10 @@
       [resizable]="false"
       (closeButtonClicked)="loggingIn.set(false)"
     >
-      waow
+      <form class="input-form">
+        <input placeholder="Username" />
+        <input placeholder="Password" />
+      </form>
     </app-draggable-container>
   }
 </div>

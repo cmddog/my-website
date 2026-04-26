@@ -1,5 +1,6 @@
 import {
   Component,
+  computed,
   effect,
   ElementRef,
   HostListener,
@@ -30,6 +31,10 @@ export class ChatComponent {
 
   readonly loggingIn = signal(false);
   readonly registering = signal(false);
+
+  protected readonly reversedMessages = computed(() =>
+    this.chat.recentMessages().toReversed(),
+  );
 
   constructor() {
     effect(() => {
@@ -92,10 +97,13 @@ export class ChatComponent {
     }
 
     const thumbHeight = ratio * clientHeight;
-    const thumbTop = (scrollTop / scrollHeight) * clientHeight;
+
+    const normalizedScrollTop = scrollHeight - clientHeight + scrollTop;
+    const thumbTop =
+      (normalizedScrollTop / (scrollHeight - clientHeight)) *
+      (clientHeight - thumbHeight);
 
     thumb.style.height = `${thumbHeight}px`;
-    // position relative to the chat window's own top using getBoundingClientRect
     const windowRect = el.getBoundingClientRect();
     thumb.style.top = `${windowRect.top + thumbTop}px`;
     thumb.style.left = `${windowRect.right - 4}px`;

@@ -1,6 +1,13 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { interval, Observable, Subscription, take, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  interval,
+  Observable,
+  Subscription,
+  take,
+  tap,
+  throwError,
+} from 'rxjs';
 import { AuthService } from './auth.service';
 import {
   ChatEvent,
@@ -33,7 +40,11 @@ export class ChatService {
   private readonly _retryIn = signal(0);
 
   // ----- Public Values -----
-  readonly messages = this._messages.asReadonly();
+  readonly messages = computed(() => {
+    const messages = this._messages();
+    const lastEphemeralIndex = messages.findLastIndex((m) => m.ephemeral);
+    return messages.filter((m, i) => !m.ephemeral || i === lastEphemeralIndex);
+  });
   readonly recentMessages = computed(() => {
     this._tick();
     return this.messages()
@@ -71,18 +82,28 @@ export class ChatService {
       } else if (event.type === 'MESSAGE') {
         const msg: ChatMessage = JSON.parse(event.payload);
         this._messages.update((msgs) =>
-          [...msgs, chatMessage(msg)].slice(0, 99),
+          [
+            ...msgs.filter((m) => {
+              const messages = this._messages();
+              const lastEphemeralIndex = messages.findLastIndex(
+                (m) => m.ephemeral,
+              );
+              return messages.filter(
+                (m, i) => !m.ephemeral || i === lastEphemeralIndex,
+              );
+            }),
+            chatMessage(msg),
+          ].slice(0, 99),
         );
       } else if (event.type === 'JOIN') {
         // TODO
       }
     });
 
-    this.auth.refresh$();
-
     this.eventSource.onopen = () => {
       this.retries = 0;
       this._retryIn.set(0);
+      this.auth.refresh$();
       this._connectionState.set('connected');
     };
 
@@ -135,19 +156,36 @@ export class ChatService {
       ? '/api/chat/message'
       : '/api/chat/message/guest';
 
-    return this.http.post<never>(
-      endpoint,
-      { content },
-      { withCredentials: true },
-    );
+    return this.http
+      .post<never>(endpoint, { content }, { withCredentials: true })
+      .pipe(
+        tap({
+          error: (e: HttpErrorResponse) => {
+            let message = '';
+
+            if (e.status === 429) {
+              message = 'You are being rate limited.';
+            } else {
+              message = e.message;
+            }
+
+            this.pushServerMessage(
+              `Message failed to send: ${message}`,
+              'red',
+              true,
+            );
+          },
+        }),
+      );
   }
 
   private pushServerMessage(
     text: string,
     color: DisplayMessage['color'] = 'white',
+    ephemeral: boolean = false,
   ) {
     this._messages.update((msgs) =>
-      [...msgs, serverMessage(text, color)].slice(0, 99),
+      [...msgs, serverMessage(text, color, ephemeral)].slice(0, 99),
     );
   }
 

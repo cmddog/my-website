@@ -20,6 +20,7 @@ export interface DisplayMessage {
   // server only
   text?: string;
   color?: 'white' | 'green' | 'yellow' | 'red';
+  ephemeral?: boolean;
 }
 
 export const chatMessage = (data: ChatMessage): DisplayMessage => ({
@@ -32,13 +33,15 @@ export const chatMessage = (data: ChatMessage): DisplayMessage => ({
 
 export const serverMessage = (
   text: string,
-  color: DisplayMessage['color'] = 'green',
+  color: DisplayMessage['color'],
+  ephemeral: boolean,
 ): DisplayMessage => ({
   kind: 'server',
   id: Date.now(),
   timestamp: Date.now(),
   text,
   color,
+  ephemeral,
 });
 
 export type ConnectionState =

@@ -24,7 +24,9 @@ export class AuthService {
   );
 
   refresh$(): Observable<MeResponse> {
-    return this.http.get<MeResponse>('/api/auth/me', { withCredentials: true });
+    return this.http
+      .get<MeResponse>('/api/auth/me', { withCredentials: true })
+      .pipe(tap((id) => this._identity.set(id)));
   }
 
   login$(username: string, password: string): Observable<never> {

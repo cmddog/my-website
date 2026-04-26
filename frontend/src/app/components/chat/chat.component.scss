@@ -18,6 +18,30 @@ input {
   font-family: Minecraft, sans-serif;
 }
 
+.input-form {
+  input {
+    font-family: Nunito, sans-serif;
+    background-color: color-mix(in srgb, var(--transparent-card-background-colour) 75%, transparent);
+    border: color-mix(in srgb, var(--transparent-card-border-colour) 75%, black) 1px solid;
+    color: var(--text-primary);
+    font-size: 1rem;
+    padding: .5rem;
+    border-radius: var(--transparent-card-radius);
+
+    &::placeholder {
+      color: color-mix(in srgb, var(--transparent-card-border-colour) 80%, white);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
 p {
   margin: 0;
   line-height: 1.25rem;
@@ -73,6 +97,7 @@ p {
 
 #chat-container:focus-within #chat-window {
   display: flex;
+  flex-direction: column-reverse;
 }
 
 #chat-container:focus-within #scrollbar {
