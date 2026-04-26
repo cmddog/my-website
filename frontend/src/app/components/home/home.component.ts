@@ -47,7 +47,7 @@ export class HomeComponent {
   private zCounter = 1;
   readonly taskbarButtonPositions = signal<number[]>([]);
   readonly zIndices = signal<Record<string, number>>({});
-  readonly openWindows = signal(new Set(['']));
+  readonly openWindows = signal(new Set(['introduction']));
   readonly taskbarEntries = computed(() =>
     [...this.windows.entries()].filter(([id]) => !this.openWindows().has(id)),
   );

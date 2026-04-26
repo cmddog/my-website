@@ -1,6 +1,6 @@
 [
   {
-    "date": "3000",
+    "date": "2026-04-27",
     "additions": ["The chat", "Account registration and login"],
     "changes": [
       "Fonts are now loaded locally instead of through google fonts",
