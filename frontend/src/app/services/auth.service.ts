@@ -23,10 +23,10 @@ export class AuthService {
     () => this.identity().type === 'USER',
   );
 
-  refresh$(): Observable<MeResponse> {
-    return this.http
+  refresh$(): void {
+    this.http
       .get<MeResponse>('/api/auth/me', { withCredentials: true })
-      .pipe(tap((id) => this._identity.set(id)));
+      .subscribe((res) => this._identity.set(res));
   }
 
   login$(username: string, password: string): Observable<never> {

@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AuthService } from './services/auth.service';
-import { ChatService } from './services/chat.service';
+import { ChatService } from '@services';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +11,5 @@ import { ChatService } from './services/chat.service';
 export class AppComponent {
   constructor() {
     inject(ChatService).connect();
-    inject(AuthService).refresh$();
   }
 }

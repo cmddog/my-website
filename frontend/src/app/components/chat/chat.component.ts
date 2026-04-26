@@ -1,6 +1,5 @@
 import {
   Component,
-  computed,
   effect,
   ElementRef,
   HostListener,
@@ -12,10 +11,12 @@ import { AuthService, ChatService } from '@services';
 import { finalize } from 'rxjs/operators';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { DraggableContainerComponent } from '../draggable-container/draggable-container.component';
+import { FormsModule } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-chat',
-  imports: [ChatMessageComponent, DraggableContainerComponent],
+  imports: [ChatMessageComponent, DraggableContainerComponent, FormsModule],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
@@ -31,10 +32,15 @@ export class ChatComponent {
 
   readonly loggingIn = signal(false);
   readonly registering = signal(false);
-
-  protected readonly reversedMessages = computed(() =>
-    this.chat.recentMessages().toReversed(),
-  );
+  loginUsername = '';
+  loginPassword = '';
+  registerUsername = '';
+  registerPassword = '';
+  secQuestion = '';
+  secAnswer = '';
+  readonly loginError = signal('');
+  readonly registerError = signal('');
+  readonly isLoading = signal(false);
 
   constructor() {
     effect(() => {
@@ -45,8 +51,14 @@ export class ChatComponent {
   @HostListener('window:keydown', ['$event'])
   handleKeydown(event: KeyboardEvent) {
     const chatInput = this.chatInputRef().nativeElement;
+    const active = document.activeElement;
+    const isTyping =
+      active instanceof HTMLInputElement ||
+      active instanceof HTMLTextAreaElement ||
+      active instanceof HTMLSelectElement ||
+      (active as HTMLElement)?.isContentEditable;
 
-    if (event.key === 't' && chatInput !== document.activeElement) {
+    if (event.key === 't' && !isTyping && chatInput !== active) {
       this.openChat();
       event.preventDefault();
     } else if (event.key === 'Escape') {
@@ -80,6 +92,48 @@ export class ChatComponent {
           chatInput.blur();
         },
         error: () => {},
+      });
+  }
+
+  logIn() {
+    if (this.isLoading() || !this.loginUsername || !this.loginPassword) return;
+    this.isLoading.set(true);
+
+    this.auth
+      .login$(this.loginUsername, this.loginPassword)
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe({
+        next: () => {
+          this.loginError.set('');
+          this.loggingIn.set(false);
+        },
+        error: (e: HttpErrorResponse) => {
+          this.loginError.set(e.error?.message ?? 'An error occurred');
+        },
+      });
+  }
+
+  register() {
+    if (this.isLoading() || !this.registerUsername || !this.registerPassword)
+      return;
+    this.isLoading.set(true);
+
+    this.auth
+      .register$(
+        this.registerUsername,
+        this.registerPassword,
+        this.secQuestion,
+        this.secAnswer,
+      )
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe({
+        next: () => {
+          this.registerError.set('');
+          this.registering.set(false);
+        },
+        error: (e: HttpErrorResponse) => {
+          this.registerError.set(e.error?.message ?? 'An error occurred');
+        },
       });
   }
 

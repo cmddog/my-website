@@ -19,7 +19,7 @@
       @if (
         chat.connectionState() === "connecting" ||
         chat.connectionState() === "idle"
-        ) {
+      ) {
         <p>[Server] Connecting...</p>
       } @else {
         <p class="red">
@@ -35,14 +35,21 @@
       }
     } @else if (!auth.isLoggedIn()) {
       <p class="grey">
-        <span class="clickable" (click)="loggingIn.set(true)">Log In</span> / <span class="clickable" (click)="registering.set(true)">Register</span>
+        <span
+          class="clickable"
+          (click)="loggingIn.set(true); registering.set(false)"
+          >Log In</span
+        >
+        /
+        <span
+          class="clickable"
+          (click)="registering.set(true); loggingIn.set(false)"
+          >Register</span
+        >
       </p>
     }
     @for (m of chat.messages().toReversed(); track m.id) {
-      <app-chat-message
-        [message]="m"
-
-      ></app-chat-message>
+      <app-chat-message [message]="m"></app-chat-message>
     }
   </div>
   <div id="scrollbar"></div>
@@ -72,13 +79,74 @@
 <div class="account">
   @if (loggingIn()) {
     <app-draggable-container
+      [maxWidth]="182"
+      [minWidth]="182"
       cardTitle="Log In"
       [resizable]="false"
-      (closeButtonClicked)="loggingIn.set(false)"
+      (closeButtonClicked)="loggingIn.set(false); loginError.set('')"
     >
-      <form class="input-form">
-        <input placeholder="Username" />
-        <input placeholder="Password" />
+      <form class="input-form" (ngSubmit)="logIn()" #loginForm="ngForm">
+        <input
+          placeholder="Username*"
+          required
+          name="username"
+          [(ngModel)]="loginUsername"
+        />
+        <input
+          placeholder="Password*"
+          required
+          type="password"
+          name="password"
+          [(ngModel)]="loginPassword"
+        />
+        @if (loginError()) {
+          <p class="red text-center">{{ loginError() }}</p>
+        }
+        <button [disabled]="isLoading() || loginForm.invalid" type="submit">
+          Log In
+        </button>
+      </form>
+    </app-draggable-container>
+  }
+  @if (registering()) {
+    <app-draggable-container
+      [prefWidth]="257.333"
+      cardTitle="Register"
+      [resizable]="false"
+      (closeButtonClicked)="registering.set(false); registerError.set('')"
+    >
+      <form class="input-form" (ngSubmit)="register()" #registerForm="ngForm">
+        <input
+          placeholder="Username*"
+          required
+          name="username"
+          [(ngModel)]="registerUsername"
+        />
+        <input
+          placeholder="Password*"
+          required
+          name="password"
+          [(ngModel)]="registerPassword"
+          type="password"
+        />
+        <textarea
+          placeholder="Security Question (If you forget your password this gives me a way to verify your identity)"
+          name="security question"
+          [(ngModel)]="secQuestion"
+          rows="4"
+        ></textarea>
+        <textarea
+          placeholder="Security Answer"
+          name="security answer"
+          [(ngModel)]="secAnswer"
+          rows="3"
+        ></textarea>
+        @if (registerError()) {
+          <p class="red text-center">{{ registerError() }}</p>
+        }
+        <button [disabled]="isLoading() || registerForm.invalid" type="submit">
+          Register
+        </button>
       </form>
     </app-draggable-container>
   }

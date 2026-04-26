@@ -1,10 +1,10 @@
 .account {
   z-index: 10000;
   position: absolute;
-  bottom: .5rem;
-  left: .5rem;
+  bottom: 0.5rem;
+  left: 0.5rem;
   width: 50%;
-  height: 50%;
+  height: 75%;
   pointer-events: none;
 
   * {
@@ -19,27 +19,63 @@ input {
 }
 
 .input-form {
-  input {
-    font-family: Nunito, sans-serif;
-    background-color: color-mix(in srgb, var(--transparent-card-background-colour) 75%, transparent);
-    border: color-mix(in srgb, var(--transparent-card-border-colour) 75%, black) 1px solid;
-    color: var(--text-primary);
-    font-size: 1rem;
-    padding: .5rem;
-    border-radius: var(--transparent-card-radius);
-
-    &::placeholder {
-      color: color-mix(in srgb, var(--transparent-card-border-colour) 80%, white);
-    }
-
-    &:focus {
-      outline: none;
-    }
-  }
-
   display: flex;
   gap: 1rem;
   flex-direction: column;
+  align-items: center;
+
+  input,
+  textarea {
+    font-family: Nunito, sans-serif;
+    background-color: color-mix(
+      in srgb,
+      var(--transparent-card-background-colour) 75%,
+      transparent
+    );
+    border: color-mix(in srgb, var(--transparent-card-border-colour) 75%, black)
+      1px solid;
+    color: var(--text-primary);
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: var(--transparent-card-radius);
+    outline: var(--transparent-card-border-colour) 0 solid;
+
+    transition:
+      border 200ms,
+      outline 200ms;
+
+    &::placeholder {
+      color: color-mix(
+        in srgb,
+        var(--transparent-card-border-colour) 80%,
+        white
+      );
+    }
+
+    &:hover {
+      border: var(--transparent-card-border-colour) 1px solid;
+    }
+
+    &:focus {
+      outline: var(--transparent-card-border-colour) 1px solid;
+      border: var(--transparent-card-border-colour) 1px solid;
+    }
+  }
+
+  button {
+    width: 100%;
+    background-color: var(--transparent-card-border-colour);
+    border-radius: var(--transparent-card-radius);
+    color: var(--text-primary);
+    border: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 50%;
+    }
+  }
 }
 
 p {

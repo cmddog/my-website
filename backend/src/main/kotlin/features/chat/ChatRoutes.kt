@@ -27,7 +27,6 @@ data class SendMessageRequest(val content: String)
 fun Route.chatRoutes() {
     route("/chat") {
         sse("/stream") {
-            println("New SSE connection made");
             heartbeat {
                 period = 1.seconds
                 event = ServerSentEvent("heartbeat");
@@ -69,6 +68,7 @@ fun Route.chatRoutes() {
                     return@post
                 }
 
+                UserService.updateLastSeenAndMessageCount(userSession.username)
                 val user = UserService.getUserFromName(userSession.username)
                 val displayName = user?.displayName ?: userSession.username
                 val msg = ChatService.addMessage(displayName, req.content)

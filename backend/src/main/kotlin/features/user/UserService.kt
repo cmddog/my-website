@@ -9,6 +9,8 @@ import org.ktorm.dsl.insert
 import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
 import org.mindrot.jbcrypt.BCrypt
+import java.sql.Timestamp
+import java.time.Instant
 
 object UserService {
     fun getUserFromName(username: String): User? {
@@ -35,5 +37,17 @@ object UserService {
             set(it.security_answer, securityAnswer)
         }
         return null
+    }
+
+    fun updateLastSeenAndMessageCount(username: String) {
+        DatabaseSingleton.miscellaneous.useConnection { conn ->
+            conn.prepareStatement(
+                "UPDATE users SET messages_sent = messages_sent + 1, last_seen = ? WHERE username = ?"
+            ).use { stmt ->
+                stmt.setTimestamp(1, Timestamp.from(Instant.now()))
+                stmt.setString(2, username)
+                stmt.executeUpdate()
+            }
+        }
     }
 }

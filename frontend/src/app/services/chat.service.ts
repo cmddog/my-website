@@ -83,7 +83,7 @@ export class ChatService {
         const msg: ChatMessage = JSON.parse(event.payload);
         this._messages.update((msgs) =>
           [
-            ...msgs.filter((m) => {
+            ...msgs.filter(() => {
               const messages = this._messages();
               const lastEphemeralIndex = messages.findLastIndex(
                 (m) => m.ephemeral,
@@ -161,12 +161,12 @@ export class ChatService {
       .pipe(
         tap({
           error: (e: HttpErrorResponse) => {
-            let message = '';
+            let message: string;
 
             if (e.status === 429) {
               message = 'You are being rate limited.';
             } else {
-              message = e.message;
+              message = e.error?.message ?? 'Unknown Error';
             }
 
             this.pushServerMessage(
