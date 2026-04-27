@@ -25,7 +25,7 @@ object UserService {
         securityQuestion: String,
         securityAnswer: String
     ): ErrorResponse? {
-        if (username.isBlank() || username.length > 32 || Regex("([A-z]|[0-9])+").matches(username))
+        if (username.isBlank() || username.length > 32 || Regex("([A-z]|[0-9])+").matches(username)) return ErrorResponse("Invalid username")
         if (getUserFromName(username) !== null) return ErrorResponse("Username already taken")
         if (password.length < 10) return ErrorResponse("Password must be at least 10 characters long")
 
