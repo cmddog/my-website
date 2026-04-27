@@ -13,6 +13,10 @@
   color: var(--text-primary);
 }
 
+#my-button ~ p {
+  margin-top: 0;
+}
+
 hr {
   width: 100%;
   color: var(--transparent-card-border-colour)
