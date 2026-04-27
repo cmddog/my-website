@@ -167,6 +167,17 @@ export class ChatService {
 
             if (e.status === 429) {
               message = 'You are being rate limited.';
+            } else if (e.error?.id === -2) {
+              message =
+                'Logged in users cannot send guest messages, try again.';
+              this.auth
+                .refresh$()
+                .subscribe((me) =>
+                  this.pushServerMessage(
+                    `Logged in as ${me.displayName}`,
+                    'green',
+                  ),
+                );
             } else {
               message = e.error?.message ?? 'Unknown Error';
             }

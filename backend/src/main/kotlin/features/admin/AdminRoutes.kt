@@ -16,7 +16,7 @@ fun Route.adminRoutes() {
         install(createRouteScopedPlugin("AdminAuth") {
             onCall { call ->
                 if (call.sessions.get<AdminSession>() == null) {
-                    call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Not authenticated"))
+                    call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Not authenticated", -1))
                 }
             }
         })

@@ -124,7 +124,10 @@ export class ChatComponent {
         next: () => {
           this.registerError.set('');
           this.registering.set(false);
-          this.chat.pushServerMessage('Registered successfully', 'green');
+          this.chat.pushServerMessage(
+            'Registered and logged in successfully',
+            'green',
+          );
         },
         error: (e: HttpErrorResponse) => {
           this.registerError.set(e.error?.message ?? 'An error occurred');

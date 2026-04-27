@@ -31,7 +31,7 @@ fun Route.authRoutes() {
                 val user = UserService.getUserFromName(req.username.lowercase())
 
                 if (user == null || !BCrypt.checkpw(req.password, user.passwordHash)) {
-                    call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Invalid credentials"))
+                    call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Invalid credentials", -1))
                     return@post
                 }
 

@@ -58,13 +58,13 @@ fun Route.chatRoutes() {
             post("/message") {
                 val userSession = call.sessions.get<UserSession>()
                 if (userSession == null) {
-                    call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Not logged in"))
+                    call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Not logged in", -1))
                     return@post
                 }
 
                 val req = call.receive<SendMessageRequest>()
                 if (!req.content.isSafeMessage()) {
-                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Invalid message"))
+                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Invalid message", -1))
                     return@post
                 }
 
@@ -82,19 +82,19 @@ fun Route.chatRoutes() {
             post("/message/guest") {
                 val req = call.receive<SendMessageRequest>()
                 if (!req.content.isSafeMessage()) {
-                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Invalid message"))
+                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Invalid message", -1))
                     return@post
                 }
 
                 if (call.sessions.get<UserSession>() !== null) {
                     call.respond(
-                        HttpStatusCode.BadRequest, ErrorResponse("Logged in users can not send guest messages")
+                        HttpStatusCode.BadRequest, ErrorResponse("Logged in users can not send guest messages", -2)
                     )
                     return@post
                 }
 
                 val guestSession = call.sessions.get<GuestSession>() ?: GuestSession(
-                    guestNumber = (1000..9999).random(), sessionId = UUID.randomUUID().toString()
+                    guestNumber = (10000..99999).random(), sessionId = UUID.randomUUID().toString()
                 ).also { call.sessions.set(it) }
 
                 val msg = ChatService.addMessage("Guest#${guestSession.guestNumber}", req.content)
