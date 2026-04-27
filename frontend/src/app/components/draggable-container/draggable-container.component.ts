@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   input,
@@ -16,7 +17,9 @@ import { NgStyle } from '@angular/common';
   templateUrl: './draggable-container.component.html',
   styleUrl: './draggable-container.component.scss',
 })
-export class DraggableContainerComponent implements OnInit, OnDestroy {
+export class DraggableContainerComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
   closeButtonClicked = output();
 
   minWidth = input<number>();
@@ -76,8 +79,16 @@ export class DraggableContainerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.prefWidth() !== undefined) this.width.set(this.prefWidth()!);
     if (this.prefHeight() !== undefined) this.height.set(this.prefHeight()!);
-    requestAnimationFrame(() => this.centerCard());
     window.addEventListener('resize', this.onWindowResize);
+  }
+
+  ngAfterViewInit(): void {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        this.constrainCard();
+        this.centerCard();
+      });
+    });
   }
 
   ngOnDestroy(): void {
@@ -112,11 +123,18 @@ export class DraggableContainerComponent implements OnInit, OnDestroy {
   }
 
   private centerCard(): void {
+    const { clientWidth: cW, clientHeight: cH } = this.container;
     this.left.set(
-      Math.max(0, (this.container.clientWidth - this.el.offsetWidth) / 2),
+      Math.max(
+        0,
+        Math.min((cW - this.el.offsetWidth) / 2, cW - this.el.offsetWidth),
+      ),
     );
     this.top.set(
-      Math.max(0, (this.container.clientHeight - this.el.offsetHeight) / 2),
+      Math.max(
+        0,
+        Math.min((cH - this.el.offsetHeight) / 2, cH - this.el.offsetHeight),
+      ),
     );
   }
 
@@ -128,18 +146,14 @@ export class DraggableContainerComponent implements OnInit, OnDestroy {
     if (this.el.offsetWidth > cW) this.width.set(Math.max(minW, cW));
     if (this.el.offsetHeight > cH) this.height.set(Math.max(minH, cH));
 
-    this.left.set(
-      Math.min(
-        this.left(),
-        Math.max(0, cW - (this.width() ?? this.el.offsetWidth)),
-      ),
-    );
-    this.top.set(
-      Math.min(
-        this.top(),
-        Math.max(0, cH - (this.height() ?? this.el.offsetHeight)),
-      ),
-    );
+    requestAnimationFrame(() => {
+      this.left.set(
+        Math.min(this.left(), Math.max(0, cW - this.el.offsetWidth)),
+      );
+      this.top.set(
+        Math.min(this.top(), Math.max(0, cH - this.el.offsetHeight)),
+      );
+    });
   }
 
   // --- Mouse Down Handlers ---

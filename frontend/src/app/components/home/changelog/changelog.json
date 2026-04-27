@@ -1,12 +1,12 @@
 [
   {
     "date": "2026-04-27",
-    "additions": ["The chat", "Account registration and login"],
+    "additions": ["The chat", "Account registration and login", "My own website button - pixel headshot by @crustaceanlady.bsky.social!"],
     "changes": [
       "Fonts are now loaded locally instead of through google fonts",
       "Tabs at the bottom of the screen now collapse if there is too little space"
     ],
-    "fixes": [],
+    "fixes": ["Windows not resizing properly when opened on small screens"],
     "removals": []
   },
   {
