@@ -35,6 +35,7 @@ export class ChatComponent {
   loginPassword = '';
   registerUsername = '';
   registerPassword = '';
+  registerConfirmPassword = '';
   secQuestion = '';
   secAnswer = '';
   readonly loginError = signal('');
@@ -110,6 +111,10 @@ export class ChatComponent {
   register() {
     if (this.isLoading() || !this.registerUsername || !this.registerPassword)
       return;
+    if (this.registerPassword !== this.registerConfirmPassword) {
+      this.registerError.set('Passwords must equal');
+      return;
+    }
     this.isLoading.set(true);
 
     this.auth
