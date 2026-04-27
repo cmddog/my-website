@@ -81,20 +81,19 @@ export class ChatService {
         this.pushServerMessage('Connected', 'green');
       } else if (event.type === 'MESSAGE') {
         const msg: ChatMessage = JSON.parse(event.payload);
-        this._messages.update((msgs) =>
-          [
-            ...msgs.filter(() => {
-              const messages = this._messages();
-              const lastEphemeralIndex = messages.findLastIndex(
-                (m) => m.ephemeral,
-              );
-              return messages.filter(
-                (m, i) => !m.ephemeral || i === lastEphemeralIndex,
-              );
-            }),
-            chatMessage(msg),
-          ].slice(0, 99),
-        );
+        this._messages.update((msgs) => {
+          const appended = [...msgs, chatMessage(msg)];
+          // Count non-ephemeral messages, keep buffer for ephemerals on top
+          const nonEphemeral = appended.filter((m) => !m.ephemeral);
+          if (nonEphemeral.length > 100) {
+            // Drop oldest non-ephemeral, keep all ephemerals
+            const firstNonEphemeralIdx = appended.findIndex(
+              (m) => !m.ephemeral,
+            );
+            appended.splice(firstNonEphemeralIdx, 1);
+          }
+          return appended;
+        });
       } else if (event.type === 'JOIN') {
         // TODO
       }
