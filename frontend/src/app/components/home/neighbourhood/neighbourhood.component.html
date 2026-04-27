@@ -1,13 +1,14 @@
 <div class="wrapper">
   <h1>My Button</h1>
-  <a href="https://shiru.dog" target="_blank" rel="noopener noreferrer">
+  <button id="my-button" (click)="copy()">
     <img
       src="https://shiru.dog/assets/button.png"
       alt="Shiru's site"
       height="31"
       width="88"
     />
-  </a>
+  </button>
+  <p>{{ copied() ? 'Copied!' : 'Click it to copy :3' }}</p>
 
   <h1>Friends and Neighbours</h1>
   <div class="buttons">
