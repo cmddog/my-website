@@ -1,14 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { map, shareReplay } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ThemeService } from '@services';
 
 @Component({
   selector: 'app-about-me',
-  imports: [NgOptimizedImage, NgClass, AsyncPipe],
+  imports: [NgOptimizedImage, AsyncPipe],
   templateUrl: './about-me.component.html',
-  styleUrl: './about-me.component.scss'
+  styleUrl: './about-me.component.scss',
 })
 export class AboutMeComponent {
   protected readonly themeService = inject(ThemeService);
@@ -18,6 +18,6 @@ export class AboutMeComponent {
     .observe([`(max-width: 47.5rem)`])
     .pipe(
       map((result) => result.matches),
-      shareReplay({ bufferSize: 1, refCount: true })
+      shareReplay({ bufferSize: 1, refCount: true }),
     );
 }

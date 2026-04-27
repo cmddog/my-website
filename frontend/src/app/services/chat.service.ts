@@ -1,0 +1,208 @@
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  interval,
+  Observable,
+  Subscription,
+  take,
+  tap,
+  throwError,
+} from 'rxjs';
+import { AuthService } from './auth.service';
+import {
+  ChatEvent,
+  chatMessage,
+  ChatMessage,
+  ConnectionState,
+  DisplayMessage,
+  serverMessage,
+} from '@types';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ChatService {
+  // ---- Injections -----
+  private readonly http = inject(HttpClient);
+  private readonly auth = inject(AuthService);
+
+  // ----- Internal Values -----
+  private retrySubscription: Subscription | null = null;
+  private eventSource: EventSource | null = null;
+  private retries = 0;
+  private readonly MAX_RETRIES = 5;
+  private readonly BASE_DELAY = 1000;
+  private readonly MAX_DELAY = 20000;
+  private readonly MESSAGE_FADEOUT = 10 * 1000;
+  private readonly _tick = signal(0);
+  private readonly _messages = signal<DisplayMessage[]>([]);
+  private readonly _connectionState = signal<ConnectionState>('idle');
+  private readonly _retryIn = signal(0);
+
+  // ----- Public Values -----
+  readonly messages = computed(() => {
+    const messages = this._messages();
+    const lastEphemeralIndex = messages.findLastIndex((m) => m.ephemeral);
+    return messages.filter((m, i) => !m.ephemeral || i === lastEphemeralIndex);
+  });
+  readonly recentMessages = computed(() => {
+    this._tick();
+    return this.messages()
+      .slice(-10)
+      .filter((m) => Date.now() - m.timestamp < this.MESSAGE_FADEOUT);
+  });
+  readonly connectionState = this._connectionState.asReadonly();
+  readonly connected = computed(() => this.connectionState() === 'connected');
+  readonly retryIn = this._retryIn.asReadonly();
+
+  // ----- Functions -----
+  constructor() {
+    effect(() => {
+      const lastMessage = this.messages().at(-1);
+      if (!lastMessage) return;
+      setTimeout(() => this._tick.update((t) => t + 1), this.MESSAGE_FADEOUT);
+    });
+  }
+
+  connect(): void {
+    if (this.eventSource || this._connectionState() === 'connecting') return;
+    this._connectionState.set('connecting');
+
+    this.eventSource = new EventSource('/api/chat/stream', {
+      withCredentials: true,
+    });
+
+    this.eventSource.addEventListener('chat', (e: MessageEvent) => {
+      const event: ChatEvent = JSON.parse(e.data);
+
+      if (event.type === 'HISTORY') {
+        const msgs: ChatMessage[] = JSON.parse(event.payload);
+        this._messages.set(msgs.map(chatMessage));
+        this.pushServerMessage('Connected', 'green');
+      } else if (event.type === 'MESSAGE') {
+        const msg: ChatMessage = JSON.parse(event.payload);
+        this._messages.update((msgs) => {
+          const appended = [...msgs, chatMessage(msg)];
+          // Count non-ephemeral messages, keep buffer for ephemerals on top
+          const nonEphemeral = appended.filter((m) => !m.ephemeral);
+          if (nonEphemeral.length > 100) {
+            // Drop oldest non-ephemeral, keep all ephemerals
+            const firstNonEphemeralIdx = appended.findIndex(
+              (m) => !m.ephemeral,
+            );
+            appended.splice(firstNonEphemeralIdx, 1);
+          }
+          return appended;
+        });
+      } else if (event.type === 'JOIN') {
+        // TODO
+      }
+    });
+
+    this.eventSource.onopen = () => {
+      this.retries = 0;
+      this._retryIn.set(0);
+      this.auth.refresh$().subscribe((me) => {
+        if (me.displayName)
+          this.pushServerMessage(`Logged in as ${me.displayName}`, 'green');
+      });
+      this._connectionState.set('connected');
+    };
+
+    this.eventSource.onerror = () => {
+      if (this._connectionState() === 'failed') return;
+
+      this._connectionState.set('waiting_for_retry');
+      if (this.retrySubscription) return;
+
+      if (this.retries < this.MAX_RETRIES) {
+        const delay = this.retryDelay();
+        const seconds = delay / 1000;
+        this._retryIn.set(seconds);
+
+        this.retrySubscription = interval(1000)
+          .pipe(take(seconds))
+          .subscribe({
+            next: (i) => this._retryIn.set(seconds - i - 1),
+            complete: () => {
+              this.retrySubscription = null;
+              this.retries++;
+              this.eventSource?.close();
+              this.eventSource = null;
+              this.connect();
+            },
+          });
+      } else {
+        this.disconnect();
+      }
+    };
+  }
+
+  disconnect(): void {
+    this._connectionState.set('failed');
+    this.retrySubscription?.unsubscribe();
+    this.retrySubscription = null;
+    this.retries = 0;
+    this.eventSource?.close();
+    this.eventSource = null;
+  }
+
+  sendMessage$(content: string): Observable<never> {
+    if (this.connectionState() !== 'connected')
+      return throwError(() => new Error('Not connected to the server'));
+
+    if (content.length > 256 || !content.trim())
+      return throwError(() => new Error('Message too long'));
+
+    const endpoint = this.auth.isLoggedIn()
+      ? '/api/chat/message'
+      : '/api/chat/message/guest';
+
+    return this.http
+      .post<never>(endpoint, { content }, { withCredentials: true })
+      .pipe(
+        tap({
+          error: (e: HttpErrorResponse) => {
+            let message: string;
+
+            if (e.status === 429) {
+              message = 'You are being rate limited.';
+            } else if (e.error?.id === -2) {
+              message =
+                'Logged in users cannot send guest messages, try again.';
+              this.auth
+                .refresh$()
+                .subscribe((me) =>
+                  this.pushServerMessage(
+                    `Logged in as ${me.displayName}`,
+                    'green',
+                  ),
+                );
+            } else {
+              message = e.error?.message ?? 'Unknown Error';
+            }
+
+            this.pushServerMessage(
+              `Message failed to send: ${message}`,
+              'red',
+              true,
+            );
+          },
+        }),
+      );
+  }
+
+  pushServerMessage(
+    text: string,
+    color: DisplayMessage['color'] = 'white',
+    ephemeral: boolean = false,
+  ) {
+    this._messages.update((msgs) =>
+      [...msgs, serverMessage(text, color, ephemeral)].slice(0, 99),
+    );
+  }
+
+  private retryDelay() {
+    return Math.min(this.BASE_DELAY * 2 ** this.retries, this.MAX_DELAY);
+  }
+}

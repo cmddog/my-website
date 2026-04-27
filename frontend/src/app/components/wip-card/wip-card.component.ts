@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-wip-card',
   imports: [],
   templateUrl: './wip-card.component.html',
-  styleUrl: './wip-card.component.scss'
+  styleUrl: './wip-card.component.scss',
 })
-export class WipCardComponent {
-}
+export class WipCardComponent {}

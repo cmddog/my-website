@@ -1,8 +1,25 @@
 [
   {
+    "date": "2026-04-27",
+    "additions": ["The chat", "Account registration and login"],
+    "changes": [
+      "Fonts are now loaded locally instead of through google fonts",
+      "Tabs at the bottom of the screen now collapse if there is too little space"
+    ],
+    "fixes": [],
+    "removals": []
+  },
+  {
     "date": "2026-03-04",
-    "additions": ["This Changelog", "Settings Window", "Neighbours Window", "Static Minecraft Background (for now)"],
-    "changes": ["UI Design — Static cards to translucent, interactable, windows"],
+    "additions": [
+      "This Changelog",
+      "Settings Window",
+      "Neighbours Window",
+      "Static Minecraft Background (for now)"
+    ],
+    "changes": [
+      "UI Design — Static cards to translucent, interactable, windows"
+    ],
     "fixes": [],
     "removals": []
   }

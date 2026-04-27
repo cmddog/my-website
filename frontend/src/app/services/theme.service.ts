@@ -8,6 +8,9 @@ export class ThemeService {
     this.isSwapped.set(checked);
     if (checked) localStorage.setItem('colour-swap', 'true');
     else localStorage.removeItem('colour-swap');
-    document.documentElement.setAttribute('data-theme', checked ? 'swap' : 'none');
+    document.documentElement.setAttribute(
+      'data-theme',
+      checked ? 'swap' : 'none',
+    );
   }
 }

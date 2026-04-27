@@ -8,11 +8,11 @@
 <div class="changes">
   @for (entry of changelog; track entry.date) {
     <app-changelog-entry
-      [additions]="entry.additions ?? undefined"
-      [changes]="entry.changes ?? undefined"
-      [fixes]="entry.fixes ?? undefined"
-      [removals]="entry.removals ?? undefined"
-      [date]="entry.date ?? '0001-01-01'"
+      [additions]="entry.additions"
+      [changes]="entry.changes"
+      [fixes]="entry.fixes"
+      [removals]="entry.removals"
+      [date]="entry.date"
     />
   }
 </div>

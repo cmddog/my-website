@@ -26,9 +26,10 @@
   right: 0;
   bottom: 0;
   background-color: var(--bg-tertiary);
-  transition: .4s;
+  transition: 0.4s;
   border-radius: 2rem;
-  outline: 1px solid color-mix(in srgb, var(--transparent-card-border-colour) 50%, transparent)
+  outline: 1px solid
+    color-mix(in srgb, var(--transparent-card-border-colour) 50%, transparent);
 }
 
 .slider:before {
@@ -39,10 +40,9 @@
   left: 4px;
   bottom: 4px;
   background-color: var(--transparent-card-border-colour);
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   border-radius: 50%;
-
 }
 
 input:checked + .slider:before {

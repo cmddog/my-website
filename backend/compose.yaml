@@ -3,6 +3,8 @@ name: website
 services:
   db:
     image: postgres:15
+    profiles:
+      - prod
     container_name: website-postgres
     restart: unless-stopped
     networks:
@@ -16,6 +18,28 @@ services:
       - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  db-dev:
+    image: postgres:15
+    profiles:
+      - dev
+    container_name: website-postgres-dev
+    restart: unless-stopped
+    networks:
+      - internal
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-website}
+    volumes:
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -38,29 +62,6 @@ services:
       MISCELLANEOUS_DATABASE_URL: jdbc:postgresql://db:5432/miscellaneous
       DATABASE_USER: ${POSTGRES_USER:-postgres}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      ADMIN_PASS_HASH: ${ADMIN_PASS_HASH}
-
-  backend-dev:
-    build: ./
-    profiles:
-      - dev
-    container_name: website-backend
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-    depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - internal
-      - caddy
-    environment:
-      COMMISSIONS_DATABASE_URL: jdbc:postgresql://db:5432/commissions
-      GALLERY_DATABASE_URL: jdbc:postgresql://db:5432/gallery
-      MISCELLANEOUS_DATABASE_URL: jdbc:postgresql://db:5432/miscellaneous
-      DATABASE_USER: ${POSTGRES_USER:-postgres}
-      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      ADMIN_PASS_HASH: ${ADMIN_PASS_HASH}
 
 networks:
   internal:

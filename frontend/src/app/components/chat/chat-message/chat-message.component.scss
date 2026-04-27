@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+p {
+  margin: 0;
+  line-height: 1.25rem;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  font-family: Minecraft, sans-serif;
+  font-size: 1.25rem;
+}
+
+.red {
+  color: #ff5555 !important;
+}
+
+.green {
+  color: #55ff55 !important;
+}
+
+.yellow {
+  color: #ffff55 !important;
+}

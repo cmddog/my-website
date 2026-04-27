@@ -7,7 +7,7 @@ import { noop } from 'rxjs';
   selector: 'app-admin-dashboard',
   imports: [],
   templateUrl: './admin-dashboard.component.html',
-  styleUrl: './admin-dashboard.component.scss'
+  styleUrl: './admin-dashboard.component.scss',
 })
 export class AdminDashboardComponent {
   private readonly loginService = inject(LoginService);
@@ -15,9 +15,9 @@ export class AdminDashboardComponent {
 
   constructor() {
     this.loginService.verify().subscribe({
-      error: _ => {
+      error: () => {
         this.router.navigate(['admin']).then(noop);
-      }
+      },
     });
   }
 }

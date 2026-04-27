@@ -5,11 +5,9 @@ import changelog from './changelog.json';
 
 @Component({
   selector: 'app-changelog',
-  imports: [
-    ChangelogEntryComponent
-  ],
+  imports: [ChangelogEntryComponent],
   templateUrl: './changelog.component.html',
-  styleUrl: './changelog.component.scss'
+  styleUrl: './changelog.component.scss',
 })
 export class ChangelogComponent {
   protected readonly planned = planned;

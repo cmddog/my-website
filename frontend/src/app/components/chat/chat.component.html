@@ -1,0 +1,153 @@
+<div id="chat-container">
+  <div id="recent-messages">
+    @for (m of chat.recentMessages(); track m.id) {
+      <app-chat-message
+        [message]="m"
+        animate.leave="message-fade"
+      ></app-chat-message>
+    }
+  </div>
+
+  <div
+    id="chat-window"
+    tabindex="-1"
+    #chatWindow
+    (scroll)="onChatWindowScroll(chatWindow)"
+    (wheel)="onChatWindowWheel($event, chatWindow)"
+  >
+    @if (!chat.connected()) {
+      @if (
+        chat.connectionState() === "connecting" ||
+        chat.connectionState() === "idle"
+      ) {
+        <p>[Server] Connecting...</p>
+      } @else {
+        <p class="red">
+          [Server] Failed to connect to server.&ensp;
+          @if (chat.connectionState() === "failed") {
+            <span class="clickable" (click)="chat.connect()">Click here</span>
+            to retry.
+          } @else {
+            Retrying in {{ chat.retryIn() }}
+            {{ chat.retryIn() === 1 ? "second" : "seconds" }}.
+          }
+        </p>
+      }
+    } @else if (!auth.isLoggedIn()) {
+      <p class="grey">
+        <span
+          class="clickable"
+          (click)="loggingIn.set(true); registering.set(false)"
+          >Log In</span
+        >
+        /
+        <span
+          class="clickable"
+          (click)="registering.set(true); loggingIn.set(false)"
+          >Register</span
+        >
+      </p>
+    }
+    @for (m of chat.messages().toReversed(); track m.id) {
+      <app-chat-message [message]="m"></app-chat-message>
+    }
+  </div>
+  <div id="scrollbar"></div>
+
+  <input
+    class="chat-bar"
+    [class.red]="chatInput.value.length > 256"
+    id="chat-input"
+    (keydown.enter)="sendMessage()"
+    [attr.readonly]="sending() ? '' : null"
+    #chatInput
+  />
+
+  <p
+    id="message-length-warning"
+    [class.hidden]="chatInput.value.length < 200"
+    [class.red]="chatInput.value.length > 256"
+  >
+    {{ chatInput.value.length }}/256
+  </p>
+
+  <p class="chat-bar" id="chat-hint" (click)="chatInput.focus()">
+    Press 't' or click here to chat...
+  </p>
+</div>
+
+<div class="account">
+  @if (loggingIn()) {
+    <app-draggable-container
+      [maxWidth]="182"
+      [minWidth]="182"
+      cardTitle="Log In"
+      [resizable]="false"
+      (closeButtonClicked)="loggingIn.set(false); loginError.set('')"
+    >
+      <form class="input-form" (ngSubmit)="logIn()" #loginForm="ngForm">
+        <input
+          placeholder="Username*"
+          required
+          name="username"
+          [(ngModel)]="loginUsername"
+        />
+        <input
+          placeholder="Password*"
+          required
+          type="password"
+          name="password"
+          [(ngModel)]="loginPassword"
+        />
+        @if (loginError()) {
+          <p class="red text-center">{{ loginError() }}</p>
+        }
+        <button [disabled]="isLoading() || loginForm.invalid" type="submit">
+          Log In
+        </button>
+      </form>
+    </app-draggable-container>
+  }
+  @if (registering()) {
+    <app-draggable-container
+      [prefWidth]="257.333"
+      cardTitle="Register"
+      [resizable]="false"
+      (closeButtonClicked)="registering.set(false); registerError.set('')"
+    >
+      <form class="input-form" (ngSubmit)="register()" #registerForm="ngForm">
+        <input
+          placeholder="Username*"
+          required
+          name="username"
+          [(ngModel)]="registerUsername"
+        />
+        <input
+          placeholder="Password*"
+          required
+          name="password"
+          [(ngModel)]="registerPassword"
+          type="password"
+        />
+        <textarea
+          placeholder="Security Question (If you forget your password this gives me a way to verify your identity)"
+          name="security question"
+          [(ngModel)]="secQuestion"
+          rows="4"
+        ></textarea>
+        <textarea
+          placeholder="Security Answer"
+          name="security answer"
+          [(ngModel)]="secAnswer"
+          rows="3"
+        ></textarea>
+        @if (registerError()) {
+          <p class="red text-center">{{ registerError() }}</p>
+        }
+        <button [disabled]="isLoading() || registerForm.invalid" type="submit">
+          Register
+        </button>
+      </form>
+    </app-draggable-container>
+  }
+</div>
