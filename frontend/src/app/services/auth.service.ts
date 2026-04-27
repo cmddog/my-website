@@ -23,7 +23,7 @@ export class AuthService {
     () => this.identity().type === 'USER',
   );
 
-  refresh$(): void {
+  refresh(): void {
     this.http
       .get<MeResponse>('/api/auth/me', { withCredentials: true })
       .subscribe((res) => this._identity.set(res));

@@ -103,7 +103,7 @@ export class ChatService {
     this.eventSource.onopen = () => {
       this.retries = 0;
       this._retryIn.set(0);
-      this.auth.refresh$();
+      this.auth.refresh();
       this._connectionState.set('connected');
     };
 
