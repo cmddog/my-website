@@ -13,7 +13,7 @@ fun Application.configureRateLimiting() {
             rateLimiter(limit = 1, refillPeriod = 1.seconds)
         }
         register(RateLimitName("guest")) {
-            rateLimiter(limit = 1, refillPeriod = 4.seconds)
+            rateLimiter(limit = 1, refillPeriod = 3.seconds)
         }
     }
 }
