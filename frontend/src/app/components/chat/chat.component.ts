@@ -99,6 +99,7 @@ export class ChatComponent {
         next: () => {
           this.loginError.set('');
           this.loggingIn.set(false);
+          this.chat.pushServerMessage('Logged in successfully', 'green');
         },
         error: (e: HttpErrorResponse) => {
           this.loginError.set(e.error?.message ?? 'An error occurred');
@@ -123,6 +124,7 @@ export class ChatComponent {
         next: () => {
           this.registerError.set('');
           this.registering.set(false);
+          this.chat.pushServerMessage('Registered successfully', 'green');
         },
         error: (e: HttpErrorResponse) => {
           this.registerError.set(e.error?.message ?? 'An error occurred');

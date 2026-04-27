@@ -102,7 +102,10 @@ export class ChatService {
     this.eventSource.onopen = () => {
       this.retries = 0;
       this._retryIn.set(0);
-      this.auth.refresh();
+      this.auth.refresh$().subscribe((me) => {
+        if (me.displayName)
+          this.pushServerMessage(`Logged in as ${me.displayName}`, 'green');
+      });
       this._connectionState.set('connected');
     };
 
@@ -178,7 +181,7 @@ export class ChatService {
       );
   }
 
-  private pushServerMessage(
+  pushServerMessage(
     text: string,
     color: DisplayMessage['color'] = 'white',
     ephemeral: boolean = false,
