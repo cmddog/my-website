@@ -1,6 +1,5 @@
 import {
   Component,
-  effect,
   ElementRef,
   HostListener,
   inject,
@@ -41,12 +40,6 @@ export class ChatComponent {
   readonly loginError = signal('');
   readonly registerError = signal('');
   readonly isLoading = signal(false);
-
-  constructor() {
-    effect(() => {
-      this.chat.messages();
-    });
-  }
 
   @HostListener('window:keydown', ['$event'])
   handleKeydown(event: KeyboardEvent) {
