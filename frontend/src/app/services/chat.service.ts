@@ -1,4 +1,4 @@
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {
   interval,
@@ -47,23 +47,15 @@ export class ChatService {
   });
   readonly recentMessages = computed(() => {
     this._tick();
-    return this.messages()
-      .slice(-10)
-      .filter((m) => Date.now() - m.timestamp < this.MESSAGE_FADEOUT);
+    return this.messages().filter(
+      (m) => Date.now() - (m.receivedAt ?? m.timestamp) < this.MESSAGE_FADEOUT,
+    );
   });
   readonly connectionState = this._connectionState.asReadonly();
   readonly connected = computed(() => this.connectionState() === 'connected');
   readonly retryIn = this._retryIn.asReadonly();
 
   // ----- Functions -----
-  constructor() {
-    effect(() => {
-      const lastMessage = this.messages().at(-1);
-      if (!lastMessage) return;
-      setTimeout(() => this._tick.update((t) => t + 1), this.MESSAGE_FADEOUT);
-    });
-  }
-
   connect(): void {
     if (this.eventSource || this._connectionState() === 'connecting') return;
     this._connectionState.set('connecting');
@@ -80,20 +72,7 @@ export class ChatService {
         this._messages.set(msgs.map(chatMessage));
         this.pushServerMessage('Connected', 'green');
       } else if (event.type === 'MESSAGE') {
-        const msg: ChatMessage = JSON.parse(event.payload);
-        this._messages.update((msgs) => {
-          const appended = [...msgs, chatMessage(msg)];
-          // Count non-ephemeral messages, keep buffer for ephemerals on top
-          const nonEphemeral = appended.filter((m) => !m.ephemeral);
-          if (nonEphemeral.length > 100) {
-            // Drop oldest non-ephemeral, keep all ephemerals
-            const firstNonEphemeralIdx = appended.findIndex(
-              (m) => !m.ephemeral,
-            );
-            appended.splice(firstNonEphemeralIdx, 1);
-          }
-          return appended;
-        });
+        this.appendMessage(chatMessage(JSON.parse(event.payload), Date.now()));
       } else if (event.type === 'JOIN') {
         // TODO
       }
@@ -197,12 +176,29 @@ export class ChatService {
     color: DisplayMessage['color'] = 'white',
     ephemeral: boolean = false,
   ) {
-    this._messages.update((msgs) =>
-      [...msgs, serverMessage(text, color, ephemeral)].slice(0, 99),
-    );
+    this.appendMessage(serverMessage(text, color, ephemeral));
   }
 
   private retryDelay() {
     return Math.min(this.BASE_DELAY * 2 ** this.retries, this.MAX_DELAY);
+  }
+
+  private appendMessage(msg: DisplayMessage) {
+    this.scheduleFadeout(msg);
+    this._messages.update((msgs) => {
+      const appended = [...msgs, msg];
+      const nonEphemeralCount = appended.filter((m) => !m.ephemeral).length;
+      if (nonEphemeralCount > 100) {
+        const firstNonEphemeralIdx = appended.findIndex((m) => !m.ephemeral);
+        appended.splice(firstNonEphemeralIdx, 1);
+      }
+      return appended;
+    });
+  }
+
+  private scheduleFadeout(msg: DisplayMessage) {
+    const age = Date.now() - (msg.receivedAt ?? msg.timestamp);
+    const remaining = Math.max(0, this.MESSAGE_FADEOUT - age);
+    setTimeout(() => this._tick.update((t) => t + 1), remaining);
   }
 }

@@ -15,6 +15,7 @@ export interface DisplayMessage {
   id: number;
   timestamp: number;
   // chat only
+  receivedAt?: number;
   sender?: string;
   content?: string;
   // server only
@@ -23,10 +24,14 @@ export interface DisplayMessage {
   ephemeral?: boolean;
 }
 
-export const chatMessage = (data: ChatMessage): DisplayMessage => ({
+export const chatMessage = (
+  data: ChatMessage,
+  receivedAt?: number,
+): DisplayMessage => ({
   kind: 'chat',
   id: data.id,
   timestamp: data.timestamp,
+  receivedAt: receivedAt,
   sender: data.sender,
   content: data.content,
 });
