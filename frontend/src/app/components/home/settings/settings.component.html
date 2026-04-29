@@ -1,13 +1,36 @@
 <div class="settings">
-  <div class="toggle-setting mb-4">
+  <h3>General</h3>
+  <div class="toggle-setting">
     <div>
       Swap <span class="colour-primary">primary</span> and
       <span class="colour-accent">accent</span> colours
     </div>
     <label class="switch">
-      <input #checkbox type="checkbox" (change)="onThemeSwap($event)" />
+      <input #swapTheme type="checkbox" (change)="onThemeSwap($event)" />
       <span class="slider"></span>
     </label>
   </div>
-  <i>It's a bit empty here... but more will come soon :3</i>
+  <h3>Chat</h3>
+  <div class="toggle-setting">
+    <div>Enable chat</div>
+    <label class="switch">
+      <input
+        #enableChat
+        type="checkbox"
+        (change)="settings.toggleChatEnabled()"
+      />
+      <span class="slider"></span>
+    </label>
+  </div>
+  <div class="toggle-setting">
+    <div>Close chat after sending a message</div>
+    <label class="switch">
+      <input
+        #closeOnSend
+        type="checkbox"
+        (change)="settings.toggleCloseChatOnSend()"
+      />
+      <span class="slider"></span>
+    </label>
+  </div>
 </div>

@@ -1,7 +1,20 @@
 [
   {
+    "date": "2026-04-29",
+    "additions": [
+      "Setting to hide the chat",
+      "Setting to enable the chat staying open when you send a message"
+    ],
+    "fixes": [],
+    "removals": []
+  },
+  {
     "date": "2026-04-27",
-    "additions": ["The chat", "Account registration and login", "My own website button - pixel headshot by @crustaceanlady.bsky.social!"],
+    "additions": [
+      "The chat",
+      "Account registration and login",
+      "My own website button - pixel headshot by @crustaceanlady.bsky.social!"
+    ],
     "changes": [
       "Fonts are now loaded locally instead of through google fonts",
       "Tabs at the bottom of the screen now collapse if there is too little space"

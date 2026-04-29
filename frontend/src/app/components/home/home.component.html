@@ -154,4 +154,6 @@
   </button>
 }
 
-<app-chat />
+@if (settings.chatEnabled()) {
+  <app-chat />
+}

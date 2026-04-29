@@ -3,9 +3,10 @@ import {
   ElementRef,
   inject,
   OnInit,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { ThemeService } from '@services';
+import { SettingsService } from '../../../services/settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -14,17 +15,29 @@ import { ThemeService } from '@services';
   styleUrl: './settings.component.scss',
 })
 export class SettingsComponent implements OnInit {
-  private readonly themeService = inject(ThemeService);
+  private readonly theme = inject(ThemeService);
+  protected readonly settings = inject(SettingsService);
 
-  @ViewChild('checkbox', { static: true }) checkboxRef!: ElementRef;
+  private readonly swapThemeCheckboxRef =
+    viewChild.required<ElementRef<HTMLInputElement>>('swapTheme');
+  private readonly enableChatCheckboxRef =
+    viewChild.required<ElementRef<HTMLInputElement>>('enableChat');
+  private readonly closeOnSendCheckboxRef =
+    viewChild.required<ElementRef<HTMLInputElement>>('closeOnSend');
 
   ngOnInit() {
-    if (this.themeService.isSwapped()) {
-      this.checkboxRef.nativeElement.checked = true;
+    if (this.theme.isSwapped()) {
+      this.swapThemeCheckboxRef().nativeElement.checked = true;
+    }
+    if (this.settings.chatEnabled()) {
+      this.enableChatCheckboxRef().nativeElement.checked = true;
+    }
+    if (this.settings.closeChatOnSend()) {
+      this.closeOnSendCheckboxRef().nativeElement.checked = true;
     }
   }
 
   onThemeSwap(event: Event) {
-    this.themeService.toggle((event.target as HTMLInputElement).checked);
+    this.theme.toggle((event.target as HTMLInputElement).checked);
   }
 }

@@ -16,6 +16,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { BreakpointService } from '@services';
 import { AsyncPipe } from '@angular/common';
 import { ChatComponent } from '../chat/chat.component';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-home',
@@ -34,6 +35,8 @@ import { ChatComponent } from '../chat/chat.component';
 export class HomeComponent {
   // tmp
   protected readonly breakpointService = inject(BreakpointService);
+
+  protected settings = inject(SettingsService);
 
   readonly windows = new Map([
     ['introduction', 'Introduction'],

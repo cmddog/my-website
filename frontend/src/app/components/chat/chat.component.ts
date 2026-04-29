@@ -12,6 +12,7 @@ import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { DraggableContainerComponent } from '../draggable-container/draggable-container.component';
 import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-chat',
@@ -20,6 +21,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './chat.component.scss',
 })
 export class ChatComponent {
+  private readonly settings = inject(SettingsService);
   protected readonly chat = inject(ChatService);
   protected readonly auth = inject(AuthService);
 
@@ -83,7 +85,7 @@ export class ChatComponent {
       .subscribe({
         next: () => {
           chatInput.value = '';
-          chatInput.blur();
+          if (this.settings.closeChatOnSend()) chatInput.blur();
         },
         error: () => {},
       });
