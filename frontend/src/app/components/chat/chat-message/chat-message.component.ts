@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { DisplayMessage } from '@types';
 
 @Component({
@@ -9,4 +9,8 @@ import { DisplayMessage } from '@types';
 })
 export class ChatMessageComponent {
   readonly message = input.required<DisplayMessage>();
+  time = computed(() => {
+    const t = new Date(this.message().timestamp);
+    return `${t.getFullYear()}/${t.getMonth()}/${t.getDate()} ${t.getHours()}:${t.getMinutes()}`;
+  });
 }

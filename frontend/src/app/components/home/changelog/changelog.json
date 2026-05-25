@@ -1,10 +1,20 @@
 [
   {
+    "date": "2026-05-25",
+    "additions": [
+      "Show message timestamp when hovering over sender name in the chat"
+    ],
+    "changes": [],
+    "fixes": [],
+    "removals": []
+  },
+  {
     "date": "2026-04-29",
     "additions": [
       "Setting to hide the chat",
       "Setting to enable the chat staying open when you send a message"
     ],
+    "changes": [],
     "fixes": [],
     "removals": []
   },

@@ -21,3 +21,23 @@ p {
 .yellow {
   color: #ffff55 !important;
 }
+
+#tooltip {
+  top: 0;
+  left: 100%;
+  visibility: hidden;
+  position: absolute;
+  background: rgba(0,0,0,.25);
+  border-radius: .25rem;
+  min-width: fit-content;
+  backdrop-filter: blur(2px);
+  width: max-content;
+}
+
+#sender {
+  position: relative;
+}
+
+#sender:hover #tooltip {
+  visibility: unset;
+}
