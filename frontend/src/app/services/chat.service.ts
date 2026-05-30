@@ -2,6 +2,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {
   interval,
+  noop,
   Observable,
   Subscription,
   take,
@@ -17,6 +18,7 @@ import {
   DisplayMessage,
   serverMessage,
 } from '@types';
+import { SettingsService } from './settings.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +27,7 @@ export class ChatService {
   // ---- Injections -----
   private readonly http = inject(HttpClient);
   private readonly auth = inject(AuthService);
+  private readonly settings = inject(SettingsService);
 
   // ----- Internal Values -----
   private retrySubscription: Subscription | null = null;
@@ -38,6 +41,8 @@ export class ChatService {
   private readonly _messages = signal<DisplayMessage[]>([]);
   private readonly _connectionState = signal<ConnectionState>('idle');
   private readonly _retryIn = signal(0);
+  private readonly click = new Audio('assets/audio/click.mp3');
+  private readonly bell = new Audio('assets/audio/bell.mp3');
 
   // ----- Public Values -----
   readonly messages = computed(() => {
@@ -167,6 +172,9 @@ export class ChatService {
               true,
             );
           },
+          next: () => {
+            if (this.auth.identity().type === 'ANONYMOUS') this.auth.refresh$();
+          },
         }),
       );
   }
@@ -184,6 +192,19 @@ export class ChatService {
   }
 
   private appendMessage(msg: DisplayMessage) {
+    if (msg.sender != this.auth.identity().displayName) {
+      if (
+        this.settings.playPingNotif() &&
+        /* TODO improve this shit lol */
+        msg.content
+          ?.toLowerCase()
+          .includes(`@${this.auth.identity().displayName?.toLowerCase()}`)
+      )
+        this.bell.play().then(() => noop);
+      else if (this.settings.playChatNotif())
+        this.click.play().then(() => noop);
+    }
+
     this.scheduleFadeout(msg);
     this._messages.update((msgs) => {
       const appended = [...msgs, msg];

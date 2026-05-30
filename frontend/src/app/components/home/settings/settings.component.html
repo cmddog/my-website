@@ -17,7 +17,7 @@
       <input
         #enableChat
         type="checkbox"
-        (change)="settings.toggleChatEnabled()"
+        (change)="settings.toggleChatEnabled(); settings.chatEnabled() ? chat.connect() : chat.disconnect()"
       />
       <span class="slider"></span>
     </label>
@@ -29,6 +29,28 @@
         #closeOnSend
         type="checkbox"
         (change)="settings.toggleCloseChatOnSend()"
+      />
+      <span class="slider"></span>
+    </label>
+  </div>
+  <div class="toggle-setting">
+    <div>Play a click noise when a message is sent in chat</div>
+    <label class="switch">
+      <input
+        #chatNotif
+        type="checkbox"
+        (change)="settings.togglePlayChatNotif()"
+      />
+      <span class="slider"></span>
+    </label>
+  </div>
+  <div class="toggle-setting">
+    <div>Play a bell noise when you are pinged in chat</div>
+    <label class="switch">
+      <input
+        #pingNotif
+        type="checkbox"
+        (change)="settings.togglePlayPingNotif()"
       />
       <span class="slider"></span>
     </label>

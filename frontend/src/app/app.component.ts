@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ChatService } from '@services';
+import { SettingsService } from './services/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,6 @@ import { ChatService } from '@services';
 })
 export class AppComponent {
   constructor() {
-    inject(ChatService).connect();
+    if (inject(SettingsService).chatEnabled()) inject(ChatService).connect();
   }
 }

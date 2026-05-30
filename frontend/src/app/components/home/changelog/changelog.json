@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-05-30",
+    "additions": [
+      "Play a notification sound when a message is sent in chat (toggleable in settings)",
+      "A primitive pinging feature in chat, that lets you ping somebody with @<username> (case insensitive, individually toggleable in settings)"
+    ],
+    "changes": [],
+    "fixes": [],
+    "removals": []
+  },
+  {
     "date": "2026-05-25",
     "additions": [
       "Show message timestamp when hovering over sender name in the chat"

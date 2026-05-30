@@ -84,7 +84,7 @@ fun Route.authRoutes() {
                 }
 
                 guestSession != null ->
-                    call.respond(MeResponse(IdentityType.GUEST, "Guest #${guestSession.guestNumber}"))
+                    call.respond(MeResponse(IdentityType.GUEST, "Guest#${guestSession.guestNumber}"))
 
                 else ->
                     call.respond(MeResponse(IdentityType.ANONYMOUS, null))
