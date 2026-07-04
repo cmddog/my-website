@@ -59,3 +59,24 @@ p {
   width: fit-content;
   flex-grow: 1;
 }
+
+.nsfw-toggle-wrapper {
+  display: flex;
+  background: none;
+  border: none;
+  justify-content: center;
+}
+
+.nsfw-toggle-text {
+  color: var(--primary-colour);
+  font-size: 1rem;
+  letter-spacing: 0.25rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+#e6 {
+  width: 3.5rem;
+  height: 3.5rem;
+}
