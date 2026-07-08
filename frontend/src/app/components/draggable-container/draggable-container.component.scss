@@ -58,8 +58,8 @@
 
   transition: background 150ms ease;
 
-  svg {
-    fill: var(--transparent-card-border-colour);
+  app-icon {
+    color: var(--transparent-card-border-colour);
   }
 }
 

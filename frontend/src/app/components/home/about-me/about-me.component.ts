@@ -1,12 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { map, shareReplay } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ThemeService } from '@services';
+import { IconComponent } from '../../icon/icon.component';
 
 @Component({
   selector: 'app-about-me',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, IconComponent, NgOptimizedImage],
   templateUrl: './about-me.component.html',
   styleUrl: './about-me.component.scss',
 })

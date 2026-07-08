@@ -17,6 +17,7 @@ import { BreakpointService } from '@services';
 import { AsyncPipe } from '@angular/common';
 import { ChatComponent } from '../chat/chat.component';
 import { SettingsService } from '../../services/settings.service';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ import { SettingsService } from '../../services/settings.service';
     SettingsComponent,
     AsyncPipe,
     ChatComponent,
+    IconComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

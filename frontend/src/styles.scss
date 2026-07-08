@@ -123,25 +123,16 @@ body {
     inset 0 0 0 var(--highlight-colour);
 }
 
-.inset-button img {
-  width: 2.75rem;
-  height: 2.75rem;
-  object-fit: contain;
-  transition: scale 0.3s ease;
+.inset-button img,
+.inset-button app-icon {
+  transform: scale(1.01);
+  transition: transform 0.25s ease;
 }
 
-.icon-svg {
-  width: 2.75rem;
-  height: 2.75rem;
-  fill: var(--primary-colour);
-  transition:
-    scale 0.3s ease,
-    fill 0.3s ease;
-}
-
-.inset-button:hover .icon-svg,
+.inset-button:hover app-icon,
 .inset-button:hover img {
-  scale: 95%;
+  transform: scale(0.95);
+  transition: transform 0.25s ease;
 }
 
 .inset-button:hover {

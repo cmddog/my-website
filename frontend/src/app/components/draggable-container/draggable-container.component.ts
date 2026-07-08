@@ -10,10 +10,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NgStyle } from '@angular/common';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-draggable-container',
-  imports: [NgStyle],
+  imports: [NgStyle, IconComponent],
   templateUrl: './draggable-container.component.html',
   styleUrl: './draggable-container.component.scss',
 })
