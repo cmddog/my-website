@@ -1,5 +1,5 @@
 export interface ChatEvent {
-  type: 'MESSAGE' | 'HISTORY' | 'JOIN' | 'LEAVE';
+  type: 'MESSAGE' | 'HISTORY' | 'JOIN' | 'LEAVE' | 'MESSAGE_UPDATE';
   payload: string;
 }
 
@@ -8,6 +8,7 @@ export interface ChatMessage {
   sender?: string;
   content: string;
   timestamp: number;
+  deleted: boolean;
 }
 
 export interface DisplayMessage {
@@ -18,6 +19,7 @@ export interface DisplayMessage {
   receivedAt?: number;
   sender?: string;
   content?: string;
+  deleted?: boolean;
   // server only
   text?: string;
   color?: 'white' | 'green' | 'yellow' | 'red';
@@ -34,6 +36,7 @@ export const chatMessage = (
   receivedAt: receivedAt,
   sender: data.sender,
   content: data.content,
+  deleted: data.deleted,
 });
 
 export const serverMessage = (

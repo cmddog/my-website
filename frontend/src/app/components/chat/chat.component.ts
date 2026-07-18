@@ -170,61 +170,57 @@ export class ChatComponent {
   onMessageContextMenu(event: MouseEvent, message: DisplayMessage) {
     event.preventDefault();
     event.stopPropagation();
-
-    this.contextMenuItems.set([]);
+    const items: ContextMenuItem[] = [];
 
     if (message.sender) {
       const chat = this.chatInputRef().nativeElement;
-      this.contextMenuItems.update((items) => [
-        ...items,
-        {
-          label: 'Mention Sender',
-          icon: 'at',
-          action: () => {
-            chat.value = `${chat.value}@${message.sender} `;
-            chat.focus();
-          },
+      items.push({
+        label: 'Mention Sender',
+        icon: 'at',
+        action: () => {
+          chat.value = `${chat.value}@${message.sender} `;
+          chat.focus();
         },
-        {
+      });
+
+      if (!message.deleted) {
+        items.push({
           label: 'Copy Text',
           icon: 'copy',
           action: () => navigator.clipboard.writeText(message.content ?? ''),
-        },
-        {
-          label: 'Copy Sender',
-          icon: 'person',
-          action: () => navigator.clipboard.writeText(message.sender ?? ''),
-        },
-      ]);
+        });
+      }
+
+      items.push({
+        label: 'Copy Sender',
+        icon: 'person',
+        action: () => navigator.clipboard.writeText(message.sender ?? ''),
+      });
 
       const identity = this.auth.identity();
+      console.log(identity);
       if (
-        message.sender === identity.displayName ||
-        identity.type === 'MODERATOR' ||
-        identity.type === 'ADMIN'
+        (message.sender === identity.displayName ||
+          identity.type === 'MODERATOR' ||
+          identity.type === 'ADMIN') &&
+        !message.deleted
       ) {
-        this.contextMenuItems.update((items) => [
-          ...items,
-          {
-            label: 'Delete Message',
-            icon: 'delete',
-            danger: true,
-            action: () => this.chat.deleteMessage(message.id),
-          },
-        ]);
+        items.push({
+          label: 'Delete Message',
+          icon: 'delete',
+          danger: true,
+          action: () => this.chat.deleteMessage$(message.id),
+        });
       }
     } else {
-      this.contextMenuItems.update((items) => [
-        ...items,
-        {
-          label: 'Copy Text',
-          icon: 'copy',
-          action: () =>
-            navigator.clipboard.writeText(`[Server] ${message.text}`),
-        },
-      ]);
+      items.push({
+        label: 'Copy Text',
+        icon: 'copy',
+        action: () => navigator.clipboard.writeText(`[Server] ${message.text}`),
+      });
     }
 
+    this.contextMenuItems.set(items);
     this.contextMenuVisible.set(true);
     this.contextMenu().open(event);
   }

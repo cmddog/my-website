@@ -101,6 +101,8 @@ p {
   background-color: rgba(0, 0, 0, 50%);
   padding-left: 0.75rem;
   max-height: 25rem;
+  padding-top: 4px; // for some reason the window is 4px too short before reaching max height, so there's always a scroll bar
+  // should find a fix that's not a band-aid
 
   &::-webkit-scrollbar {
     width: 0;
@@ -131,6 +133,10 @@ p {
     background-color: rgba(0, 0, 0, 50%);
     margin-left: -0.75rem;
     padding-left: 0.75rem;
+  }
+
+  app-chat-message:hover {
+    background-color: color-mix(in srgb, 50% black, 10% white);
   }
 }
 

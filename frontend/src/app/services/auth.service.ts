@@ -30,15 +30,17 @@ export class AuthService {
       .pipe(tap((me) => this._identity.set(me)));
   }
 
-  login$(username: string, password: string): Observable<never> {
+  login$(username: string, password: string): Observable<MeResponse> {
     return this.http
-      .post<never>(
+      .post<MeResponse>(
         '/api/auth/login',
         { username, password },
         { withCredentials: true },
       )
       .pipe(
-        tap(() => this._identity.set({ type: 'USER', displayName: username })),
+        tap((me) =>
+          this._identity.set({ type: me.type, displayName: me.displayName }),
+        ),
       );
   }
 
