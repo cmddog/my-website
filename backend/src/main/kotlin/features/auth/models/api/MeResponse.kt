@@ -3,7 +3,7 @@ package com.cmddog.features.auth.models.api
 import kotlinx.serialization.Serializable
 
 @Serializable
-enum class IdentityType { USER, GUEST, ANONYMOUS }
+enum class IdentityType { ADMIN, MODERATOR, USER, GUEST, ANONYMOUS }
 
 @Serializable
 data class MeResponse(

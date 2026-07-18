@@ -222,4 +222,8 @@ export class ChatService {
     const remaining = Math.max(0, this.MESSAGE_FADEOUT - age);
     setTimeout(() => this._tick.update((t) => t + 1), remaining);
   }
+
+  deleteMessage(id: number) {
+    return undefined;
+  }
 }

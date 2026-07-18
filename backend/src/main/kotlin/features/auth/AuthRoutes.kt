@@ -75,9 +75,17 @@ fun Route.authRoutes() {
         }
 
         get("/me") {
+            val adminSession = call.sessions.get<AdminSession>()
             val userSession = call.sessions.get<UserSession>()
             val guestSession = call.sessions.get<GuestSession>()
             when {
+                adminSession != null && userSession != null -> {
+                    val user = UserService.getUserFromName(userSession.username)
+                    call.respond(MeResponse(IdentityType.ADMIN, user?.displayName ?: userSession.username))
+                }
+
+                // logic for moderators
+
                 userSession != null -> {
                     val user = UserService.getUserFromName(userSession.username)
                     call.respond(MeResponse(IdentityType.USER, user?.displayName ?: userSession.username))

@@ -1,6 +1,15 @@
 [
   {
     "date": "2026-05-30",
+    "additions": [],
+    "changes": [
+      "Improved the way icons are handled at the cost of slightly longer load time"
+    ],
+    "fixes": [],
+    "removals": []
+  },
+  {
+    "date": "2026-05-30",
     "additions": [
       "Play a notification sound when a message is sent in chat (toggleable in settings)",
       "A primitive pinging feature in chat, that lets you ping somebody with @<username> (case insensitive, individually toggleable in settings)"

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 
 export interface MeResponse {
-  type: 'USER' | 'GUEST' | 'ANONYMOUS';
+  type: 'USER' | 'GUEST' | 'ANONYMOUS' | 'MODERATOR' | 'ADMIN';
   displayName: string | null;
 }
 
@@ -20,7 +20,8 @@ export class AuthService {
 
   readonly identity = this._identity.asReadonly();
   readonly isLoggedIn = computed<boolean>(
-    () => this.identity().type === 'USER',
+    () =>
+      this.identity().type !== 'GUEST' && this.identity().type !== 'ANONYMOUS',
   );
 
   refresh$(): Observable<MeResponse> {

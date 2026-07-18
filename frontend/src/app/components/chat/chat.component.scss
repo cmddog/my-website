@@ -134,6 +134,10 @@ p {
   }
 }
 
+app-chat-message:hover {
+  background-color: color-mix(in srgb, 50% black, 10% white);
+}
+
 #chat-container:focus-within #chat-window {
   display: flex;
   flex-direction: column-reverse;
