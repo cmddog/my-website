@@ -182,15 +182,13 @@ export class ChatService {
       );
   }
 
-  deleteMessage$(id: number) {
+  deleteMessage$(id: number): Observable<never> {
     if (this.connectionState() !== 'connected')
       return throwError(() => new Error('Not connected to the server'));
 
-    return this.http
-      .post<never>(`/api/chat/delete/${id}`, {
-        withCredentials: true,
-      })
-      .subscribe();
+    return this.http.post<never>(`/api/chat/delete/${id}`, {
+      withCredentials: true,
+    });
   }
 
   pushServerMessage(
