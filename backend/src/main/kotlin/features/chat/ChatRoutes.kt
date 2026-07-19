@@ -80,7 +80,7 @@ fun Route.chatRoutes() {
             post("/delete/{msgId}") {
                 val id = call.parameters["msgId"]?.toLongOrNull()
                 if (id === null) {
-                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Invalid message ID", 5))
+                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Invalid message ID", 7))
                     return@post
                 }
                 val userSession = call.sessions.get<UserSession>()
@@ -89,7 +89,7 @@ fun Route.chatRoutes() {
                     call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Not logged in", 5))
                     return@post
                 }
-                if (ChatService.getMessage(id)?.sender != userSession.username && adminSession === null) {
+                if (ChatService.getMessage(id)?.sender?.lowercase() != userSession.username && adminSession === null) {
                     call.respond(HttpStatusCode.Forbidden, ErrorResponse("No permission to delete message", 6))
                     return@post
                 }
