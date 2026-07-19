@@ -21,7 +21,7 @@ object ChatService {
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    fun getMessage(id: Long) = history.find { it.id == id }
+    suspend fun getMessage(id: Long) = historyMutex.withLock { history.find { it.id == id } }
 
     suspend fun deleteMessage(id: Long) {
         val event = historyMutex.withLock {
