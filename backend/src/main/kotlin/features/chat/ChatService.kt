@@ -24,12 +24,13 @@ object ChatService {
     fun getMessage(id: Long) = history.find { it.id == id }
 
     suspend fun deleteMessage(id: Long) {
-        val msg = history.find { it.id == id } ?: return
-        historyMutex.withLock {
+        val event = historyMutex.withLock {
+            val msg = history.find { it.id == id } ?: return@withLock null
             msg.deleted = true
             msg.content = "[deleted message]"
-            broadcast(ChatEvent.messageUpdate(msg))
+            ChatEvent.messageUpdate(msg)
         }
+        if (event != null) broadcast(event)
     }
 
     suspend fun addMessage(sender: String, content: String): ChatMessage {

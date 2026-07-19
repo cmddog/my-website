@@ -89,7 +89,7 @@ fun Route.chatRoutes() {
                     call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Not logged in", 5))
                     return@post
                 }
-                if (ChatService.getMessage(id)?.sender?.lowercase() != userSession.username && adminSession === null) {
+                if (ChatService.getMessage(id)?.sender?.lowercase() != userSession.username && adminSession === null) { // this'll need to be changed once I let people change their display name anyway
                     call.respond(HttpStatusCode.Forbidden, ErrorResponse("No permission to delete message", 6))
                     return@post
                 }
