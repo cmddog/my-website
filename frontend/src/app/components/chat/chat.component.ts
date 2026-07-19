@@ -198,7 +198,6 @@ export class ChatComponent {
       });
 
       const identity = this.auth.identity();
-      console.log(identity);
       if (
         (message.sender === identity.displayName ||
           identity.type === 'MODERATOR' ||
