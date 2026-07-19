@@ -1,5 +1,12 @@
 [
   {
+    "date": "2026-07-19",
+    "additions": ["A custom context menu for chat messages with various options, including the ability to delete messages"],
+    "changes": [],
+    "fixes": [],
+    "removals": []
+  },
+  {
     "date": "2026-05-30",
     "additions": [],
     "changes": [
