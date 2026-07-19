@@ -136,12 +136,12 @@ p {
   }
 
   app-chat-message:hover {
-    background-color: color-mix(in srgb, 50% black, 10% white);
+    background-color: color-mix(in srgb, black 50%, white 10%);
   }
 }
 
 app-chat-message:hover {
-  background-color: color-mix(in srgb, 50% black, 10% white);
+  background-color: color-mix(in srgb, black 50%, white 10%);
 }
 
 #chat-container:focus-within #chat-window {

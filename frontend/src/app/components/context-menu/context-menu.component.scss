@@ -35,7 +35,7 @@ hr {
       background: color-mix(
         in srgb,
         var(--transparent-card-background-colour),
-        10% white
+        white 10%
       );
     }
 
@@ -50,7 +50,7 @@ hr {
         background: color-mix(
           in srgb,
           var(--transparent-card-background-colour),
-          20% var(--text-red)
+          var(--text-red) 20%
         );
       }
     }
