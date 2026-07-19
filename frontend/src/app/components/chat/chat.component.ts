@@ -208,7 +208,15 @@ export class ChatComponent {
           label: 'Delete Message',
           icon: 'delete',
           danger: true,
-          action: () => this.chat.deleteMessage$(message.id).subscribe(),
+          action: () =>
+            this.chat.deleteMessage$(message.id).subscribe({
+              error: () =>
+                this.chat.pushServerMessage(
+                  'Failed to delete message',
+                  'red',
+                  true,
+                ),
+            }),
         });
       }
     } else {
