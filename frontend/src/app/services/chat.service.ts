@@ -186,7 +186,7 @@ export class ChatService {
     if (this.connectionState() !== 'connected')
       return throwError(() => new Error('Not connected to the server'));
 
-    return this.http.post<never>(`/api/chat/delete/${id}`, {
+    return this.http.post<never>(`/api/chat/delete/${id}`, null, {
       withCredentials: true,
     });
   }
