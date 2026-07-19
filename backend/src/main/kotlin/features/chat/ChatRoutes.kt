@@ -78,7 +78,11 @@ fun Route.chatRoutes() {
             }
 
             post("/delete/{msgId}") {
-                val id = call.parameters["msgId"]?.toLongOrNull() ?: return@post
+                val id = call.parameters["msgId"]?.toLongOrNull()
+                if (id === null) {
+                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Invalid message ID", 5))
+                    return@post
+                }
                 val userSession = call.sessions.get<UserSession>()
                 val adminSession = call.sessions.get<AdminSession>()
                 if (userSession == null) {
