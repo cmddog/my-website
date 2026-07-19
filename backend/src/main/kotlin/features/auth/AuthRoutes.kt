@@ -38,15 +38,17 @@ fun Route.authRoutes() {
                 val sessionId = UUID.randomUUID().toString()
                 call.sessions.set(UserSession(user.username, sessionId))
 
+                var admin = false
                 if (user.username in adminUsernames) {
                     val ip = call.request.headers["X-Forwarded-For"]
                         ?: call.request.origin.remoteHost
                     logger.info { "Login: ${user.username} from $ip" }
 
+                    admin = true
                     call.sessions.set(AdminSession(sessionId))
                 }
 
-                call.respond(HttpStatusCode.OK)
+                call.respond(MeResponse(if (admin) IdentityType.ADMIN else IdentityType.USER, user.displayName))
             }
 
             post("/register") {
@@ -75,9 +77,17 @@ fun Route.authRoutes() {
         }
 
         get("/me") {
+            val adminSession = call.sessions.get<AdminSession>()
             val userSession = call.sessions.get<UserSession>()
             val guestSession = call.sessions.get<GuestSession>()
             when {
+                adminSession != null && userSession != null -> {
+                    val user = UserService.getUserFromName(userSession.username)
+                    call.respond(MeResponse(IdentityType.ADMIN, user?.displayName ?: userSession.username))
+                }
+
+                // logic for moderators
+
                 userSession != null -> {
                     val user = UserService.getUserFromName(userSession.username)
                     call.respond(MeResponse(IdentityType.USER, user?.displayName ?: userSession.username))

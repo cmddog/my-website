@@ -19,5 +19,7 @@
 
 hr {
   width: 100%;
-  color: var(--transparent-card-border-colour);
+  border: none;
+  height: 1px;
+  background-color: var(--transparent-card-border-colour);
 }

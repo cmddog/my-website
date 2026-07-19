@@ -13,10 +13,20 @@ import { DraggableContainerComponent } from '../draggable-container/draggable-co
 import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SettingsService } from '../../services/settings.service';
+import {
+  ContextMenuComponent,
+  ContextMenuItem,
+} from '../context-menu/context-menu.component';
+import { DisplayMessage } from '@types';
 
 @Component({
   selector: 'app-chat',
-  imports: [ChatMessageComponent, DraggableContainerComponent, FormsModule],
+  imports: [
+    ChatMessageComponent,
+    DraggableContainerComponent,
+    FormsModule,
+    ContextMenuComponent,
+  ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
@@ -43,6 +53,21 @@ export class ChatComponent {
   readonly loginError = signal('');
   readonly registerError = signal('');
   readonly isLoading = signal(false);
+
+  protected readonly contextMenuVisible = signal(false);
+  protected readonly contextMenuItems = signal<ContextMenuItem[]>([]);
+  private readonly contextMenu = viewChild.required(ContextMenuComponent);
+
+  @HostListener('document:click')
+  @HostListener('document:contextmenu')
+  onDocumentClick() {
+    this.contextMenuVisible.set(false);
+  }
+
+  @HostListener('window:blur')
+  onBlur() {
+    this.contextMenuVisible.set(false);
+  }
 
   @HostListener('window:keydown', ['$event'])
   handleKeydown(event: KeyboardEvent) {
@@ -140,6 +165,71 @@ export class ChatComponent {
           this.registerError.set(e.error?.message ?? 'An error occurred');
         },
       });
+  }
+
+  onMessageContextMenu(event: MouseEvent, message: DisplayMessage) {
+    event.preventDefault();
+    event.stopPropagation();
+    const items: ContextMenuItem[] = [];
+
+    if (message.sender) {
+      const chat = this.chatInputRef().nativeElement;
+      items.push({
+        label: 'Mention Sender',
+        icon: 'at',
+        action: () => {
+          chat.value = `${chat.value}@${message.sender} `;
+          chat.focus();
+        },
+      });
+
+      if (!message.deleted) {
+        items.push({
+          label: 'Copy Text',
+          icon: 'copy',
+          action: () => navigator.clipboard.writeText(message.content ?? ''),
+        });
+      }
+
+      items.push({
+        label: 'Copy Sender',
+        icon: 'person',
+        action: () => navigator.clipboard.writeText(message.sender ?? ''),
+      });
+
+      const identity = this.auth.identity();
+      if (
+        (message.sender === identity.displayName ||
+          identity.type === 'MODERATOR' ||
+          identity.type === 'ADMIN') &&
+        !message.deleted
+      ) {
+        items.push({
+          label: 'Delete Message',
+          icon: 'delete',
+          danger: true,
+          action: () =>
+            this.chat.deleteMessage$(message.id).subscribe({
+              error: () =>
+                this.chat.pushServerMessage(
+                  'Failed to delete message',
+                  'red',
+                  true,
+                ),
+            }),
+        });
+      }
+    } else {
+      items.push({
+        label: 'Copy Text',
+        icon: 'copy',
+        action: () => navigator.clipboard.writeText(`[Server] ${message.text}`),
+      });
+    }
+
+    this.contextMenuItems.set(items);
+    this.contextMenuVisible.set(true);
+    this.contextMenu().open(event);
   }
 
   // ----- scrollbar stuff -----

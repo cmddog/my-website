@@ -3,6 +3,7 @@
     @for (m of chat.recentMessages(); track m.id) {
       <app-chat-message
         [message]="m"
+        (contextmenu)="onMessageContextMenu($event, m)"
         animate.leave="message-fade"
       ></app-chat-message>
     }
@@ -49,7 +50,10 @@
       </p>
     }
     @for (m of chat.messages().toReversed(); track m.id) {
-      <app-chat-message [message]="m"></app-chat-message>
+      <app-chat-message
+        [message]="m"
+        (contextmenu)="onMessageContextMenu($event, m)"
+      ></app-chat-message>
     }
   </div>
   <div id="scrollbar"></div>
@@ -75,6 +79,11 @@
     Press 't' or click here to chat...
   </p>
 </div>
+
+<app-context-menu
+  [items]="contextMenuItems()"
+  [visible]="contextMenuVisible()"
+/>
 
 <div class="account">
   @if (loggingIn()) {

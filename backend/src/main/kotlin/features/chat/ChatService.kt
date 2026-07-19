@@ -2,6 +2,7 @@ package com.cmddog.features.chat
 
 import com.cmddog.features.chat.models.api.ChatEvent
 import com.cmddog.features.chat.models.api.ChatMessage
+import com.cmddog.features.chat.models.api.messageUpdate
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.sync.Mutex
@@ -20,8 +21,20 @@ object ChatService {
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
+    suspend fun getMessage(id: Long) = historyMutex.withLock { history.find { it.id == id } }
+
+    suspend fun deleteMessage(id: Long) {
+        val event = historyMutex.withLock {
+            val msg = history.find { it.id == id } ?: return@withLock null
+            msg.deleted = true
+            msg.content = "[deleted message]"
+            ChatEvent.messageUpdate(msg)
+        }
+        if (event != null) broadcast(event)
+    }
+
     suspend fun addMessage(sender: String, content: String): ChatMessage {
-        val msg = ChatMessage(++messageCounter, sender, content, Instant.now().toEpochMilli())
+        val msg = ChatMessage(++messageCounter, sender, content, Instant.now().toEpochMilli(), false)
         historyMutex.withLock {
             if (history.size >= HISTORY_SIZE) history.removeFirst()
             history.addLast(msg)

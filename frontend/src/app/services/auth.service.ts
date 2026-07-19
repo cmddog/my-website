@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 
 export interface MeResponse {
-  type: 'USER' | 'GUEST' | 'ANONYMOUS';
+  type: 'USER' | 'GUEST' | 'ANONYMOUS' | 'MODERATOR' | 'ADMIN';
   displayName: string | null;
 }
 
@@ -20,7 +20,8 @@ export class AuthService {
 
   readonly identity = this._identity.asReadonly();
   readonly isLoggedIn = computed<boolean>(
-    () => this.identity().type === 'USER',
+    () =>
+      this.identity().type !== 'GUEST' && this.identity().type !== 'ANONYMOUS',
   );
 
   refresh$(): Observable<MeResponse> {
@@ -29,15 +30,17 @@ export class AuthService {
       .pipe(tap((me) => this._identity.set(me)));
   }
 
-  login$(username: string, password: string): Observable<never> {
+  login$(username: string, password: string): Observable<MeResponse> {
     return this.http
-      .post<never>(
+      .post<MeResponse>(
         '/api/auth/login',
         { username, password },
         { withCredentials: true },
       )
       .pipe(
-        tap(() => this._identity.set({ type: 'USER', displayName: username })),
+        tap((me) =>
+          this._identity.set({ type: me.type, displayName: me.displayName }),
+        ),
       );
   }
 

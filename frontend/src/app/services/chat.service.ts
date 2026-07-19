@@ -78,8 +78,11 @@ export class ChatService {
         this.pushServerMessage('Connected', 'green');
       } else if (event.type === 'MESSAGE') {
         this.appendMessage(chatMessage(JSON.parse(event.payload), Date.now()));
-      } else if (event.type === 'JOIN') {
-        // TODO
+      } else if (event.type === 'MESSAGE_UPDATE') {
+        const msg: ChatMessage = JSON.parse(event.payload);
+        this._messages.update((msgs) =>
+          msgs.map((m) => (m.id === msg.id ? { ...m, ...msg } : m)),
+        );
       }
     });
 
@@ -151,7 +154,7 @@ export class ChatService {
 
             if (e.status === 429) {
               message = 'You are being rate limited.';
-            } else if (e.error?.id === -2) {
+            } else if (e.error?.id === 4) {
               message =
                 'Logged in users cannot send guest messages, try again.';
               this.auth
@@ -177,6 +180,15 @@ export class ChatService {
           },
         }),
       );
+  }
+
+  deleteMessage$(id: number): Observable<never> {
+    if (this.connectionState() !== 'connected')
+      return throwError(() => new Error('Not connected to the server'));
+
+    return this.http.post<never>(`/api/chat/delete/${id}`, null, {
+      withCredentials: true,
+    });
   }
 
   pushServerMessage(

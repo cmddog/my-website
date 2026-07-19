@@ -1,5 +1,6 @@
 package com.cmddog.features.chat
 
+import com.cmddog.core.AdminSession
 import com.cmddog.core.GuestSession
 import com.cmddog.core.UserSession
 import com.cmddog.core.models.api.ErrorResponse
@@ -58,13 +59,13 @@ fun Route.chatRoutes() {
             post("/message") {
                 val userSession = call.sessions.get<UserSession>()
                 if (userSession == null) {
-                    call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Not logged in", -1))
+                    call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Not logged in", 1))
                     return@post
                 }
 
                 val req = call.receive<SendMessageRequest>()
                 if (!req.content.isSafeMessage()) {
-                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Invalid message", -1))
+                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Invalid message", 2))
                     return@post
                 }
 
@@ -75,6 +76,26 @@ fun Route.chatRoutes() {
                 ChatService.broadcast(ChatEvent(ChatEventType.MESSAGE, Json.encodeToString(msg)))
                 call.respond(HttpStatusCode.OK)
             }
+
+            post("/delete/{msgId}") {
+                val id = call.parameters["msgId"]?.toLongOrNull()
+                if (id === null) {
+                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Invalid message ID", 7))
+                    return@post
+                }
+                val userSession = call.sessions.get<UserSession>()
+                val adminSession = call.sessions.get<AdminSession>()
+                if (userSession == null) {
+                    call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Not logged in", 5))
+                    return@post
+                }
+                if (ChatService.getMessage(id)?.sender?.lowercase() != userSession.username && adminSession === null) { // this'll need to be changed once I let people change their display name anyway
+                    call.respond(HttpStatusCode.Forbidden, ErrorResponse("No permission to delete message", 6))
+                    return@post
+                }
+                ChatService.deleteMessage(id)
+                call.respond(HttpStatusCode.OK)
+            }
         }
 
         // Guests
@@ -82,13 +103,13 @@ fun Route.chatRoutes() {
             post("/message/guest") {
                 val req = call.receive<SendMessageRequest>()
                 if (!req.content.isSafeMessage()) {
-                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Invalid message", -1))
+                    call.respond(HttpStatusCode.BadRequest, ErrorResponse("Invalid message", 3))
                     return@post
                 }
 
                 if (call.sessions.get<UserSession>() !== null) {
                     call.respond(
-                        HttpStatusCode.BadRequest, ErrorResponse("Logged in users can not send guest messages", -2)
+                        HttpStatusCode.BadRequest, ErrorResponse("Logged in users can not send guest messages", 4)
                     )
                     return@post
                 }
