@@ -6,6 +6,7 @@ import com.cmddog.core.configureRateLimiting
 import com.cmddog.core.configureRouting
 import com.cmddog.core.configureSerialization
 import com.cmddog.core.configureSessions
+import com.cmddog.features.chat.ChatService
 import io.ktor.server.application.*
 import io.ktor.server.sse.*
 
@@ -23,5 +24,6 @@ fun Application.module() {
         gallery = configureDatabase("gallery"),
         miscellaneous = configureDatabase("miscellaneous")
     )
+    ChatService.loadHistory()
     configureRouting()
 }
