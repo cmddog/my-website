@@ -1,7 +1,18 @@
 [
   {
+    "date": "2026-07-28",
+    "additions": ["Persistent chat history"],
+    "changes": [],
+    "fixes": [
+      "Added one to the month on chat timestamps because for some fucking reason JS starts them on 0"
+    ],
+    "removals": []
+  },
+  {
     "date": "2026-07-19",
-    "additions": ["A custom context menu for chat messages with various options, including the ability to delete messages"],
+    "additions": [
+      "A custom context menu for chat messages with various options, including the ability to delete messages"
+    ],
     "changes": [],
     "fixes": [],
     "removals": []

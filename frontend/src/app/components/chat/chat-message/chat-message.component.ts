@@ -11,6 +11,6 @@ export class ChatMessageComponent {
   readonly message = input.required<DisplayMessage>();
   time = computed(() => {
     const t = new Date(this.message().timestamp);
-    return `${t.getFullYear()}/${t.getMonth()}/${t.getDate()} ${t.getHours()}:${t.getMinutes().toString().length === 1 ? '0' : ''}${t.getMinutes()}`;
+    return `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${t.getHours()}:${t.getMinutes().toString().length === 1 ? '0' : ''}${t.getMinutes()}`;
   });
 }
