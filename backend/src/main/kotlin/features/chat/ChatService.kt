@@ -24,17 +24,9 @@ object ChatService {
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    /**
-     * Loads the last [HISTORY_SIZE] messages from the database into the in-memory deque.
-     * Must be called once at application startup, after the database is initialised.
-     * Deleted messages are included but their content is replaced with "[deleted message]".
-     * The message counter is set to the highest persisted ID so new IDs never collide.
-     */
     fun loadHistory() {
         val db = DatabaseSingleton.miscellaneous
 
-        // Fetch the last HISTORY_SIZE rows ordered by id ascending so the deque is in
-        // chronological order. We use a sub-query via raw SQL to get the tail efficiently.
         val rows = mutableListOf<ChatMessage>()
         db.useConnection { conn ->
             conn.prepareStatement(
@@ -69,8 +61,6 @@ object ChatService {
 
         history.addAll(rows)
 
-        // Initialise the counter from the highest persisted id (or 0 if the table is empty)
-        // so that newly created messages always get a unique, higher id.
         messageCounter = rows.maxOfOrNull { it.id } ?: 0L
     }
 
@@ -82,7 +72,6 @@ object ChatService {
             msg.deleted = true
             msg.content = "[deleted message]"
 
-            // Persist the soft-delete to the database (update flag only, never remove the row)
             DatabaseSingleton.miscellaneous.update(ChatMessages) {
                 set(it.deleted, true)
                 where { it.id eq id }
@@ -94,12 +83,11 @@ object ChatService {
     }
 
     suspend fun addMessage(sender: String, content: String): ChatMessage {
-        val id = ++messageCounter
         val timestamp = Instant.now().toEpochMilli()
-        val msg = ChatMessage(id, sender, content, timestamp, false)
+        return historyMutex.withLock {
+            val id = ++messageCounter
+            val msg = ChatMessage(id, sender, content, timestamp, false)
 
-        historyMutex.withLock {
-            // Persist to database before updating the in-memory deque
             DatabaseSingleton.miscellaneous.insert(ChatMessages) {
                 set(it.id, id)
                 set(it.sender, sender)
@@ -110,8 +98,8 @@ object ChatService {
 
             if (history.size >= HISTORY_SIZE) history.removeFirst()
             history.addLast(msg)
+            msg
         }
-        return msg
     }
 
     suspend fun getHistory(): List<ChatMessage> = historyMutex.withLock { history.toList() }

@@ -4,5 +4,5 @@ CREATE TABLE chat_messages
     sender    VARCHAR(32)  NOT NULL,
     content   VARCHAR(256) NOT NULL,
     timestamp BIGINT       NOT NULL,
-    deleted   BOOLEAN      DEFAULT FALSE
+    deleted   BOOLEAN      NOT NULL DEFAULT FALSE
 );
