@@ -88,7 +88,8 @@ export class ChatComponent {
   }
 
   openChat() {
-    if (!this.chat.connectionState()) this.chat.connect();
+    const state = this.chat.connectionState();
+    if (state === 'idle' || state === 'failed') this.chat.connect();
     this.chatInputRef().nativeElement.focus();
 
     requestAnimationFrame(() => {

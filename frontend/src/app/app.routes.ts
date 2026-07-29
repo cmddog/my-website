@@ -14,11 +14,6 @@ export const routes: Routes = [
     title: 'Commissions',
   },
   {
-    path: 'admin',
-    loadChildren: () =>
-      import('./admin/admin.routes').then((m) => m.ADMIN_ROUTES),
-  },
-  {
     path: 'nsfw',
     component: NsfwComponent,
   },

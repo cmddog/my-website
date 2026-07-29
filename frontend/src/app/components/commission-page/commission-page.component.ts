@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map, shareReplay } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { BreakpointService } from '@services';
 
 @Component({
   selector: 'app-commission-page',
@@ -10,11 +9,5 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './commission-page.component.scss',
 })
 export class CommissionPageComponent {
-  private breakpointObserver = inject(BreakpointObserver);
-  readonly isHandsetPortrait$ = this.breakpointObserver
-    .observe([Breakpoints.HandsetPortrait])
-    .pipe(
-      map((result) => result.matches),
-      shareReplay({ bufferSize: 1, refCount: true }),
-    );
+  readonly isHandsetPortrait$ = inject(BreakpointService).isMobile$;
 }
