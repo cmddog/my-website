@@ -1,8 +1,8 @@
-<div #cardEl [ngStyle]="cardStyles" class="draggable-card flex flex-col">
-  <div (mousedown)="onHeaderMouseDown($event)" class="card-header flex items-center justify-between">
+<div #cardEl [ngStyle]="cardStyles" class="draggable-card">
+  <div (mousedown)="onHeaderMouseDown($event)" class="card-header">
     <!-- header -->
     <span class="card-title">{{ cardTitle() }}</span>
-    <button (click)="closeButtonClicked.emit()" class="header-x flex justify-center items-center">
+    <button (click)="closeButtonClicked.emit()" class="header-x">
       <app-icon icon="x" />
     </button>
   </div>
@@ -16,7 +16,7 @@
   @if (resizable()) {
     <div
       (mousedown)="onResizeMouseDown($event)"
-      class="resize-handle flex items-end justify-end"
+      class="resize-handle"
       title="Drag to resize"
     >
       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">

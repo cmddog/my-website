@@ -1,4 +1,7 @@
 .wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   position: fixed;
   z-index: 1000;
   pointer-events: none;
@@ -45,6 +48,10 @@
 
 .mobile-tab-button {
   padding-block: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
 }
 
 .tab-indicator {

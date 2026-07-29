@@ -4,6 +4,9 @@
   width: fit-content;
   height: fit-content;
 
+  display: flex;
+  flex-direction: column;
+
   background: var(--transparent-card-background-colour);
   backdrop-filter: blur(var(--transparent-card-blur));
   border: 1px solid var(--transparent-card-border-colour);
@@ -23,6 +26,9 @@
 }
 
 .card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background: var(--transparent-card-seconary-background-colour);
   border-bottom: 1px solid
     color-mix(in srgb, var(--transparent-card-border-colour) 50%, transparent);
@@ -42,6 +48,9 @@
 
 .header-x {
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 40px;
   width: 50px;
   border: none;
@@ -77,6 +86,9 @@
   width: 1.5rem;
   height: 1.5rem;
   cursor: se-resize;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
   padding: 3px;
   color: var(--transparent-card-border-colour);
   transition: color 0.15s;

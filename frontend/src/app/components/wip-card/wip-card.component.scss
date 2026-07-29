@@ -1,4 +1,7 @@
 .simple-card {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
   min-width: 45rem;
   max-width: 45rem;
 }
