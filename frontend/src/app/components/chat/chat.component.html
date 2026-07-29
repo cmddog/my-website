@@ -5,7 +5,7 @@
         [message]="m"
         (contextmenu)="onMessageContextMenu($event, m)"
         animate.leave="message-fade"
-      ></app-chat-message>
+      />
     }
   </div>
 
@@ -36,15 +36,11 @@
       }
     } @else if (!auth.isLoggedIn()) {
       <p class="grey">
-        <span
-          class="clickable"
-          (click)="loggingIn.set(true); registering.set(false)"
+        <span class="clickable" (click)="accountForms().openLogin()"
           >Log In</span
         >
         /
-        <span
-          class="clickable"
-          (click)="registering.set(true); loggingIn.set(false)"
+        <span class="clickable" (click)="accountForms().openRegister()"
           >Register</span
         >
       </p>
@@ -53,10 +49,10 @@
       <app-chat-message
         [message]="m"
         (contextmenu)="onMessageContextMenu($event, m)"
-      ></app-chat-message>
+      />
     }
   </div>
-  <div id="scrollbar"></div>
+  <div id="scrollbar" #scrollbar></div>
 
   <input
     class="chat-bar"
@@ -85,85 +81,4 @@
   [visible]="contextMenuVisible()"
 />
 
-<div class="account">
-  @if (loggingIn()) {
-    <app-draggable-container
-      [maxWidth]="182"
-      [minWidth]="182"
-      cardTitle="Log In"
-      [resizable]="false"
-      (closeButtonClicked)="loggingIn.set(false); loginError.set('')"
-    >
-      <form class="input-form" (ngSubmit)="logIn()" #loginForm="ngForm">
-        <input
-          placeholder="Username*"
-          required
-          name="username"
-          [(ngModel)]="loginUsername"
-        />
-        <input
-          placeholder="Password*"
-          required
-          type="password"
-          name="password"
-          [(ngModel)]="loginPassword"
-        />
-        @if (loginError()) {
-          <p class="red text-center">{{ loginError() }}</p>
-        }
-        <button [disabled]="isLoading() || loginForm.invalid" type="submit">
-          Log In
-        </button>
-      </form>
-    </app-draggable-container>
-  }
-  @if (registering()) {
-    <app-draggable-container
-      [prefWidth]="257.333"
-      cardTitle="Register"
-      [resizable]="false"
-      (closeButtonClicked)="registering.set(false); registerError.set('')"
-    >
-      <form class="input-form" (ngSubmit)="register()" #registerForm="ngForm">
-        <input
-          placeholder="Username*"
-          required
-          name="username"
-          [(ngModel)]="registerUsername"
-        />
-        <input
-          placeholder="Password*"
-          required
-          name="password"
-          [(ngModel)]="registerPassword"
-          type="password"
-        />
-        <input
-          placeholder="Confirm Password*"
-          required
-          name="confirm password"
-          [(ngModel)]="registerConfirmPassword"
-          type="password"
-        />
-        <textarea
-          placeholder="Security Question (If you forget your password this gives me a way to verify your identity)"
-          name="security question"
-          [(ngModel)]="secQuestion"
-          rows="4"
-        ></textarea>
-        <textarea
-          placeholder="Security Answer"
-          name="security answer"
-          [(ngModel)]="secAnswer"
-          rows="3"
-        ></textarea>
-        @if (registerError()) {
-          <p class="red text-center">{{ registerError() }}</p>
-        }
-        <button [disabled]="isLoading() || registerForm.invalid" type="submit">
-          Register
-        </button>
-      </form>
-    </app-draggable-container>
-  }
-</div>
+<app-account-forms />

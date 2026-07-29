@@ -7,34 +7,34 @@
     [style.top.px]="y()"
   >
     @for (item of safeItems(); track item.label) {
-      <button
-        class="context-menu-item"
-        [class.danger]="item.danger"
-        [disabled]="item.disabled"
-        (mousedown)="$event.preventDefault()"
-        (click)="item.action()"
-      >
-        @if (hasIcons()) {
-          <app-icon [icon]="item.icon ?? 'empty'"></app-icon>
-        }
-        {{ item.label }}
-      </button>
+      <ng-container
+        [ngTemplateOutlet]="menuItem"
+        [ngTemplateOutletContext]="{ $implicit: item }"
+      />
     }
     @if (dangerItems().length !== 0) {
       <hr />
       @for (item of dangerItems(); track item.label) {
-        <button
-          class="context-menu-item"
-          [class.danger]="item.danger"
-          [disabled]="item.disabled"
-          (mousedown)="$event.preventDefault()"
-          (click)="item.action()"
-        >
-          @if (hasIcons()) {
-            <app-icon [icon]="item.icon ?? 'empty'"></app-icon>
-          }
-          {{ item.label }}</button>
+        <ng-container
+          [ngTemplateOutlet]="menuItem"
+          [ngTemplateOutletContext]="{ $implicit: item }"
+        />
       }
     }
   </div>
 }
+
+<ng-template #menuItem let-item>
+  <button
+    class="context-menu-item"
+    [class.danger]="item.danger"
+    [disabled]="item.disabled"
+    (mousedown)="$event.preventDefault()"
+    (click)="item.action()"
+  >
+    @if (hasIcons()) {
+      <app-icon [icon]="item.icon ?? 'empty'" />
+    }
+    {{ item.label }}
+  </button>
+</ng-template>
