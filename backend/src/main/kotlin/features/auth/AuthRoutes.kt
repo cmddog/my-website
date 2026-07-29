@@ -61,7 +61,7 @@ fun Route.authRoutes() {
                 )
 
                 if (result === null) {
-                    call.sessions.set(UserSession(req.username, UUID.randomUUID().toString()))
+                    call.sessions.set(UserSession(req.username.lowercase(), UUID.randomUUID().toString()))
                     call.respond(HttpStatusCode.OK)
                 } else {
                     call.respond(HttpStatusCode.BadRequest, result)

@@ -9,9 +9,7 @@ import {
 import { AuthService, ChatService } from '@services';
 import { finalize } from 'rxjs/operators';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
-import { DraggableContainerComponent } from '../draggable-container/draggable-container.component';
-import { FormsModule } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
+import { AccountFormsComponent } from './account-forms/account-forms.component';
 import { SettingsService } from '../../services/settings.service';
 import {
   ContextMenuComponent,
@@ -21,12 +19,7 @@ import { DisplayMessage } from '@types';
 
 @Component({
   selector: 'app-chat',
-  imports: [
-    ChatMessageComponent,
-    DraggableContainerComponent,
-    FormsModule,
-    ContextMenuComponent,
-  ],
+  imports: [ChatMessageComponent, ContextMenuComponent, AccountFormsComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
@@ -39,20 +32,10 @@ export class ChatComponent {
     viewChild.required<ElementRef<HTMLInputElement>>('chatInput');
   private readonly chatWindowRef =
     viewChild.required<ElementRef<HTMLDivElement>>('chatWindow');
+  private readonly scrollbarRef =
+    viewChild.required<ElementRef<HTMLDivElement>>('scrollbar');
+  protected readonly accountForms = viewChild.required(AccountFormsComponent);
   readonly sending = signal(false);
-
-  readonly loggingIn = signal(false);
-  readonly registering = signal(false);
-  loginUsername = '';
-  loginPassword = '';
-  registerUsername = '';
-  registerPassword = '';
-  registerConfirmPassword = '';
-  secQuestion = '';
-  secAnswer = '';
-  readonly loginError = signal('');
-  readonly registerError = signal('');
-  readonly isLoading = signal(false);
 
   protected readonly contextMenuVisible = signal(false);
   protected readonly contextMenuItems = signal<ContextMenuItem[]>([]);
@@ -88,7 +71,8 @@ export class ChatComponent {
   }
 
   openChat() {
-    if (!this.chat.connectionState()) this.chat.connect();
+    const state = this.chat.connectionState();
+    if (state === 'idle' || state === 'failed') this.chat.connect();
     this.chatInputRef().nativeElement.focus();
 
     requestAnimationFrame(() => {
@@ -116,126 +100,88 @@ export class ChatComponent {
       });
   }
 
-  logIn() {
-    if (this.isLoading() || !this.loginUsername || !this.loginPassword) return;
-    this.isLoading.set(true);
-
-    this.auth
-      .login$(this.loginUsername, this.loginPassword)
-      .pipe(finalize(() => this.isLoading.set(false)))
-      .subscribe({
-        next: () => {
-          this.loginError.set('');
-          this.loggingIn.set(false);
-          this.chat.pushServerMessage('Logged in successfully', 'green');
-        },
-        error: (e: HttpErrorResponse) => {
-          this.loginError.set(e.error?.message ?? 'An error occurred');
-        },
-      });
-  }
-
-  register() {
-    if (this.isLoading() || !this.registerUsername || !this.registerPassword)
-      return;
-    if (this.registerPassword !== this.registerConfirmPassword) {
-      this.registerError.set('Passwords must equal');
-      return;
-    }
-    this.isLoading.set(true);
-
-    this.auth
-      .register$(
-        this.registerUsername,
-        this.registerPassword,
-        this.secQuestion,
-        this.secAnswer,
-      )
-      .pipe(finalize(() => this.isLoading.set(false)))
-      .subscribe({
-        next: () => {
-          this.registerError.set('');
-          this.registering.set(false);
-          this.chat.pushServerMessage(
-            'Registered and logged in successfully',
-            'green',
-          );
-        },
-        error: (e: HttpErrorResponse) => {
-          this.registerError.set(e.error?.message ?? 'An error occurred');
-        },
-      });
-  }
-
   onMessageContextMenu(event: MouseEvent, message: DisplayMessage) {
     event.preventDefault();
     event.stopPropagation();
-    const items: ContextMenuItem[] = [];
 
-    if (message.sender) {
-      const chat = this.chatInputRef().nativeElement;
-      items.push({
-        label: 'Mention Sender',
-        icon: 'at',
-        action: () => {
-          chat.value = `${chat.value}@${message.sender} `;
-          chat.focus();
-        },
-      });
-
-      if (!message.deleted) {
-        items.push({
-          label: 'Copy Text',
-          icon: 'copy',
-          action: () => navigator.clipboard.writeText(message.content ?? ''),
-        });
-      }
-
-      items.push({
-        label: 'Copy Sender',
-        icon: 'person',
-        action: () => navigator.clipboard.writeText(message.sender ?? ''),
-      });
-
-      const identity = this.auth.identity();
-      if (
-        (message.sender === identity.displayName ||
-          identity.type === 'MODERATOR' ||
-          identity.type === 'ADMIN') &&
-        !message.deleted
-      ) {
-        items.push({
-          label: 'Delete Message',
-          icon: 'delete',
-          danger: true,
-          action: () =>
-            this.chat.deleteMessage$(message.id).subscribe({
-              error: () =>
-                this.chat.pushServerMessage(
-                  'Failed to delete message',
-                  'red',
-                  true,
-                ),
-            }),
-        });
-      }
-    } else {
-      items.push({
-        label: 'Copy Text',
-        icon: 'copy',
-        action: () => navigator.clipboard.writeText(`[Server] ${message.text}`),
-      });
-    }
+    const items = message.sender
+      ? this.chatMessageMenuItems(message)
+      : this.serverMessageMenuItems(message);
 
     this.contextMenuItems.set(items);
     this.contextMenuVisible.set(true);
     this.contextMenu().open(event);
   }
 
+  private chatMessageMenuItems(message: DisplayMessage): ContextMenuItem[] {
+    const items: ContextMenuItem[] = [
+      {
+        label: 'Mention Sender',
+        icon: 'at',
+        action: () => {
+          const chat = this.chatInputRef().nativeElement;
+          chat.value = `${chat.value}@${message.sender} `;
+          chat.focus();
+        },
+      },
+    ];
+
+    if (!message.deleted) {
+      items.push({
+        label: 'Copy Text',
+        icon: 'copy',
+        action: () => navigator.clipboard.writeText(message.content ?? ''),
+      });
+    }
+
+    items.push({
+      label: 'Copy Sender',
+      icon: 'person',
+      action: () => navigator.clipboard.writeText(message.sender ?? ''),
+    });
+
+    if (this.canDelete(message)) {
+      items.push({
+        label: 'Delete Message',
+        icon: 'delete',
+        danger: true,
+        action: () => this.deleteMessage(message),
+      });
+    }
+
+    return items;
+  }
+
+  private serverMessageMenuItems(message: DisplayMessage): ContextMenuItem[] {
+    return [
+      {
+        label: 'Copy Text',
+        icon: 'copy',
+        action: () => navigator.clipboard.writeText(`[Server] ${message.text}`),
+      },
+    ];
+  }
+
+  private canDelete(message: DisplayMessage): boolean {
+    if (message.deleted) return false;
+    const identity = this.auth.identity();
+    return (
+      message.sender === identity.displayName ||
+      identity.type === 'MODERATOR' ||
+      identity.type === 'ADMIN'
+    );
+  }
+
+  private deleteMessage(message: DisplayMessage): void {
+    this.chat.deleteMessage$(message.id).subscribe({
+      error: () =>
+        this.chat.pushServerMessage('Failed to delete message', 'red', true),
+    });
+  }
+
   // ----- scrollbar stuff -----
   onChatWindowScroll(el: HTMLDivElement) {
-    const thumb = document.getElementById('scrollbar') as HTMLElement;
-    if (!thumb) return;
+    const thumb = this.scrollbarRef().nativeElement;
 
     const { scrollTop, scrollHeight, clientHeight } = el;
     const ratio = clientHeight / scrollHeight;

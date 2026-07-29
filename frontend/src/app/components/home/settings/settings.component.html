@@ -6,7 +6,11 @@
       <span class="colour-accent">accent</span> colours
     </div>
     <label class="switch">
-      <input #swapTheme type="checkbox" (change)="onThemeSwap($event)" />
+      <input
+        type="checkbox"
+        [checked]="isSwapped()"
+        (change)="onThemeSwap($event)"
+      />
       <span class="slider"></span>
     </label>
   </div>
@@ -15,12 +19,9 @@
     <div>Enable chat</div>
     <label class="switch">
       <input
-        #enableChat
         type="checkbox"
-        (change)="
-          settings.toggleChatEnabled();
-          settings.chatEnabled() ? chat.connect() : chat.disconnect()
-        "
+        [checked]="settings.chatEnabled()"
+        (change)="onToggleChat()"
       />
       <span class="slider"></span>
     </label>
@@ -29,8 +30,8 @@
     <div>Close chat after sending a message</div>
     <label class="switch">
       <input
-        #closeOnSend
         type="checkbox"
+        [checked]="settings.closeChatOnSend()"
         (change)="settings.toggleCloseChatOnSend()"
       />
       <span class="slider"></span>
@@ -40,8 +41,8 @@
     <div>Play a click noise when a message is sent in chat</div>
     <label class="switch">
       <input
-        #chatNotif
         type="checkbox"
+        [checked]="settings.playChatNotif()"
         (change)="settings.togglePlayChatNotif()"
       />
       <span class="slider"></span>
@@ -51,8 +52,8 @@
     <div>Play a bell noise when you are pinged in chat</div>
     <label class="switch">
       <input
-        #pingNotif
         type="checkbox"
+        [checked]="settings.playPingNotif()"
         (change)="settings.togglePlayPingNotif()"
       />
       <span class="slider"></span>

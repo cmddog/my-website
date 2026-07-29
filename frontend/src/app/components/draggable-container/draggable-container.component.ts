@@ -1,13 +1,13 @@
 import {
-  AfterViewInit,
+  afterNextRender,
   Component,
+  DestroyRef,
   ElementRef,
+  inject,
   input,
-  OnDestroy,
-  OnInit,
   output,
   signal,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
@@ -18,9 +18,7 @@ import { IconComponent } from '../icon/icon.component';
   templateUrl: './draggable-container.component.html',
   styleUrl: './draggable-container.component.scss',
 })
-export class DraggableContainerComponent
-  implements OnInit, OnDestroy, AfterViewInit
-{
+export class DraggableContainerComponent {
   closeButtonClicked = output();
 
   minWidth = input<number>();
@@ -34,7 +32,8 @@ export class DraggableContainerComponent
   resizable = input<boolean>(true);
   cardTitle = input<string>('Card');
 
-  @ViewChild('cardEl', { static: true }) cardElRef!: ElementRef<HTMLElement>;
+  private readonly cardElRef =
+    viewChild.required<ElementRef<HTMLElement>>('cardEl');
   readonly left = signal(0);
   readonly top = signal(0);
   readonly width = signal<number | null>(null); // null = fit-content
@@ -64,7 +63,7 @@ export class DraggableContainerComponent
   }
 
   private get container(): HTMLElement {
-    let el = this.cardElRef.nativeElement.parentElement;
+    let el = this.el.parentElement;
     // Walks up from the card element to find the first ancestor with actual dimensions.
     // Needed because Angular host elements sit between #cardEl and .wrapper in the DOM
     // but have no size of their own.
@@ -74,28 +73,31 @@ export class DraggableContainerComponent
   }
 
   private get el(): HTMLElement {
-    return this.cardElRef.nativeElement;
+    return this.cardElRef().nativeElement;
   }
 
-  ngOnInit(): void {
-    if (this.prefWidth() !== undefined) this.width.set(this.prefWidth()!);
-    if (this.prefHeight() !== undefined) this.height.set(this.prefHeight()!);
+  constructor() {
     window.addEventListener('resize', this.onWindowResize);
-  }
 
-  ngAfterViewInit(): void {
-    requestAnimationFrame(() => {
+    afterNextRender(() => {
+      // Inputs are only bound after construction, so initialise preferred
+      // dimensions here rather than in the constructor.
+      const prefWidth = this.prefWidth();
+      if (prefWidth !== undefined) this.width.set(prefWidth);
+      const prefHeight = this.prefHeight();
+      if (prefHeight !== undefined) this.height.set(prefHeight);
+
       requestAnimationFrame(() => {
         this.constrainCard();
         this.centerCard();
       });
     });
-  }
 
-  ngOnDestroy(): void {
-    document.removeEventListener('mousemove', this.onMouseMove);
-    document.removeEventListener('mouseup', this.onMouseUp);
-    window.removeEventListener('resize', this.onWindowResize);
+    inject(DestroyRef).onDestroy(() => {
+      document.removeEventListener('mousemove', this.onMouseMove);
+      document.removeEventListener('mouseup', this.onMouseUp);
+      window.removeEventListener('resize', this.onWindowResize);
+    });
   }
 
   onHeaderMouseDown(e: MouseEvent): void {

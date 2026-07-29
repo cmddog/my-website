@@ -7,6 +7,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { IconComponent } from '../icon/icon.component';
+import { NgTemplateOutlet } from '@angular/common';
 
 export interface ContextMenuItem {
   label: string;
@@ -18,7 +19,7 @@ export interface ContextMenuItem {
 
 @Component({
   selector: 'app-context-menu',
-  imports: [IconComponent],
+  imports: [IconComponent, NgTemplateOutlet],
   templateUrl: './context-menu.component.html',
   styleUrl: './context-menu.component.scss',
 })

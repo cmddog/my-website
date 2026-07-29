@@ -49,9 +49,9 @@ export class AuthService {
     password: string,
     securityQuestion: string,
     securityAnswer: string,
-  ): Observable<never> {
+  ): Observable<void> {
     return this.http
-      .post<never>(
+      .post<void>(
         '/api/auth/register',
         {
           username,
@@ -66,9 +66,9 @@ export class AuthService {
       );
   }
 
-  logout$(): Observable<never> {
+  logout$(): Observable<void> {
     return this.http
-      .post<never>('/api/auth/logout', { withCredentials: true })
+      .post<void>('/api/auth/logout', null, { withCredentials: true })
       .pipe(
         tap(() => this._identity.set({ type: 'ANONYMOUS', displayName: null })),
       );

@@ -21,7 +21,7 @@ export class ChangelogEntryComponent implements OnInit {
       { id: 'changes', items: this.changes() },
       { id: 'fixes', items: this.fixes() },
       { id: 'removals', items: this.removals() },
-    ].filter((section) => section.items?.length != 0),
+    ].filter((section) => !!section.items?.length),
   );
 
   ngOnInit(): void {
