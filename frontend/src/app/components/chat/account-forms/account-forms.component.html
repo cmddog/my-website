@@ -1,0 +1,68 @@
+<div class="account">
+  @if (loggingIn()) {
+    <app-draggable-container
+      [maxWidth]="182"
+      [minWidth]="182"
+      cardTitle="Log In"
+      [resizable]="false"
+      (closeButtonClicked)="closeLogin()"
+    >
+      <form class="input-form" [formGroup]="loginForm" (ngSubmit)="logIn()">
+        <input placeholder="Username*" formControlName="username" />
+        <input
+          placeholder="Password*"
+          type="password"
+          formControlName="password"
+        />
+        @if (loginError()) {
+          <p class="red text-center">{{ loginError() }}</p>
+        }
+        <button [disabled]="isLoading() || loginForm.invalid" type="submit">
+          Log In
+        </button>
+      </form>
+    </app-draggable-container>
+  }
+  @if (registering()) {
+    <app-draggable-container
+      [prefWidth]="257.333"
+      cardTitle="Register"
+      [resizable]="false"
+      (closeButtonClicked)="closeRegister()"
+    >
+      <form
+        class="input-form"
+        [formGroup]="registerForm"
+        (ngSubmit)="register()"
+      >
+        <input placeholder="Username*" formControlName="username" />
+        <input
+          placeholder="Password*"
+          type="password"
+          formControlName="password"
+        />
+        <input
+          placeholder="Confirm Password*"
+          type="password"
+          formControlName="confirmPassword"
+        />
+        <textarea
+          placeholder="Security Question (If you forget your password this gives me a way to verify your identity)"
+          formControlName="securityQuestion"
+          rows="4"
+        ></textarea>
+        <textarea
+          placeholder="Security Answer"
+          formControlName="securityAnswer"
+          rows="3"
+        ></textarea>
+        @if (registerError()) {
+          <p class="red text-center">{{ registerError() }}</p>
+        }
+        <button [disabled]="isLoading() || registerForm.invalid" type="submit">
+          Register
+        </button>
+      </form>
+    </app-draggable-container>
+  }
+</div>
