@@ -3,7 +3,7 @@
 @for (section of changelog(); track section.id) {
   <ul [id]="section.id">
     @for (entry of section.items!; track entry) {
-      <li>
+      <li class="flex">
         <div></div>
         <div>{{ entry }}</div>
       </li>

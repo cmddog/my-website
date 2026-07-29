@@ -8,12 +8,8 @@ ul {
   list-style-type: none;
 }
 
-li {
-  display: flex;
-
-  div:first-child {
-    min-width: 5rem;
-  }
+li div:first-child {
+  min-width: 5rem;
 }
 
 #additions li div:first-child {

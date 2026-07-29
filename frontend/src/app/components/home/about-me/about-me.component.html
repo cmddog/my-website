@@ -11,7 +11,7 @@
 </p>
 
 @if (showNsfwToggle) {
-  <div class="nsfw-toggle-wrapper">
+  <div class="flex justify-center">
     <button class="nsfw-toggle-text" (click)="showNsfw.set(!showNsfw())">
       @if (!showNsfw()) {
         Show NSFW
@@ -22,7 +22,7 @@
   </div>
 }
 <div class="separator"></div>
-<div class="button-container">
+<div class="flex flex-row justify-around items-center flex-wrap gap-y-4">
   @if (!showNsfw()) {
     <a
       [class.social-button-mobile]="sizeDynamic"
