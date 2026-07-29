@@ -1,7 +1,7 @@
 <p id="date">{{ formattedDate }}</p>
 
 @for (section of changelog(); track section.id) {
-  <ul [id]="section.id">
+  <ul [id]="section.id" class="mt-2">
     @for (entry of section.items!; track entry) {
       <li class="flex">
         <div></div>
