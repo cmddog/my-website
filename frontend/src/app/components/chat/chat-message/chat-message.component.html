@@ -1,6 +1,6 @@
 @if (message().kind === "chat") {
   <p class="minecraft-regular" [class.grey]="message().deleted">
-    <span class="minecraft-regular position-relative"
+    <span id="sender" class="minecraft-regular relative"
       ><{{ message().sender }}><span id="tooltip" class="minecraft-regular">{{
         time()
       }}</span></span
