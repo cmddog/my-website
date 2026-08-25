@@ -24,9 +24,7 @@
 <div class="separator"></div>
 <div class="button-wrapper">
   @if (!showNsfw()) {
-    <div
-      class="flex flex-row justify-around items-center flex-wrap gap-y-4"
-    >
+    <div class="flex flex-row justify-around items-center flex-wrap gap-y-4">
       <a
         [class.social-button-mobile]="sizeDynamic"
         class="inset-button"
@@ -35,7 +33,7 @@
         target="_blank"
         animate.enter="button-enter"
         animate.leave="button-leave"
-      ><app-icon class="button-icon" icon="mail" [size]="2.75 * 16" />
+        ><app-icon class="button-icon" icon="mail" [size]="2.75 * 16" />
       </a>
       <a
         [class.social-button-mobile]="sizeDynamic"
@@ -81,10 +79,10 @@
       >
         <img
           [ngSrc]="
-          themeService.isSwapped()
-            ? '/assets/logos/artfight_purple.png'
-            : '/assets/logos/artfight_gold.png'
-        "
+            themeService.isSwapped()
+              ? '/assets/logos/artfight_purple.png'
+              : '/assets/logos/artfight_gold.png'
+          "
           alt="Art Fight Icon"
           height="48"
           width="48"
@@ -92,9 +90,7 @@
       </a>
     </div>
   } @else {
-    <div
-      class="flex flex-row justify-around items-center flex-wrap gap-y-4"
-    >
+    <div class="flex flex-row justify-around items-center flex-wrap gap-y-4">
       <a
         [class.social-button-mobile]="sizeDynamic"
         class="inset-button"
@@ -116,7 +112,7 @@
         animate.leave="button-leave"
       >
         <app-icon icon="e621" [size]="3.5 * 16"
-        /></a>
+      /></a>
     </div>
   }
 </div>
