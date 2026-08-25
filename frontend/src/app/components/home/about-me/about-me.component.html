@@ -22,79 +22,101 @@
   </div>
 }
 <div class="separator"></div>
-<div class="flex flex-row justify-around items-center flex-wrap gap-y-4">
+<div class="button-wrapper">
   @if (!showNsfw()) {
-    <a
-      [class.social-button-mobile]="sizeDynamic"
-      class="inset-button"
-      href="mailto:contact@shiru.dog"
-      rel="noreferrer noopener"
-      target="_blank"
+    <div
+      class="flex flex-row justify-around items-center flex-wrap gap-y-4"
+    >
+      <a
+        [class.social-button-mobile]="sizeDynamic"
+        class="inset-button"
+        href="mailto:contact@shiru.dog"
+        rel="noreferrer noopener"
+        target="_blank"
+        animate.enter="button-enter"
+        animate.leave="button-leave"
       ><app-icon class="button-icon" icon="mail" [size]="2.75 * 16" />
-    </a>
-    <a
-      [class.social-button-mobile]="sizeDynamic"
-      class="inset-button"
-      href="https://shirufox.tumblr.com"
-      rel="noreferrer noopener"
-      target="_blank"
-    >
-      <app-icon icon="tumblr" [size]="2.75 * 16" />
-    </a>
-    <a
-      [class.social-button-mobile]="sizeDynamic"
-      class="inset-button"
-      href="https://bsky.app/profile/shirufox.bsky.social"
-      rel="noreferrer noopener"
-      target="_blank"
-    >
-      <app-icon icon="bsky" [size]="2.75 * 16" />
-    </a>
-    <a
-      [class.social-button-mobile]="sizeDynamic"
-      class="inset-button"
-      href="https://www.instagram.com/shiru.fox"
-      rel="noreferrer noopener"
-      target="_blank"
-    >
-      <app-icon icon="instagram" [size]="2.75 * 16" />
-    </a>
-    <a
-      [class.social-button-mobile]="sizeDynamic"
-      class="inset-button"
-      href="https://artfight.net/~Shiru"
-      rel="noreferrer noopener"
-      target="_blank"
-    >
-      <img
-        [ngSrc]="
+      </a>
+      <a
+        [class.social-button-mobile]="sizeDynamic"
+        class="inset-button"
+        href="https://shirufox.tumblr.com"
+        rel="noreferrer noopener"
+        target="_blank"
+        animate.enter="button-enter"
+        animate.leave="button-leave"
+      >
+        <app-icon icon="tumblr" [size]="2.75 * 16" />
+      </a>
+      <a
+        [class.social-button-mobile]="sizeDynamic"
+        class="inset-button"
+        href="https://bsky.app/profile/shirufox.bsky.social"
+        rel="noreferrer noopener"
+        target="_blank"
+        animate.enter="button-enter"
+        animate.leave="button-leave"
+      >
+        <app-icon icon="bsky" [size]="2.75 * 16" />
+      </a>
+      <a
+        [class.social-button-mobile]="sizeDynamic"
+        class="inset-button"
+        href="https://www.instagram.com/shiru.fox"
+        rel="noreferrer noopener"
+        target="_blank"
+        animate.enter="button-enter"
+        animate.leave="button-leave"
+      >
+        <app-icon icon="instagram" [size]="2.75 * 16" />
+      </a>
+      <a
+        [class.social-button-mobile]="sizeDynamic"
+        class="inset-button"
+        href="https://artfight.net/~Shiru"
+        rel="noreferrer noopener"
+        target="_blank"
+        animate.enter="button-enter"
+        animate.leave="button-leave"
+      >
+        <img
+          [ngSrc]="
           themeService.isSwapped()
             ? '/assets/logos/artfight_purple.png'
             : '/assets/logos/artfight_gold.png'
         "
-        alt="Art Fight Icon"
-        height="48"
-        width="48"
-      />
-    </a>
+          alt="Art Fight Icon"
+          height="48"
+          width="48"
+        />
+      </a>
+    </div>
   } @else {
-    <a
-      [class.social-button-mobile]="sizeDynamic"
-      class="inset-button"
-      href="https://bsky.app/profile/shiruafterdark.bsky.social"
-      rel="noreferrer noopener"
-      target="_blank"
+    <div
+      class="flex flex-row justify-around items-center flex-wrap gap-y-4"
     >
-      <app-icon icon="bsky" [size]="2.75 * 16" />
-    </a>
-    <a
-      [class.social-button-mobile]="sizeDynamic"
-      class="inset-button"
-      href="https://e621.net/posts?tags=shirufox"
-      rel="noreferrer noopener"
-      target="_blank"
-    >
-      <app-icon icon="e621" [size]="3.5 * 16"
-    /></a>
+      <a
+        [class.social-button-mobile]="sizeDynamic"
+        class="inset-button"
+        href="https://bsky.app/profile/shiruafterdark.bsky.social"
+        rel="noreferrer noopener"
+        target="_blank"
+        animate.enter="button-enter"
+        animate.leave="button-leave"
+      >
+        <app-icon icon="bsky" [size]="2.75 * 16" />
+      </a>
+      <a
+        [class.social-button-mobile]="sizeDynamic"
+        class="inset-button"
+        href="https://e621.net/posts?tags=shirufox"
+        rel="noreferrer noopener"
+        target="_blank"
+        animate.enter="button-enter"
+        animate.leave="button-leave"
+      >
+        <app-icon icon="e621" [size]="3.5 * 16"
+        /></a>
+    </div>
   }
 </div>

@@ -1,9 +1,3 @@
-.card-desktop {
-  position: relative;
-  min-width: 40rem;
-  max-width: 40rem;
-}
-
 @media (max-width: 47.5rem) {
   .card-mobile {
     position: relative;
@@ -42,7 +36,6 @@ p {
   box-shadow: none;
 }
 
-
 .nsfw-toggle-text {
   color: var(--primary-colour);
   font-size: 1rem;
@@ -56,3 +49,42 @@ p {
   width: 3.5rem;
   height: 3.5rem;
 }
+
+.button-wrapper {
+  display: grid;
+  overflow: hidden;
+}
+
+.button-wrapper > * {
+  grid-area: 1 / 1;
+}
+
+.button-leave {
+  animation: leave 300ms forwards;
+}
+
+.button-enter {
+  animation: enter 300ms forwards;
+}
+
+@keyframes leave {
+  0% {
+    transform: translateY(0);
+    opacity: 100%;
+  }
+  100% {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+}
+
+@keyframes enter {
+   0% {
+     transform: translateY(-50%);
+     opacity: 0;
+   }
+   100% {
+     transform: translateY(0);
+     opacity: 100%;
+   }
+ }
