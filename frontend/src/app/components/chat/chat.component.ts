@@ -94,7 +94,7 @@ export class ChatComponent {
       .subscribe({
         next: () => {
           chatInput.value = '';
-          if (this.settings.closeChatOnSend()) chatInput.blur();
+          if (this.settings.get('close_chat_on_send')()) chatInput.blur();
         },
         error: () => {},
       });

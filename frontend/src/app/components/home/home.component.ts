@@ -12,12 +12,13 @@ import { AboutMeComponent } from './about-me/about-me.component';
 import { DraggableContainerComponent } from '../draggable-container/draggable-container.component';
 import { ChangelogComponent } from './changelog/changelog.component';
 import { NeighbourhoodComponent } from './neighbourhood/neighbourhood.component';
-import { SettingsComponent } from './settings/settings.component';
-import { BreakpointService } from '@services';
+import { SettingsComponent } from '../settings/settings.component';
+import { AuthService, BreakpointService } from '@services';
 import { AsyncPipe } from '@angular/common';
 import { ChatComponent } from '../chat/chat.component';
 import { SettingsService } from '../../services/settings.service';
 import { IconComponent } from '../icon/icon.component';
+import { generalSettings } from '../settings/configs/general.settings';
 
 @Component({
   selector: 'app-home',
@@ -37,14 +38,15 @@ import { IconComponent } from '../icon/icon.component';
 export class HomeComponent {
   // tmp
   protected readonly breakpointService = inject(BreakpointService);
-
-  protected settings = inject(SettingsService);
+  protected readonly auth = inject(AuthService);
+  protected readonly settings = inject(SettingsService);
 
   readonly windows = new Map([
     ['introduction', 'Introduction'],
     ['changelog', 'Changelog'],
     ['neighbourhood', 'Neighbourhood'],
     ['settings', 'Settings'],
+    ['chat-moderation', 'Chat Moderation'],
   ]);
 
   private readonly taskBarButtons =
@@ -124,4 +126,6 @@ export class HomeComponent {
     if (this.zIndices()[id] === this.zCounter) return;
     this.zIndices.update((z) => ({ ...z, [id]: ++this.zCounter }));
   }
+
+  protected readonly generalSettings = generalSettings;
 }

@@ -23,6 +23,10 @@ export class AuthService {
     () =>
       this.identity().type !== 'GUEST' && this.identity().type !== 'ANONYMOUS',
   );
+  readonly isModerator = computed<boolean>(
+    () =>
+      this.identity().type === 'MODERATOR' || this.identity().type === 'ADMIN',
+  );
 
   refresh$(): Observable<MeResponse> {
     return this.http

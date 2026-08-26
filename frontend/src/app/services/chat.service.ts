@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {
   interval,
@@ -61,6 +61,14 @@ export class ChatService {
   readonly retryIn = this._retryIn.asReadonly();
 
   // ----- Functions -----
+  constructor() {
+    effect(() =>
+      this.settings.get<boolean>('enable_chat')()
+        ? this.connect()
+        : this.disconnect(),
+    );
+  }
+
   connect(): void {
     if (this.eventSource || this._connectionState() === 'connecting') return;
     this._connectionState.set('connecting');
@@ -154,6 +162,9 @@ export class ChatService {
 
             if (e.status === 429) {
               message = 'You are being rate limited.';
+            } else if (e.error?.id === 1) {
+              message = 'Stale user session, please log in again.';
+              this.auth.refresh$();
             } else if (e.error?.id === 4) {
               message =
                 'Logged in users cannot send guest messages, try again.';
@@ -206,14 +217,14 @@ export class ChatService {
   private appendMessage(msg: DisplayMessage) {
     if (msg.sender != this.auth.identity().displayName) {
       if (
-        this.settings.playPingNotif() &&
+        this.settings.get<boolean>('play_ping_notif')() &&
         /* TODO improve this shit lol */
         msg.content
           ?.toLowerCase()
           .includes(`@${this.auth.identity().displayName?.toLowerCase()}`)
       )
         this.bell.play().then(() => noop);
-      else if (this.settings.playChatNotif())
+      else if (this.settings.get<boolean>('play_chat_notif')())
         this.click.play().then(() => noop);
     }
 

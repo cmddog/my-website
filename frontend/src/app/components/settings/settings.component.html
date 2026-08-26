@@ -1,0 +1,27 @@
+@for (category of settingsData().categories; track category.id) {
+  <section>
+    <h3 class="first:mt-0">{{ category.label }}</h3>
+    <p>{{ category.description }}</p>
+
+    @for (setting of category.settings; track setting.id) {
+      @switch (setting.type) {
+        @case ('toggle') {
+          <div class="toggle-setting">
+            <div>
+              {{ setting.label }}
+            </div>
+            <label class="switch">
+              <input
+                type="checkbox"
+                #checkbox
+                [checked]="settings.get(setting.id)()"
+                (change)="settings.set(setting.id, checkbox.checked)"
+              />
+              <span class="slider"></span>
+            </label>
+          </div>
+        }
+      }
+    }
+  </section>
+}

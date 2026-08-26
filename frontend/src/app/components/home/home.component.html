@@ -60,7 +60,21 @@
         animate.leave="window-leave"
         cardTitle="Settings"
       >
-        <app-settings />
+        <app-settings [settingsData]="generalSettings" />
+      </app-draggable-container>
+    }
+
+    @if (auth.isModerator() && openWindows().has('chat-moderation')) {
+      <app-draggable-container
+        (closeButtonClicked)="close('chat-moderation')"
+        (mousedown)="bringToFront('chat-moderation')"
+        [resizable]="false"
+        [zIndex]="zIndices()['chat-moderation'] ?? 1"
+        animate.enter="window-enter"
+        animate.leave="window-leave"
+        cardTitle="Chat Moderation"
+      >
+
       </app-draggable-container>
     }
   } @else {
@@ -82,35 +96,40 @@
 </div>
 
 @for (entry of taskbarEntries(); track entry[0]) {
-  <button
-    class="task-bar-button"
-    #taskBarButton
-    (click)="open(entry[0])"
-    animate.enter="tab-enter"
-    animate.leave="tab-leave"
-    [style.right.px]="taskbarButtonPositions()[$index]"
-  >
-    @switch (entry[0]) {
-      @case ("introduction") {
-        <app-icon icon="introduction" />
+  @if (entry[0] !== 'chat-moderation' || auth.isModerator()) { <!-- so incredibly unclean but it works i guess -->
+    <button
+      class="task-bar-button"
+      #taskBarButton
+      (click)="open(entry[0])"
+      animate.enter="tab-enter"
+      animate.leave="tab-leave"
+      [style.right.px]="taskbarButtonPositions()[$index]"
+    >
+      @switch (entry[0]) {
+        @case ("introduction") {
+          <app-icon icon="person_circle" />
+        }
+        @case ("changelog") {
+          <app-icon icon="changelog" />
+        }
+        @case ("neighbourhood") {
+          <app-icon icon="neighbourhood" />
+        }
+        @case ("settings") {
+          <app-icon icon="settings" />
+        }
+        @case ("chat-moderation") {
+          <app-icon icon="swords" />
+        }
+        @default {
+          <app-icon icon="maximise" />
+        }
       }
-      @case ("changelog") {
-        <app-icon icon="changelog" />
-      }
-      @case ("neighbourhood") {
-        <app-icon icon="neighbourhood" />
-      }
-      @case ("settings") {
-        <app-icon icon="settings" />
-      }
-      @default {
-        <app-icon icon="maximise" />
-      }
-    }
-    {{ entry[1] }}
-  </button>
+      {{ entry[1] }}
+    </button>
+  }
 }
 
-@if (settings.chatEnabled()) {
+@if (settings.get('enable_chat')()) {
   <app-chat />
 }
