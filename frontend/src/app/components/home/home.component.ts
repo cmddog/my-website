@@ -19,6 +19,7 @@ import { ChatComponent } from '../chat/chat.component';
 import { SettingsService } from '../../services/settings.service';
 import { IconComponent } from '../icon/icon.component';
 import { generalSettings } from '../settings/configs/general.settings';
+import { chatModerationSettings } from '../settings/configs/chat-moderation.settings';
 
 @Component({
   selector: 'app-home',
@@ -36,10 +37,12 @@ import { generalSettings } from '../settings/configs/general.settings';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  // tmp
   protected readonly breakpointService = inject(BreakpointService);
   protected readonly auth = inject(AuthService);
   protected readonly settings = inject(SettingsService);
+
+  protected readonly generalSettings = generalSettings;
+  protected readonly chatModerationSettings = chatModerationSettings;
 
   readonly windows = new Map([
     ['introduction', 'Introduction'],
@@ -126,6 +129,4 @@ export class HomeComponent {
     if (this.zIndices()[id] === this.zCounter) return;
     this.zIndices.update((z) => ({ ...z, [id]: ++this.zCounter }));
   }
-
-  protected readonly generalSettings = generalSettings;
 }

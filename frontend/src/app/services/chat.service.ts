@@ -193,11 +193,11 @@ export class ChatService {
       );
   }
 
-  deleteMessage$(id: number): Observable<never> {
+  deleteMessage$(id: number): Observable<null> {
     if (this.connectionState() !== 'connected')
       return throwError(() => new Error('Not connected to the server'));
 
-    return this.http.post<never>(`/api/chat/delete/${id}`, null, {
+    return this.http.post<null>(`/api/chat/delete/${id}`, null, {
       withCredentials: true,
     });
   }
@@ -245,4 +245,6 @@ export class ChatService {
     const remaining = Math.max(0, this.MESSAGE_FADEOUT - age);
     setTimeout(() => this._tick.update((t) => t + 1), remaining);
   }
+
+  // --- Moderation ---
 }

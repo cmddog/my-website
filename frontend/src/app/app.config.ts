@@ -11,6 +11,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { SettingsService } from './services/settings.service';
 import { generalSettings } from './components/settings/configs/general.settings';
 import { AuthService, ChatService } from '@services';
+import { chatModerationSettings } from './components/settings/configs/chat-moderation.settings';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       const settings = inject(SettingsService);
 
+      settings.register(chatModerationSettings);
       settings.register(generalSettings);
       if (settings.get('enable_chat')()) inject(ChatService).connect();
 
