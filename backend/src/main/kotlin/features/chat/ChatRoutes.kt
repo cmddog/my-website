@@ -8,6 +8,7 @@ import com.cmddog.features.chat.models.api.ChatEvent
 import com.cmddog.features.chat.models.api.ChatEventType
 import com.cmddog.features.user.UserService
 import io.ktor.http.*
+import io.ktor.server.application.createRouteScopedPlugin
 import io.ktor.server.plugins.ratelimit.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -121,6 +122,21 @@ fun Route.chatRoutes() {
                 val msg = ChatService.addMessage("Guest#${guestSession.guestNumber}", req.content)
                 ChatService.broadcast(ChatEvent(ChatEventType.MESSAGE, Json.encodeToString(msg)))
                 call.respond(HttpStatusCode.OK)
+            }
+        }
+
+        // Moderation
+        route("/moderate") {
+            install(createRouteScopedPlugin("AdminAuth") {
+                onCall { call ->
+                    if (call.sessions.get<AdminSession>() == null) {
+                        call.respond(HttpStatusCode.Unauthorized, ErrorResponse("Not authenticated", -1))
+                    }
+                }
+            })
+
+            post("/disable-guests") {
+
             }
         }
     }

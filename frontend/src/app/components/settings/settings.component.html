@@ -15,7 +15,7 @@
                 type="checkbox"
                 #checkbox
                 [checked]="settings.get(setting.id)()"
-                (change)="settings.set(setting.id, checkbox.checked)"
+                (change)="settings.set(setting.id, checkbox.checked); $event.preventDefault()"
               />
               <span class="slider"></span>
             </label>

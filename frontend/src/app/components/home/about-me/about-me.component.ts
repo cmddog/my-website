@@ -7,9 +7,10 @@ import { IconComponent } from '../../icon/icon.component';
 
 @Component({
   selector: 'app-about-me',
-  imports: [AsyncPipe, IconComponent, NgOptimizedImage],
+  imports: [IconComponent, NgOptimizedImage, AsyncPipe],
   templateUrl: './about-me.component.html',
   styleUrl: './about-me.component.scss',
+  standalone: true,
 })
 export class AboutMeComponent {
   protected readonly themeService = inject(ThemeService);

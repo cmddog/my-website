@@ -15,6 +15,7 @@ import { catchError, map, Observable } from 'rxjs';
   imports: [],
   templateUrl: './icon.component.html',
   styleUrl: './icon.component.scss',
+  standalone: true,
 })
 export class IconComponent {
   readonly icon = input.required<string>();
